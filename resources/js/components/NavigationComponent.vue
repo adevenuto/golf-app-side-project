@@ -1,0 +1,145 @@
+<template>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                Laravel App
+            </a>
+            <button :class="{'menu-open': toggled}" 
+                    @click="toggle"
+                    class="navbar-toggler p-0 d-flex flex-column justify-content-between" 
+                    type="button" 
+                    data-toggle="collapse" 
+                    data-target="#navbarSupportedContent" 
+                    aria-controls="navbarSupportedContent" 
+                    aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Right Side Of Navbar -->
+                <ul class="navbar-nav ml-auto">
+                    <template v-if="!isLoggedIn">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>                                
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register">Register</a>
+                        </li>
+                    </template>
+                    <template v-if="isLoggedIn">
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ userEmail }} <span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/dashboard">Dashboard</a>
+                                <a class="dropdown-item text-danger" href="#" @click.prevent="logout">Logout</a>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+                toggled: false
+            }
+        },
+        computed: {
+            isLoggedIn:  function() {
+                return this.$store.getters.isLoggedIn;
+            },
+            userEmail:  function() {
+                return this.$store.getters.userEmail;
+            },
+        },
+        created: function() {
+            console.log(this.$store);
+        },
+        methods: {
+            logout: function() {
+                axios.post('logout')
+                .then(response => {
+                    if (response.status === 302 || 401) {
+                        window.location.href = '/';
+                    }
+                })
+            },
+            toggle: function() {
+                return this.toggled = !this.toggled;
+            }
+        }
+    }
+</script>
+
+<style lang="scss" scoped>
+    
+    .navbar-light .navbar-toggler {
+        border-color: transparent;
+        height: 0;
+        width: 0;
+        &:focus, &:active, &:visited {
+            border-color: transparent;
+            outline: none;
+        }
+        .navbar-toggler-icon {
+            background-image: none;
+            width: inherit;
+            height: 4px;
+            border-radius: 4px;
+            background: #000;
+            background: #000;
+        }
+    }
+    .navbar-light .navbar-toggler.menu-open {
+        .navbar-toggler-icon {
+            opacity: 1;
+            transition: all 250ms ease-in-out;
+            &:nth-child(1) {
+                transform: translate(0px, 8px) rotate(-135deg);
+            }
+            &:nth-child(2) {
+                opacity: 0;
+                transform: scale(0);
+            }
+            &:nth-child(3) {
+                transform: translate(0px, -8px) rotate(135deg);
+            }
+        }
+    }
+    
+    @media (max-width: 991px) {
+        .dropdown {
+            .dropdown-menu {
+                padding: 0;
+                border: none;
+                animation-name: example; 
+                animation-duration: .25s;
+                .dropdown-item {
+                    margin: 3px 0;
+                }
+            }
+        }
+        .navbar-light .navbar-toggler {
+            height: 20px;
+            width: 22px;
+            border-width: 0px;
+        }
+        @keyframes example {
+            from {opacity:.3;transform: translateY(-5px);}
+            to {opacity:1;transform: translateY(0px);}
+        }
+    }
+    @media (min-width: 992px) {
+        .navbar {
+            padding: 0.5rem 0;
+        }
+    }  
+
+</style>
