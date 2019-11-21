@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid">
-        <h1>Landing Page</h1>
-    </div>
+    <landing-component></landing-component>
 @endsection

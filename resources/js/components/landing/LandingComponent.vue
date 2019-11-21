@@ -1,7 +1,8 @@
 <template>
-    <div class="d-flex">
-        <div class="col-3">Dashboard</div>
-        <div class="col-9">Dashboard</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">Landing page</div>
+        </div>   
     </div>
 </template>
 

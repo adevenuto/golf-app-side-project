@@ -19,7 +19,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
-                    <template v-if="!isLoggedIn">
+                    <template v-if="!authUser">
                         <li class="nav-item">
                             <a class="nav-link" href="/login">Login</a>
                         </li>                                
@@ -27,13 +27,14 @@
                             <a class="nav-link" href="/register">Register</a>
                         </li>
                     </template>
-                    <template v-if="isLoggedIn">
+                    <template v-else>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{ userEmail }} <span class="caret"></span>
+                                {{ authUser.email }} <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/dashboard">Dashboard</a>
+                                <a class="dropdown-item" href="/profile">Profile</a>
                                 <a class="dropdown-item text-danger" href="#" @click.prevent="logout">Logout</a>
                             </div>
                         </li>
@@ -43,7 +44,6 @@
         </div>
     </nav>
 </template>
-
 <script>
     export default {
         data() {
@@ -51,13 +51,11 @@
                 toggled: false
             }
         },
+        props: ['user'],
         computed: {
-            isLoggedIn:  function() {
-                return this.$store.getters.isLoggedIn;
-            },
-            userEmail:  function() {
-                return this.$store.getters.userEmail;
-            },
+            authUser: function() {
+                return this.user ? JSON.parse(this.user) : null;
+            }
         },
         created: function() {
             console.log(this.$store);
@@ -77,9 +75,7 @@
         }
     }
 </script>
-
 <style lang="scss" scoped>
-    
     .navbar-light .navbar-toggler {
         border-color: transparent;
         height: 0;
@@ -113,7 +109,6 @@
             }
         }
     }
-    
     @media (max-width: 991px) {
         .dropdown {
             .dropdown-menu {
@@ -141,5 +136,4 @@
             padding: 0.5rem 0;
         }
     }  
-
 </style>

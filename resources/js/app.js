@@ -2,21 +2,19 @@ require('./bootstrap');
 require('./main');
 
 import Vue from 'vue';
-import Vuex from 'vuex';
-import vuexStore from './vuexStore/store';
 
 import NavigationComponent from './components/NavigationComponent';
-import DashboardComponent from './components/DashboardComponent';
+import LandingComponent from './components/landing/LandingComponent';
+import DashboardComponent from './components/dashboard/DashboardComponent';
+import ProfileComponent from './components/profile/ProfileComponent';
 
-Vue.use(Vuex);
-
-const store = new Vuex.Store(vuexStore);
 const app = new Vue({
     el: '#app',
-    store,
     components: { 
-        NavigationComponent, 
-        DashboardComponent 
+        NavigationComponent,
+        LandingComponent, 
+        DashboardComponent,
+        ProfileComponent
     }
 });
 

@@ -3,7 +3,7 @@
     @include('partials/head')
     <body>
         <div id="app" class="d-flex flex-column">
-            <navigation-component></navigation-component>
+            <navigation-component user='{{ Auth::user() }}'></navigation-component>
             <div class="my-4">
                 @yield('content')
             </div>

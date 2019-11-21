@@ -17,4 +17,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard')->middleware('auth');
+Route::get('/profile', 'ProfileController@index')->name('profile')->middleware('auth');
