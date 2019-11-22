@@ -57,9 +57,6 @@
                 return this.user ? JSON.parse(this.user) : null;
             }
         },
-        created: function() {
-            console.log(this.$store);
-        },
         methods: {
             logout: function() {
                 axios.post('logout')

@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    <profile-component></profile-component>
+    <profile-component user='{{ Auth::user() }}'></profile-component>
 @endsection
