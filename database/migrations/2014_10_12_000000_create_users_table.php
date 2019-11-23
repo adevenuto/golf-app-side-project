@@ -28,6 +28,8 @@ class CreateUsersTable extends Migration
             $table->string('administrative_area_level_1')->nullable();
             $table->string('administrative_area_level_2')->nullable();
             $table->string('country')->nullable();
+
+            $table->string('image_path')->nullable();
             
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

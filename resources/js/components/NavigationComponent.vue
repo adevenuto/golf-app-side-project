@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
-                Laravel App
+                Laravel Vue App
             </a>
             <button :class="{'menu-open': toggled}" 
                     @click="toggle"
