@@ -8,4 +8,12 @@ $(function() {
             menuBtn.click();
         }
     })
+
+    $(document).on('keypress paste', '.num-only', function(e) {
+        event = e || window.event;
+        let charCode = event.which || event.keyCode;
+        var inp = String.fromCharCode(charCode);
+        var isNum = /^[0-9]*$/.test(inp);
+        if (!isNum) e.preventDefault();
+    });
 })

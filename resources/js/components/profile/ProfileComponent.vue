@@ -12,12 +12,29 @@
                 <h2 class="text-sm-left text-center font-weight-bold mb-4">{{authUser.first_name}} {{authUser.last_name}}</h2>
 
 
-                <div class="slide-input-wrap d-flex">
-                    <div class="slide-lable d-flex align-items-center">Nick name:</div>
-                    <div :class="[{ 'in': slide_edit}, 'slide-input']">
-                        <input type="text">
-                        <div href="#" @click="slideToggle" class="slide-edit font-weight-bold">Edit</div>
-                    </div>
+                <div class="form-group form-inline">
+                    <label class="mr-4">Nick name:</label>
+                    <input type="text">
+                </div>
+
+                <div class="form-group form-inline">
+                    <label class="mr-4">Gender:</label>
+
+                    <input id="male" type="radio" name="gender">
+                    <label class="radio-inline mr-3" for="male">Male</label>
+
+                    <input id="female" type="radio" name="gender">
+                    <label class="radio-inline" for="female">Female</label>
+                </div>
+
+                <div class="form-group form-inline">
+                    <label class="mr-4">Age:</label>
+                    <input class="num-only" type="text" maxlength="3">
+                </div>
+
+                <div class="form-group form-inline">
+                    <label class="mr-4">City:</label>
+                    <input type="text">
                 </div>
                 
 
@@ -31,8 +48,7 @@
     export default {
         data() {
             return {
-                profile_img: null,
-                slide_edit: false
+                profile_img: null
             }
         },
         props: ['user'],
@@ -60,49 +76,15 @@
             border: 2px solid #000;
         }
     }
-    .slide-input-wrap {
-        overflow: hidden;
-        height: 35px;
-        .slide-lable {
-            position: relative;
-            z-index: 10;
-            color: #979797;
-            height: 35px;
-            background: #f8fafc;
-        }
-        .slide-input {
-            transform: translate(-82%);
-            transition: all 150ms ease-in-out;
-            input {
-                border: none;
-                height: 35px;
-                background: transparent;
-                border-bottom: 1px solid #000;
-                margin: 0 15px;
-                &:focus {
-                    outline-width: 0;
-                }
-            }
-            .slide-edit {
-                display: inline-block;
-                cursor: pointer;
-                color: #0086ff;
-                height: 35px;
-                -webkit-user-select: none;  /* Chrome all / Safari all */
-                -moz-user-select: none;     /* Firefox all */
-                -ms-user-select: none;      /* IE 10+ */
-                user-select: none;
-                &:hover {
-                    color: #3FA2FB;
-                }
-            }
-        }
-        .slide-input.in {
-            transform: translate(0);
-            .slide-edit {
-                color: #3FA2FB;
-            }
-        }
+    input[type=radio] {display: none;}
+    input[type=radio] + label {
+        cursor: pointer;
+        padding: 0 5px;
+        background: #fff;
+        border: 1px solid #999;
+    }
+    input[type=radio]:checked + label {
+        background: #a2a2a2;
     }
 </style>
 

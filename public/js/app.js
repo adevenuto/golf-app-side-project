@@ -2001,11 +2001,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      profile_img: null,
-      slide_edit: false
+      profile_img: null
     };
   },
   props: ['user'],
@@ -6499,7 +6515,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "#profile-img-container[data-v-14594365] {\n  width: 100px;\n  height: 100px;\n  margin: 0 auto;\n}\n#profile-img-container .profile-placeholder[data-v-14594365] {\n  height: inherit;\n  width: inherit;\n  border: 2px solid #000;\n}\n.slide-input-wrap[data-v-14594365] {\n  overflow: hidden;\n  height: 35px;\n}\n.slide-input-wrap .slide-lable[data-v-14594365] {\n  position: relative;\n  z-index: 10;\n  color: #979797;\n  height: 35px;\n  background: #f8fafc;\n}\n.slide-input-wrap .slide-input[data-v-14594365] {\n  -webkit-transform: translate(-82%);\n          transform: translate(-82%);\n  -webkit-transition: all 150ms ease-in-out;\n  transition: all 150ms ease-in-out;\n}\n.slide-input-wrap .slide-input input[data-v-14594365] {\n  border: none;\n  height: 35px;\n  background: transparent;\n  border-bottom: 1px solid #000;\n  margin: 0 15px;\n}\n.slide-input-wrap .slide-input input[data-v-14594365]:focus {\n  outline-width: 0;\n}\n.slide-input-wrap .slide-input .slide-edit[data-v-14594365] {\n  display: inline-block;\n  cursor: pointer;\n  color: #0086ff;\n  height: 35px;\n  -webkit-user-select: none;\n  /* Chrome all / Safari all */\n  -moz-user-select: none;\n  /* Firefox all */\n  -ms-user-select: none;\n  /* IE 10+ */\n  user-select: none;\n}\n.slide-input-wrap .slide-input .slide-edit[data-v-14594365]:hover {\n  color: #3FA2FB;\n}\n.slide-input-wrap .slide-input.in[data-v-14594365] {\n  -webkit-transform: translate(0);\n          transform: translate(0);\n}\n.slide-input-wrap .slide-input.in .slide-edit[data-v-14594365] {\n  color: #3FA2FB;\n}", ""]);
+exports.push([module.i, "#profile-img-container[data-v-14594365] {\n  width: 100px;\n  height: 100px;\n  margin: 0 auto;\n}\n#profile-img-container .profile-placeholder[data-v-14594365] {\n  height: inherit;\n  width: inherit;\n  border: 2px solid #000;\n}\ninput[type=radio][data-v-14594365] {\n  display: none;\n}\ninput[type=radio] + label[data-v-14594365] {\n  cursor: pointer;\n  padding: 0 5px;\n  background: #fff;\n  border: 1px solid #999;\n}\ninput[type=radio]:checked + label[data-v-14594365] {\n  background: #a2a2a2;\n}", ""]);
 
 // exports
 
@@ -38278,25 +38294,13 @@ var render = function() {
           ]
         ),
         _vm._v(" "),
-        _c("div", { staticClass: "slide-input-wrap d-flex" }, [
-          _c("div", { staticClass: "slide-lable d-flex align-items-center" }, [
-            _vm._v("Nick name:")
-          ]),
-          _vm._v(" "),
-          _c("div", { class: [{ in: _vm.slide_edit }, "slide-input"] }, [
-            _c("input", { attrs: { type: "text" } }),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "slide-edit font-weight-bold",
-                attrs: { href: "#" },
-                on: { click: _vm.slideToggle }
-              },
-              [_vm._v("Edit")]
-            )
-          ])
-        ])
+        _vm._m(1),
+        _vm._v(" "),
+        _vm._m(2),
+        _vm._v(" "),
+        _vm._m(3),
+        _vm._v(" "),
+        _vm._m(4)
       ])
     ])
   ])
@@ -38317,6 +38321,61 @@ var staticRenderFns = [
           [_vm._v("\n                    Profile Image\n                ")]
         )
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group form-inline" }, [
+      _c("label", { staticClass: "mr-4" }, [_vm._v("Nick name:")]),
+      _vm._v(" "),
+      _c("input", { attrs: { type: "text" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group form-inline" }, [
+      _c("label", { staticClass: "mr-4" }, [_vm._v("Gender:")]),
+      _vm._v(" "),
+      _c("input", { attrs: { id: "male", type: "radio", name: "gender" } }),
+      _vm._v(" "),
+      _c(
+        "label",
+        { staticClass: "radio-inline mr-3", attrs: { for: "male" } },
+        [_vm._v("Male")]
+      ),
+      _vm._v(" "),
+      _c("input", { attrs: { id: "female", type: "radio", name: "gender" } }),
+      _vm._v(" "),
+      _c("label", { staticClass: "radio-inline", attrs: { for: "female" } }, [
+        _vm._v("Female")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group form-inline" }, [
+      _c("label", { staticClass: "mr-4" }, [_vm._v("Age:")]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "num-only",
+        attrs: { type: "text", maxlength: "3" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group form-inline" }, [
+      _c("label", { staticClass: "mr-4" }, [_vm._v("City:")]),
+      _vm._v(" "),
+      _c("input", { attrs: { type: "text" } })
     ])
   }
 ]
@@ -50864,6 +50923,13 @@ $(function () {
     if (!clickInNav && menuOpen) {
       menuBtn.click();
     }
+  });
+  $(document).on('keypress paste', '.num-only', function (e) {
+    event = e || window.event;
+    var charCode = event.which || event.keyCode;
+    var inp = String.fromCharCode(charCode);
+    var isNum = /^[0-9]*$/.test(inp);
+    if (!isNum) e.preventDefault();
   });
 });
 
