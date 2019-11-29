@@ -16,4 +16,13 @@ $(function() {
         var isNum = /^[0-9]*$/.test(inp);
         if (!isNum) e.preventDefault();
     });
+
+    $('.input-dynamic_text input').on('focus', function(){
+        $(this).prev().addClass('focused');
+    })
+    $('.input-dynamic_text input').on('blur', function(){
+        if (!$(this).val()) {
+        $(this).prev().removeClass('focused');
+      }
+    })
 })
