@@ -22,21 +22,16 @@
                         input_label_color="#999"
                         input_required="required">
                     </text-input-component>
-                    <div class="input-dynamic_radio">
-                        <div class="radio-for">Gender:</div>
-                        <div class="d-flex">
-                            <div class="radio-inline">
-                                <label><input type="radio" name="gender" required> 
-                                    <div class="radio_indicator"></div><span>Male</span>
-                                </label>
-                            </div>
-                            <div class="radio-inline">
-                                <label><input type="radio" name="gender" required>
-                                    <div class="radio_indicator"></div><span>Female</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
+                    <radio-input-component
+                        input_label="Gender:"
+                        input_name="gender"
+                        bg_color_wave="#999"
+                        input_label_color="#999"
+                        :input_radio_options="[
+                            {'display_name': 'Male', 'required': true},
+                            {'display_name': 'Female', 'required': true}
+                        ]">
+                    </radio-input-component>
                     <text-input-component 
                         input_label="Age:" 
                         input_name="age" 
@@ -65,13 +60,14 @@
 
 <script>
     import TextInputComponent from '../form_elements/TextInputComponent.vue';
+    import RadioInputComponent from '../form_elements/RadioInputComponent.vue';
     export default {
         data() {
             return {
                 profile_img: null
             }
         },
-        components: {TextInputComponent},
+        components: {TextInputComponent, RadioInputComponent},
         props: ['user'],
         computed: {
             authUser: function() {
@@ -101,67 +97,6 @@
     .profile-data-form {
         max-width: 300px;
     }
-
-
-    .input-dynamic_radio {
-        position: relative;
-        width: 100%;
-        margin-bottom: 20px;
-        display: inline-block;
-        .radio-for {
-            margin-bottom: 4px;
-        }
-        input[type=radio] {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-        }
-        input[type=radio]:checked + .radio_indicator {
-            background: #999;
-        }
-        input[type=radio]:checked + .radio_indicator:after {
-            position: absolute;
-            content: '';
-            height: inherit;
-            width: inherit;
-            border-radius: inherit;
-            background: #000;
-            -webkit-animation: radioWave 0.50s;
-            -moz-animation: radioWave 0.50s;
-            animation: radioWave 0.50s;
-            z-index: -1;
-        }
-        label {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            span {
-                margin: 0 15px 0 5px;
-            }
-            .radio_indicator {
-                position: relative;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 18px;
-                width: 18px;
-                border: 1px solid #757575;
-                border-radius: 50%;
-                box-sizing: content-box;
-            }
-        }
-    }
-    @keyframes radioWave {
-        0% {
-            opacity: 0.45;
-        }
-        100% {
-            height: 35px;
-            width: 35px;
-            opacity: 0;
-        }
-    }
-    
 
 
     @media only screen and (max-width: 767px) {
