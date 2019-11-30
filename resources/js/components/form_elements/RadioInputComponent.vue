@@ -99,7 +99,7 @@
                 border: 1px solid #6f6f6f;
                 border-radius: 50%;
                 transform: scale(1);
-                transition: all 25ms cubic-bezier(0, 1.06, 0, 1.06);
+                transition: all 100ms cubic-bezier(0, 1.06, 0, 1.06);
                 box-sizing: content-box;
             }
         }

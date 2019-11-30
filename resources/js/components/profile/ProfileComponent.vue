@@ -25,7 +25,7 @@
                     <radio-input-component
                         input_label="Gender:"
                         input_name="gender"
-                        bg_color_wave="#999"
+                        bg_color_wave="#444"
                         input_label_color="#999"
                         :input_radio_options="[
                             {'display_name': 'Male', 'required': true},
@@ -50,7 +50,7 @@
                         input_label_color="#999"
                         input_required="required">
                     </text-input-component>
-                    <input type="submit" value="submit">
+                    <!-- <input type="submit" value="submit"> -->
                 </form>
             </div>
 
