@@ -6,9 +6,12 @@
                 <div class="col-sm-6 mb-4">
                     <div id="profile-img-container">
                         <div class="profile-placeholder d-flex justify-content-center align-items-center flex-column">
-                            <img src="images/camera.svg" width="75px" height="75px" alt="camera">
-                            <a href="#">Profile image</a>
+                            <a href="#" @click="imageInputField">
+                                <img v-show="!profileImageSet" src="images/camera.svg" width="75px" height="75px" alt="camera">
+                                <img v-show="profileImageSet" id="profile_image" src="" alt="profile image">
+                            </a>
                         </div>
+                        <input type="file" id="profile_image_input" name="profile_image" ref="profile_image_input" @change="validateImage">
                     </div>
                 </div>
             
@@ -75,7 +78,7 @@
     export default {
         data() {
             return {
-                profile_img: null
+                profileImageSet: false
             }
         },
         components: {TextInputComponent, RadioInputComponent},
@@ -100,6 +103,35 @@
                 .catch( err => {
                     
                 });
+            },
+            imageInputField: function(e) {
+                this.$refs.profile_image_input.click();
+            },
+            validateImage: function(e) {
+                const that = this;
+                let inputFiles = e.target.files;
+                if (inputFiles && inputFiles[0]) {
+                    let allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                    let type = inputFiles[0].type;
+                    if (allowedTypes.indexOf(type) !== -1)   {
+                        return this.imagePreview(e);
+                    } else {
+                        alert('please upload an image file.')
+                        return false;
+                    }
+                } 
+                return false;   
+            },
+            imagePreview: function(e) {
+                const that = this;
+                let inputFiles = e.target.files;
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    let profileImage = document.getElementById('profile_image');
+                    profileImage.src=`${e.target.result}`;
+                    that.profileImageSet = true;
+                }
+                reader.readAsDataURL(inputFiles[0]);
             }
         },
         mounted() {
@@ -118,10 +150,19 @@
             width: inherit;
             border: 2px solid #000;
             border-radius: 5px;
+            overflow: hidden;
         }
     }
     .profile-data-form {
         max-width: 300px;
+    }
+    #profile_image_input {
+        display: none;
+    }
+    #profile_image {
+        object-fit: cover;
+        height: 150px;
+        width: 100%;
     }
 
 
