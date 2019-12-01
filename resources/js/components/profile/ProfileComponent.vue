@@ -18,52 +18,50 @@
                 <div class="col-sm-6">
                     <h1 class="text-sm-left text-center font-weight-bold mb-4">{{authUser.first_name}} {{authUser.last_name}}</h1>
                     <div class="profile-data-form">
-                        <text-input-component 
-                        input_label="Nickname:" 
-                        input_name="nick_name" 
-                        input_id="nickname"
-                        input_border_color="#6f6f6f"
-                        input_label_color="#999"
-                        input_required="required">
-                    </text-input-component>
-                    <radio-input-component
-                        input_label="Gender:"
-                        input_name="gender"
-                        bg_color_wave="#444"
-                        input_label_color="#999"
-                        :input_radio_options="[
-                            {'display_name': 'Male', 'required': true, 'value': 'Male'},
-                            {'display_name': 'Female', 'required': true, 'value': 'Female'}
-                        ]">
-                    </radio-input-component>
-                    <text-input-component 
-                        input_label="Age:" 
-                        input_name="age" 
-                        input_id="age"
-                        input_border_color="#6f6f6f"
-                        input_label_color="#999"
-                        input_max_length="3"
-                        :input_custom_class="['num-only']"
-                        input_required="required">
-                    </text-input-component>               
-                    <text-input-component 
-                        input_label="City:" 
-                        input_name="locality" 
-                        input_id="citiesAutocomplete"
-                        input_border_color="#6f6f6f"
-                        input_label_color="#999"
-                        input_placeholder="Start typing / select from dropdown"
-                        input_required="required">
-                    </text-input-component>
-                    <!-- Hidden Fields For AutoComplete Components -->
-                    <input type="hidden" id="locality" name="locality" disabled="true"/>
-                    <input type="hidden" id="administrative_area_level_1" name="administrative_area_level_1" disabled="true"/>
-                    <input type="hidden" id="administrative_area_level_2" name="administrative_area_level_2" disabled="true"/>
-                    <input type="hidden" id="country" name="country" disabled="true"/>
 
-                    <div class="d-flex">
-                        <button class="btn btn-primary">Save profile</button>
-                    </div>
+                        <div class="input-dynamic_text">
+                            <label for="nickname">Nickname:</label>
+                            <input id ="nickname" name="nick_name" v-model="fields.nickname" type="text" required>
+                        </div>
+                        <div class="input-dynamic_radio">
+                            <div class="radio-for">Gender:</div>
+                            <div class="d-flex flex-wrap">
+                                <label>
+                                    <input type="radio" name="gender" value="male" v-model="fields.gender"> 
+                                    <div class="radio_indicator">
+                                        <div class="wave"></div>
+                                    </div>
+                                    <span>Male</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="gender" value="female" v-model="fields.gender"> 
+                                    <div class="radio_indicator">
+                                        <div class="wave"></div>
+                                    </div>
+                                    <span>Female</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="input-dynamic_text">
+                            <label for="age">Age:</label>
+                            <input id ="age" class="num-only" name="age" v-model="fields.age" type="text" maxlength="3" required>
+                        </div>
+                        <div class="input-dynamic_text">
+                            <label for="citiesAutocomplete">City:</label>
+                            <input id ="citiesAutocomplete" name="locality" v-model="fields.locality" placeholder="" type="text" maxlength="3" required @focus="focusHandler" @blur="blurHandler">
+                        </div>
+                        
+                        
+                        <!-- Hidden Fields For AutoComplete Components -->
+                        <input type="hidden" id="locality" name="locality" disabled="true"/>
+                        <input type="hidden" id="administrative_area_level_1" name="administrative_area_level_1" disabled="true"/>
+                        <input type="hidden" id="administrative_area_level_2" name="administrative_area_level_2" disabled="true"/>
+                        <input type="hidden" id="country" name="country" disabled="true"/>
+
+                        <div class="d-flex">
+                            <button class="btn btn-primary">Save profile</button>
+                        </div>
+
                     </div>
                 </div>
 
@@ -73,15 +71,19 @@
 </template>
 
 <script>
-    import TextInputComponent from '../form_elements/TextInputComponent.vue';
-    import RadioInputComponent from '../form_elements/RadioInputComponent.vue';
     export default {
         data() {
             return {
-                profileImageSet: false
+                profileImageSet: false,
+                fields: {
+                    nickname: '',
+                    gender: '',
+                    age: '',
+                    locality: ''
+                }
             }
         },
-        components: {TextInputComponent, RadioInputComponent},
+        components: {},
         props: ['user'],
         computed: {
             authUser: function() {
@@ -104,6 +106,18 @@
                     
                 });
             },
+
+
+
+            focusHandler: function(e) {
+                e.target.placeholder = 'Start typing / select city from dropdown';
+            },
+            blurHandler: function(e) {
+                e.target.placeholder = '';
+            },
+
+
+
             imageInputField: function(e) {
                 this.$refs.profile_image_input.click();
             },
@@ -164,6 +178,125 @@
         height: 150px;
         width: 100%;
     }
+
+
+
+
+
+
+    .input-dynamic_text {
+        position: relative;
+        width: 100%;
+        margin-bottom: 25px;
+        display: inline-block;
+        label {
+            position: absolute;
+            transition: 130ms cubic-bezier(0.65, 0.26, 0.52, 0.96);
+            pointer-events: none;
+        }
+        input {
+            width: inherit;
+            padding: 5px;
+            border-bottom-width: 2px;
+            border-bottom-style: solid;
+        }
+        .focused {
+            transform: translate(-15%, -60%) scale(.7);
+        }
+    }
+
+
+
+
+
+
+    .input-dynamic_radio {
+        position: relative;
+        width: 100%;
+        margin-bottom: 20px;
+        display: inline-block;
+        .radio-for {
+            margin-bottom: 4px;
+        }
+        input[type=radio] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        input[type=radio]:checked + .radio_indicator
+        {
+            transform: scale(1.15);
+        }
+        input[type=radio] + .radio_indicator .wave {
+            display: none;
+        }
+        input[type=radio]:checked + .radio_indicator .wave {
+            display: block;
+            position: absolute;
+            content: '';
+            height: inherit;
+            width: inherit;
+            background: #000;
+            border-radius: inherit;
+            -webkit-animation: radioWave 200ms;
+            -moz-animation: radioWave 200ms;
+            animation: radioWave 200ms;
+            z-index: -1;
+        }
+        label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: #000;
+            span {
+                margin: 0 15px 0 5px;
+            }
+            .radio_indicator {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 13px;
+                width: 13px;
+                border: 1px solid #6f6f6f;
+                border-radius: 50%;
+                transform: scale(1);
+                transition: all 100ms cubic-bezier(0, 1.06, 0, 1.06);
+                box-sizing: content-box;
+            }
+        }
+        .focused {
+            transform: translate(-15%, -20%) scale(.7);
+            transition: 130ms cubic-bezier(0.65, 0.26, 0.52, 0.96);
+        }
+    }
+    @keyframes radioWave {
+        0% {
+            height: 13px;
+            width: 13px;
+            opacity: 0.45;
+        }
+        100% {
+            height: 28px;
+            width: 28px;
+            opacity: 0;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     @media only screen and (max-width: 767px) {

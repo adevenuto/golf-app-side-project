@@ -25,4 +25,8 @@ $(function() {
         $(this).prev().removeClass('focused');
       }
     })
+    $('input[type=radio]').on('input', function(){
+        console.log($(this).prev().addClass('focused'))
+        $(this).parents('.input-dynamic_radio').find('.radio-for').addClass('focused');
+    })
 })
