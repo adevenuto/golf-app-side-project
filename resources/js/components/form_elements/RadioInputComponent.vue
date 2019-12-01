@@ -2,15 +2,13 @@
     <div class="input-dynamic_radio">
         <div :style="label_style" :class="[{'focused': selected}, 'radio-for']">{{input_label}}</div>
         <div class="d-flex flex-wrap">
-            
             <label v-for="option in options" :key="option.display_name">
-                <input v-bind="attrs" type="radio" :required="option.required" @click="animateLabel"> 
+                <input type="radio" :name="name" :value="option.value" :required="option.required" @click="animateLabel"> 
                 <div class="radio_indicator">
                     <div class="wave" :style="wave_style"></div>
                 </div>
                 <span>{{option.display_name}}</span>
             </label>
-                
         </div>
     </div>
 </template>
@@ -19,9 +17,7 @@
     export default {
         data() {
             return {
-                attrs: {
-                    name: this.input_name
-                },
+                name: this.input_name,
                 options: this.input_radio_options,
                 selected: false
             }
@@ -29,7 +25,7 @@
         props: [
              'input_label', 
              'input_label_color', 
-             'input_name', 
+             'input_name',  
              'input_radio_options', 
              'bg_color_wave'
         ],
@@ -94,8 +90,8 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                height: 15px;
-                width: 15px;
+                height: 13px;
+                width: 13px;
                 border: 1px solid #6f6f6f;
                 border-radius: 50%;
                 transform: scale(1);
@@ -110,11 +106,13 @@
     }
     @keyframes radioWave {
         0% {
+            height: 13px;
+            width: 13px;
             opacity: 0.45;
         }
         100% {
-            height: 30px;
-            width: 30px;
+            height: 28px;
+            width: 28px;
             opacity: 0;
         }
     }

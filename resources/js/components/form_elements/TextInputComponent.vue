@@ -1,7 +1,7 @@
 <template>
     <div class="input-dynamic_text">
         <label :for="attrs.id" :style="label_style">{{ input_label }}</label>
-        <input v-bind="attrs" type="text" :style="input_style">
+        <input v-bind="attrs" type="text" :style="input_style" placeholder="" @focus="placeholderAdd" @blur="placeholderRemove">
     </div>
 </template>
 
@@ -24,6 +24,7 @@
             'input_id', 
             'input_border_color', 
             'input_label_color', 
+            'input_placeholder', 
             'input_custom_class', 
             'input_max_length', 
             'input_required'
@@ -34,6 +35,15 @@
             },
             label_style() {
                 return (`color: ${this.input_label_color};`);
+            }
+        },
+        methods: {
+            placeholderAdd: function(e) {
+                const placeholder = this.input_placeholder;
+                if (placeholder) e.target.placeholder = placeholder;
+            },
+            placeholderRemove: function(e) {
+                e.target.placeholder = '';
             }
         }
     }

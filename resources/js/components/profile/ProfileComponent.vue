@@ -1,20 +1,21 @@
 <template>
     <div class="container">
-        <div class="row">
+        <form id="profileForm" @submit.prevent="submit">
+            <div class="row">
 
-            <div class="col-sm-6 mb-4">
-                <div id="profile-img-container">
-                    <div class="profile-placeholder d-flex justify-content-center align-items-center flex-column">
-                        <img src="images/camera.svg" width="75px" height="75px" alt="camera">
-                        <a href="#">Profile image</a>
+                <div class="col-sm-6 mb-4">
+                    <div id="profile-img-container">
+                        <div class="profile-placeholder d-flex justify-content-center align-items-center flex-column">
+                            <img src="images/camera.svg" width="75px" height="75px" alt="camera">
+                            <a href="#">Profile image</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-sm-6">
-                <h1 class="text-sm-left text-center font-weight-bold mb-4">{{authUser.first_name}} {{authUser.last_name}}</h1>
-                <form class="profile-data-form">
-                    <text-input-component 
+            
+                <div class="col-sm-6">
+                    <h1 class="text-sm-left text-center font-weight-bold mb-4">{{authUser.first_name}} {{authUser.last_name}}</h1>
+                    <div class="profile-data-form">
+                        <text-input-component 
                         input_label="Nickname:" 
                         input_name="nick_name" 
                         input_id="nickname"
@@ -28,8 +29,8 @@
                         bg_color_wave="#444"
                         input_label_color="#999"
                         :input_radio_options="[
-                            {'display_name': 'Male', 'required': true},
-                            {'display_name': 'Female', 'required': true}
+                            {'display_name': 'Male', 'required': true, 'value': 'Male'},
+                            {'display_name': 'Female', 'required': true, 'value': 'Female'}
                         ]">
                     </radio-input-component>
                     <text-input-component 
@@ -45,16 +46,26 @@
                     <text-input-component 
                         input_label="City:" 
                         input_name="locality" 
-                        input_id="city"
+                        input_id="citiesAutocomplete"
                         input_border_color="#6f6f6f"
                         input_label_color="#999"
+                        input_placeholder="Start typing / select from dropdown"
                         input_required="required">
                     </text-input-component>
-                    <!-- <input type="submit" value="submit"> -->
-                </form>
-            </div>
+                    <!-- Hidden Fields For AutoComplete Components -->
+                    <input type="hidden" id="locality" name="locality" disabled="true"/>
+                    <input type="hidden" id="administrative_area_level_1" name="administrative_area_level_1" disabled="true"/>
+                    <input type="hidden" id="administrative_area_level_2" name="administrative_area_level_2" disabled="true"/>
+                    <input type="hidden" id="country" name="country" disabled="true"/>
 
-        </div>
+                    <div class="d-flex">
+                        <button class="btn btn-primary">Save profile</button>
+                    </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
     </div>
 </template>
 
@@ -77,7 +88,22 @@
         methods: {
             slideToggle: function() {
                 this.slide_edit = !this.slide_edit;
+            },
+            submit: function() {
+                var form = document.getElementById('profileForm');
+                var formData = new FormData(form);
+
+                axios.post("/store", formData)
+                .then( payload => {
+                    
+                })
+                .catch( err => {
+                    
+                });
             }
+        },
+        mounted() {
+            initCitiesAutocomplete();  
         }
     }
 </script>

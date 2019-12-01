@@ -20,3 +20,4 @@ Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard')->middleware('auth');
 Route::get('/profile', 'ProfileController@index')->name('profile')->middleware('auth');
+Route::post('/store', 'ProfileController@store')->name('profile.store')->middleware('auth');

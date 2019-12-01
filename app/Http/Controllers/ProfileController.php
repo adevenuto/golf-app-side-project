@@ -13,9 +13,8 @@ class ProfileController extends Controller
         return view('profile.index')->with('user', $user);
     }
 
-    // public function index()
-    // {   
-    //     $user = Auth::user();
-    //     return view('profile.index')->with('user', $user);
-    // }
+    public function store(Request $request)
+    {   
+        \Log::info($request);
+    }
 }
