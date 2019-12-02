@@ -17,16 +17,4 @@ $(function() {
         if (!isNum) e.preventDefault();
     });
 
-    $('.input-dynamic_text input').on('focus', function(){
-        $(this).prev().addClass('focused');
-    })
-    $('.input-dynamic_text input').on('blur', function(){
-        if (!$(this).val()) {
-        $(this).prev().removeClass('focused');
-      }
-    })
-    $('input[type=radio]').on('input', function(){
-        console.log($(this).prev().addClass('focused'))
-        $(this).parents('.input-dynamic_radio').find('.radio-for').addClass('focused');
-    })
 })

@@ -3,7 +3,7 @@
         <form id="profileForm" @submit.prevent="submit">
             <div class="row">
 
-                <div class="col-sm-6 mb-4">
+                <div class="col-sm-6 mb-5">
                     <div id="profile-img-container">
                         <div class="profile-placeholder d-flex justify-content-center align-items-center flex-column">
                             <a href="#" @click="imageInputField">
@@ -20,39 +20,73 @@
                     <div class="profile-data-form">
 
                         <div class="input-dynamic_text">
-                            <label for="nickname">Nickname:</label>
-                            <input id ="nickname" name="nick_name" v-model="fields.nickname" type="text" required>
+                            <label for="nickname" class="dynamic-label">
+                                Nickname:
+                                <span v-show="errors.has('nick_name')" class="is-error"> (required)</span>
+                            </label>
+                            <input id="nickname" 
+                                :class="{ 'is-error': errors.has('nick_name') }"
+                                name="nick_name" 
+                                v-model="inputs.nickname" 
+                                v-validate="'required'"
+                                type="text">
                         </div>
+                        
                         <div class="input-dynamic_radio">
-                            <div class="radio-for">Gender:</div>
+                            <div class="radio-for dynamic-label">
+                                Gender:
+                                <span v-show="errors.has('gender')" class="is-error"> (required)</span>
+                            </div>
                             <div class="d-flex flex-wrap">
                                 <label>
-                                    <input type="radio" name="gender" value="male" v-model="fields.gender"> 
-                                    <div class="radio_indicator">
+                                    <input type="radio" v-validate="'required'" name="gender" value="male" v-model="inputs.gender"> 
+                                    <div :class="[{'is-error': errors.has('gender')}, 'radio_indicator']">
                                         <div class="wave"></div>
                                     </div>
                                     <span>Male</span>
                                 </label>
                                 <label>
-                                    <input type="radio" name="gender" value="female" v-model="fields.gender"> 
-                                    <div class="radio_indicator">
+                                    <input type="radio" v-validate="'required'" name="gender" value="female" v-model="inputs.gender"> 
+                                    <div :class="[{'is-error': errors.has('gender')}, 'radio_indicator']">
                                         <div class="wave"></div>
                                     </div>
                                     <span>Female</span>
                                 </label>
                             </div>
                         </div>
+
                         <div class="input-dynamic_text">
-                            <label for="age">Age:</label>
-                            <input id ="age" class="num-only" name="age" v-model="fields.age" type="text" maxlength="3" required>
+                            <label for="age" class="dynamic-label">
+                                Age:
+                                <span v-show="errors.has('age')" class="is-error"> (required)</span>
+                            </label>
+                            <input id ="age" 
+                                :class="[{ 'is-error': errors.has('age') },'num-only']" 
+                                name="age" 
+                                v-model="inputs.age"
+                                v-validate="'required'" 
+                                type="text" 
+                                maxlength="3">
                         </div>
+
                         <div class="input-dynamic_text">
-                            <label for="citiesAutocomplete">City:</label>
-                            <input id ="citiesAutocomplete" name="locality" v-model="fields.locality" placeholder="" type="text" maxlength="3" required @focus="focusHandler" @blur="blurHandler">
+                            <label for="citiesAutocomplete" class="dynamic-label">
+                                City:
+                                <span v-show="errors.has('locality')" class="is-error"> (required)</span>
+                            </label>
+                            <input id ="citiesAutocomplete" 
+                                name="locality" 
+                                v-validate="'required'"
+                                v-model="inputs.locality"
+                                :class="{ 'is-error': errors.has('locality') }" 
+                                placeholder="" 
+                                type="text" 
+                                @focus="focusHandler" 
+                                @blur="blurHandler">
                         </div>
                         
                         
-                        <!-- Hidden Fields For AutoComplete Components -->
+                        <!-- Hidden inputs For AutoComplete Components -->
                         <input type="hidden" id="locality" name="locality" disabled="true"/>
                         <input type="hidden" id="administrative_area_level_1" name="administrative_area_level_1" disabled="true"/>
                         <input type="hidden" id="administrative_area_level_2" name="administrative_area_level_2" disabled="true"/>
@@ -75,11 +109,11 @@
         data() {
             return {
                 profileImageSet: false,
-                fields: {
+                inputs: {
                     nickname: '',
                     gender: '',
                     age: '',
-                    locality: ''
+                    // locality: ''
                 }
             }
         },
@@ -90,6 +124,18 @@
                 return this.user ? JSON.parse(this.user) : null;
             }
         },
+        created() {
+            axios.get("/auth/user")
+            .then( res => {
+                this.inputs.nickname = res.data.user.nick_name;
+                this.inputs.gender = res.data.user.gender;
+                this.inputs.age = res.data.user.age;
+                this.inputs.locality = res.data.user.locality;
+            })
+            .catch( err => {
+                
+            });
+        },
         methods: {
             slideToggle: function() {
                 this.slide_edit = !this.slide_edit;
@@ -98,15 +144,19 @@
                 var form = document.getElementById('profileForm');
                 var formData = new FormData(form);
 
-                axios.post("/store", formData)
-                .then( payload => {
-                    
-                })
-                .catch( err => {
-                    
-                });
+                this.$validator.validateAll()
+                    .then((isValidated) => {
+                        if (isValidated) {
+                            axios.post("/store", formData)
+                            .then( payload => {
+                                
+                            })
+                            .catch( err => {
+                                
+                            });
+                        }
+                    })
             },
-
 
 
             focusHandler: function(e) {
@@ -178,126 +228,6 @@
         height: 150px;
         width: 100%;
     }
-
-
-
-
-
-
-    .input-dynamic_text {
-        position: relative;
-        width: 100%;
-        margin-bottom: 25px;
-        display: inline-block;
-        label {
-            position: absolute;
-            transition: 130ms cubic-bezier(0.65, 0.26, 0.52, 0.96);
-            pointer-events: none;
-        }
-        input {
-            width: inherit;
-            padding: 5px;
-            border-bottom-width: 2px;
-            border-bottom-style: solid;
-        }
-        .focused {
-            transform: translate(-15%, -60%) scale(.7);
-        }
-    }
-
-
-
-
-
-
-    .input-dynamic_radio {
-        position: relative;
-        width: 100%;
-        margin-bottom: 20px;
-        display: inline-block;
-        .radio-for {
-            margin-bottom: 4px;
-        }
-        input[type=radio] {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-        }
-        input[type=radio]:checked + .radio_indicator
-        {
-            transform: scale(1.15);
-        }
-        input[type=radio] + .radio_indicator .wave {
-            display: none;
-        }
-        input[type=radio]:checked + .radio_indicator .wave {
-            display: block;
-            position: absolute;
-            content: '';
-            height: inherit;
-            width: inherit;
-            background: #000;
-            border-radius: inherit;
-            -webkit-animation: radioWave 200ms;
-            -moz-animation: radioWave 200ms;
-            animation: radioWave 200ms;
-            z-index: -1;
-        }
-        label {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            color: #000;
-            span {
-                margin: 0 15px 0 5px;
-            }
-            .radio_indicator {
-                position: relative;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 13px;
-                width: 13px;
-                border: 1px solid #6f6f6f;
-                border-radius: 50%;
-                transform: scale(1);
-                transition: all 100ms cubic-bezier(0, 1.06, 0, 1.06);
-                box-sizing: content-box;
-            }
-        }
-        .focused {
-            transform: translate(-15%, -20%) scale(.7);
-            transition: 130ms cubic-bezier(0.65, 0.26, 0.52, 0.96);
-        }
-    }
-    @keyframes radioWave {
-        0% {
-            height: 13px;
-            width: 13px;
-            opacity: 0.45;
-        }
-        100% {
-            height: 28px;
-            width: 28px;
-            opacity: 0;
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     @media only screen and (max-width: 767px) {
         .profile-data-form {
