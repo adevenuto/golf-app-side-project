@@ -7,8 +7,8 @@
                     <div id="profile-img-container">
                         <div class="profile-placeholder d-flex justify-content-center align-items-center flex-column">
                             <a href="#" @click="imageInputField">
-                                <img v-show="!profileImageSet" src="images/camera.svg" width="75px" height="75px" alt="camera">
-                                <img v-show="profileImageSet" id="profile_image" src="" alt="profile image">
+                                <img v-show="!profileImage" src="images/camera.svg" width="75px" height="75px" alt="camera">
+                                <img v-show="profileImage" id="profile_image" ref="profile_image" src="" alt="profile image">
                             </a>
                         </div>
                         <input type="file" id="profile_image_input" name="profile_image" ref="profile_image_input" @change="validateImage">
@@ -108,7 +108,7 @@
     export default {
         data() {
             return {
-                profileImageSet: false,
+                profileImage: false,
                 inputs: {
                     nickname: '',
                     gender: '',
@@ -131,6 +131,12 @@
                 this.inputs.gender = res.data.user.gender;
                 this.inputs.age = res.data.user.age;
                 this.inputs.locality = res.data.user.locality;
+                
+                if (res.data.user.image_path) {
+                    this.profileImage = true;
+                    let profileImage = this.$refs.profile_image;
+                    profileImage.src = `https://teetyme-app.s3.us-east-2.amazonaws.com/${res.data.user.image_path}`;
+                }
             })
             .catch( err => {
                 
@@ -145,17 +151,17 @@
                 var formData = new FormData(form);
 
                 this.$validator.validateAll()
-                    .then((isValidated) => {
-                        if (isValidated) {
-                            axios.post("/store", formData)
-                            .then( payload => {
-                                
-                            })
-                            .catch( err => {
-                                
-                            });
-                        }
-                    })
+                .then((isValidated) => {
+                    if (isValidated) {
+                        axios.post("/store", formData)
+                        .then( payload => {
+                            
+                        })
+                        .catch( err => {
+                            
+                        });
+                    }
+                })
             },
 
 
@@ -193,7 +199,7 @@
                 reader.onload = function (e) {
                     let profileImage = document.getElementById('profile_image');
                     profileImage.src=`${e.target.result}`;
-                    that.profileImageSet = true;
+                    that.profileImage = true;
                 }
                 reader.readAsDataURL(inputFiles[0]);
             }

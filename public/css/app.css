@@ -10257,8 +10257,8 @@ input, select {
   width: inherit;
   background: #000;
   border-radius: inherit;
-  -webkit-animation: radioWave 200ms;
-  animation: radioWave 200ms;
+  -webkit-animation: radioWave 135ms;
+  animation: radioWave 135ms;
   z-index: -1;
 }
 .input-dynamic_radio label {
@@ -10280,8 +10280,8 @@ input, select {
           justify-content: center;
   -webkit-box-align: center;
           align-items: center;
-  height: 13px;
-  width: 13px;
+  height: 12px;
+  width: 12px;
   border: 1px solid #6f6f6f;
   border-radius: 50%;
   -webkit-transform: scale(1);
@@ -10291,26 +10291,22 @@ input, select {
 
 @-webkit-keyframes radioWave {
   0% {
-    height: 13px;
-    width: 13px;
     opacity: 0.45;
   }
   100% {
-    height: 28px;
-    width: 28px;
+    height: 20px;
+    width: 20px;
     opacity: 0;
   }
 }
 
 @keyframes radioWave {
   0% {
-    height: 13px;
-    width: 13px;
     opacity: 0.45;
   }
   100% {
-    height: 28px;
-    width: 28px;
+    height: 20px;
+    width: 20px;
     opacity: 0;
   }
 }
