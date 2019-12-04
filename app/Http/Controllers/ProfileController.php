@@ -51,7 +51,6 @@ class ProfileController extends Controller
                 $user->save();
                 return response()->json(['user'=>$user], 200);
             }
-            
         } catch (\Exception $e) {
             return response()->json(['failed' => $e->getMessage()], 400);
         }

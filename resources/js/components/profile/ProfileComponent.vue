@@ -1,20 +1,28 @@
 <template>
     <div class="container">
+       
+        <LoadingOverlay v-if="fetchingProfileData" />
+        
         <form id="profileForm" @submit.prevent="submit">
             <div class="row">
 
                 <div class="col-sm-6 mb-5">
                     <div id="profile-img-container">
-                        <div class="profile-placeholder d-flex justify-content-center align-items-center flex-column">
+                        <div class="profile-placeholder d-flex justify-content-center align-items-center flex-column rounded">
                             <a href="#" @click="imageInputField">
                                 <img v-show="!profileImage" src="images/camera.svg" width="75px" height="75px" alt="camera">
                                 <img v-show="profileImage" id="profile_image" ref="profile_image" src="" alt="profile image">
                             </a>
                         </div>
-                        <input type="file" id="profile_image_input" name="profile_image" ref="profile_image_input" @change="validateImage">
+                        <input type="file" 
+                                id="profile_image_input" 
+                                name="profile_image" 
+                                ref="profile_image_input" 
+                                @change="validateImage" 
+                                @input="fieldChange">
                     </div>
                 </div>
-            
+    
                 <div class="col-sm-6">
                     <h1 class="text-sm-left text-center font-weight-bold mb-4">{{authUser.first_name}} {{authUser.last_name}}</h1>
                     <div class="profile-data-form">
@@ -26,6 +34,7 @@
                             </label>
                             <input id="nickname" 
                                 :class="{ 'is-error': errors.has('nick_name') }"
+                                @input="fieldChange"
                                 name="nick_name" 
                                 v-model="inputs.nickname" 
                                 v-validate="'required'"
@@ -39,14 +48,14 @@
                             </div>
                             <div class="d-flex flex-wrap">
                                 <label>
-                                    <input type="radio" v-validate="'required'" name="gender" value="male" v-model="inputs.gender"> 
+                                    <input type="radio" v-validate="'required'" name="gender" value="male" v-model="inputs.gender" @input="fieldChange"> 
                                     <div :class="[{'is-error': errors.has('gender')}, 'radio_indicator']">
                                         <div class="wave"></div>
                                     </div>
                                     <span>Male</span>
                                 </label>
                                 <label>
-                                    <input type="radio" v-validate="'required'" name="gender" value="female" v-model="inputs.gender"> 
+                                    <input type="radio" v-validate="'required'" name="gender" value="female" v-model="inputs.gender" @input="fieldChange"> 
                                     <div :class="[{'is-error': errors.has('gender')}, 'radio_indicator']">
                                         <div class="wave"></div>
                                     </div>
@@ -61,7 +70,8 @@
                                 <span v-show="errors.has('age')" class="is-error"> (required)</span>
                             </label>
                             <input id ="age" 
-                                :class="[{ 'is-error': errors.has('age') },'num-only']" 
+                                :class="[{ 'is-error': errors.has('age') },'num-only']"
+                                @input="fieldChange" 
                                 name="age" 
                                 v-model="inputs.age"
                                 v-validate="'required'" 
@@ -79,6 +89,7 @@
                                 v-validate="'required'"
                                 v-model="inputs.locality"
                                 :class="{ 'is-error': errors.has('locality') }" 
+                                @input="fieldChange"
                                 placeholder="" 
                                 type="text" 
                                 @focus="focusHandler" 
@@ -93,7 +104,17 @@
                         <input type="hidden" id="country" name="country" disabled="true"/>
 
                         <div class="d-flex">
-                            <button class="btn btn-primary">Save profile</button>
+                            <button class="btn btn-primary" :disabled="!saveActive">
+                                <div class="d-flex align-items-center">
+                                    <span class="mr-2">Save Profile</span> 
+                                    <LoadingSpinner 
+                                        v-if="savingData"
+                                        borderWidth="2px" 
+                                        borderTopColor="#00ce07" 
+                                        borderBg="#f3f3f3" 
+                                        size="15px"/>
+                                </div>
+                            </button>
                         </div>
 
                     </div>
@@ -105,6 +126,8 @@
 </template>
 
 <script>
+    import LoadingOverlay from '../LoadingOverlay.vue';
+    import LoadingSpinner from '../LoadingSpinner.vue';
     export default {
         data() {
             return {
@@ -113,25 +136,33 @@
                     nickname: '',
                     gender: '',
                     age: '',
-                    // locality: ''
-                }
+                    locality: ''
+                },
+                fetchingProfileData: false,
+                saveActive: true,
+                savingData: false
             }
         },
-        components: {},
+        components: {LoadingOverlay, LoadingSpinner},
         props: ['user'],
         computed: {
             authUser: function() {
-                return this.user ? JSON.parse(this.user) : null;
+                return  this.user ? JSON.parse(this.user) : null;
             }
         },
         created() {
+            this.fetchingProfileData = true;
             axios.get("/auth/user")
             .then( res => {
-                this.inputs.nickname = res.data.user.nick_name;
-                this.inputs.gender = res.data.user.gender;
-                this.inputs.age = res.data.user.age;
-                this.inputs.locality = res.data.user.locality;
-                
+                this.fetchingProfileData = false;
+                if (res.data.user.nick_name) {
+                    this.inputs.nickname = res.data.user.nick_name;
+                    this.inputs.gender = res.data.user.gender;
+                    this.inputs.age = res.data.user.age;
+                    this.inputs.locality = res.data.user.locality;
+                    
+                    this.saveActive = false;
+                }
                 if (res.data.user.image_path) {
                     this.profileImage = true;
                     let profileImage = this.$refs.profile_image;
@@ -139,7 +170,7 @@
                 }
             })
             .catch( err => {
-                
+                this.fetchingProfileData = false;
             });
         },
         methods: {
@@ -150,15 +181,16 @@
                 var form = document.getElementById('profileForm');
                 var formData = new FormData(form);
 
+                this.savingData = true;
                 this.$validator.validateAll()
                 .then((isValidated) => {
                     if (isValidated) {
                         axios.post("/store", formData)
                         .then( payload => {
-                            
+                            this.savingData = false;
                         })
                         .catch( err => {
-                            
+                            this.savingData = false;
                         });
                     }
                 })
@@ -202,6 +234,11 @@
                     that.profileImage = true;
                 }
                 reader.readAsDataURL(inputFiles[0]);
+            },
+
+
+            fieldChange: function() {
+                this.saveActive = true;
             }
         },
         mounted() {
@@ -218,9 +255,8 @@
         .profile-placeholder {
             height: inherit;
             width: inherit;
-            border: 2px solid #000;
-            border-radius: 5px;
             overflow: hidden;
+            box-shadow: 0px 1px 8px 0px #999;
         }
     }
     .profile-data-form {

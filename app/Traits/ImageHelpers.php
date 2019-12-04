@@ -26,7 +26,9 @@ trait ImageHelpers {
     public function resizeImage($image, $width, $height) {
 
         $img = ImageIntervention::make($image->getRealPath());
-        $img->resize($width, $height);
+        $img->resize($width, null, function ($constraint) {
+            $constraint->aspectRatio();
+        });
         $img_resized = $img->stream();
         return $img_resized;
         
