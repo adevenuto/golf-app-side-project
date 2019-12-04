@@ -19,7 +19,7 @@
 <style lang="scss" scoped>
     #loadingOverlay {
         position: fixed;
-        background: rgba(255, 255, 255, 0);
+        background: rgba(0, 0, 0, .3);
         top: 0;
         bottom: 0;
         left: 0;
