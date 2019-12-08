@@ -29,7 +29,6 @@ class ProfileController extends Controller
             if(isset($request['administrative_area_level_1'])) $user->administrative_area_level_1 = $request['administrative_area_level_1']; 
             if(isset($request['administrative_area_level_2'])) $user->administrative_area_level_2 = $request['administrative_area_level_2']; 
             if(isset($request['country'])) $user->country = $request['country'];
-
             $user->save();
             
             if($request->hasFile('profile_image')) {
@@ -49,8 +48,8 @@ class ProfileController extends Controller
 
                 $user->image_path = $folder.$filenameToStore;
                 $user->save();
-                return response()->json(['user'=>$user], 200);
             }
+            return response()->json(['user'=>$user], 200);
         } catch (\Exception $e) {
             return response()->json(['failed' => $e->getMessage()], 400);
         }

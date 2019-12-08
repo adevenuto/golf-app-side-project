@@ -144,27 +144,22 @@
             }
         },
         created() {
-            this.fetchingProfileData = true;
-            axios.get("/auth/user")
-            .then( res => {
-                this.fetchingProfileData = false;
-                if (res.data.user.nick_name) {
-                    this.inputs.nickname = res.data.user.nick_name;
-                    this.inputs.gender = res.data.user.gender;
-                    this.inputs.age = res.data.user.age;
-                    this.inputs.locality = res.data.user.locality;
-                    
-                    this.saveActive = false;
-                }
-                if (res.data.user.image_path) {
-                    this.profileImage = true;
-                    let profileImage = this.$refs.profile_image;
-                    profileImage.src = `https://teetyme-app.s3.us-east-2.amazonaws.com/${res.data.user.image_path}`;
-                }
-            })
-            .catch( err => {
-                this.fetchingProfileData = false;
-            });
+            if (this.authUser.nick_name) {
+                this.inputs.nickname = this.authUser.nick_name;
+                this.inputs.gender = this.authUser.gender;
+                this.inputs.age = this.authUser.age;
+                this.inputs.locality = this.authUser.locality;
+                // --------------------
+                this.saveActive = false;
+            }
+        },
+        mounted() {
+            initCitiesAutocomplete();  
+            if (this.authUser.image_path) {
+                this.profileImage = true;
+                let profileImage = this.$refs.profile_image;
+                profileImage.src = `https://teetyme-app.s3.us-east-2.amazonaws.com/${this.authUser.image_path}`;
+            }
         },
         methods: {
             slideToggle: function() {
@@ -179,7 +174,8 @@
                 .then((isValidated) => {
                     if (isValidated) {
                         axios.post("/store", formData)
-                            .then( payload => {
+                            .then( res => {
+                                this.inputs.locality = res.data.user.locality;
                                 this.savingData = false;
                                 this.saveActive = false;
                             })
@@ -232,9 +228,6 @@
             fieldChange: function() {
                 this.saveActive = true;
             }
-        },
-        mounted() {
-            initCitiesAutocomplete();  
         }
     }
 </script>
