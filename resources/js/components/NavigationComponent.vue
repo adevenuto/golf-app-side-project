@@ -59,7 +59,7 @@
         },
         methods: {
             logout: function() {
-                axios.post('logout')
+                axios.post('/logout')
                 .then(response => {
                     if (response.status === 302 || 401) {
                         window.location.href = '/';

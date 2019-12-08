@@ -24,4 +24,4 @@ Route::get('/profile', 'ProfileController@index')->name('profile')->middleware('
 Route::post('/store', 'ProfileController@store')->name('profile.store')->middleware('auth');
 
 Route::get('/courses', 'CourseController@index')->name('course.index');
-Route::get('/courses/create', 'CourseController@create')->name('course.create')->middleware('auth');
+Route::get('/course/create', 'CourseController@create')->name('course.create')->middleware('auth');
