@@ -55,10 +55,4 @@ class ProfileController extends Controller
         }
         
     }
-
-
-    public function authUser() {
-        $auth_user = Auth::user();
-        return response()->json(['user' => $auth_user], 200);
-    }
 }

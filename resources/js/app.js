@@ -8,6 +8,8 @@ import NavigationComponent from './components/NavigationComponent';
 import LandingComponent from './components/landing/LandingComponent';
 import DashboardComponent from './components/dashboard/DashboardComponent';
 import ProfileComponent from './components/profile/ProfileComponent';
+import CourseIndexComponent from './components/course/CourseIndexComponent';
+import CourseCreateComponent from './components/course/CourseCreateComponent';
 
 Vue.use(VeeValidate);
 const app = new Vue({
@@ -16,7 +18,9 @@ const app = new Vue({
         NavigationComponent,
         LandingComponent, 
         DashboardComponent,
-        ProfileComponent
+        ProfileComponent,
+        CourseIndexComponent,
+        CourseCreateComponent
     }
 });
 
