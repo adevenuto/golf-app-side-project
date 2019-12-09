@@ -202,7 +202,7 @@
                 const that = this;
                 let inputFiles = e.target.files;
                 if (inputFiles && inputFiles[0]) {
-                    let allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                    let allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/svg+xml'];
                     let type = inputFiles[0].type;
                     if (allowedTypes.indexOf(type) !== -1)   {
                         return this.imagePreview(e);

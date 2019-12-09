@@ -1,8 +1,8 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
-                Laravel Vue App
+                TeeTyme
             </a>
             <button :class="{'menu-open': toggled}" 
                     @click="toggle"
@@ -19,6 +19,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-standard" href="/courses">
+                        <img class="icon_inline" src="/images/flagstick_and_green.svg" alt="star icon">Courses</a>
+                    </li>
                     <template v-if="!authUser">
                         <li class="nav-item">
                             <a class="nav-link" href="/login">Login</a>
@@ -28,6 +32,11 @@
                         </li>
                     </template>
                     <template v-else>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-standard" href="/course/create">
+                                <img class="icon_inline" src="/images/star_yellow.svg" alt="star icon">NewCourse
+                            </a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {{ authUser.email }} <span class="caret"></span>
@@ -87,7 +96,21 @@
             height: 4px;
             border-radius: 4px;
             background: #000;
-            background: #000;
+        }
+    }
+    .icon_inline {
+        width: 12px;
+        height: 12px;
+        margin: 0 3px;
+        position: relative;
+        top: -2px;
+        display: inline-block;
+    }
+    .navbar-light .navbar-nav .nav-link-standard {
+        color: #077132;
+        font-weight: 600;
+        &:hover {
+            color: #003a18;
         }
     }
     .navbar-light .navbar-toggler.menu-open {
@@ -106,7 +129,7 @@
             }
         }
     }
-    @media (max-width: 991px) {
+    @media (max-width: 767px) {
         .dropdown {
             .dropdown-menu {
                 padding: 0;
