@@ -12,6 +12,15 @@ import CourseIndexComponent from './components/course/CourseIndexComponent';
 import CourseCreateComponent from './components/course/CourseCreateComponent';
 
 Vue.use(VeeValidate);
+
+Vue.directive('tooltip', function(el, binding){
+    $(el).tooltip({
+        title: binding.value,
+        placement: binding.arg,
+        trigger: 'focus'             
+    })
+})
+
 const app = new Vue({
     el: '#app',
     components: { 

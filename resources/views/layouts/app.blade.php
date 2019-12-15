@@ -8,6 +8,7 @@
                 @yield('content')
             </div>
         </div>
+        @stack('scripts')
         @include('partials/scripts')
     </body>
 </html>

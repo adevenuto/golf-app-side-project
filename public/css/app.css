@@ -10198,58 +10198,88 @@ input, select {
   outline: 0;
 }
 
+select {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0px;
+  background: none;
+  background: url("/images/down-arrow.svg") no-repeat right 0.75rem center/15px 15px;
+}
+
+/* For IE10 */
+select::-ms-expand {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0px;
+  background: none;
+  background: url("/images/down-arrow.svg") no-repeat right 0.75rem center/15px 15px;
+}
+
 .is-error {
   border-color: #fd4646 !important;
   color: #fd4646 !important;
 }
 
-.input-dynamic_text .dynamic-label,
-.input-dynamic_radio .dynamic-label {
+.input-text .dynamic-label,
+.input-radio .dynamic-label,
+.input-select .dynamic-label,
+.input-file .dynamic-label {
   color: #777;
 }
 
-.input-dynamic_text {
+.input-text, .input-select {
   position: relative;
   width: 100%;
-  margin-bottom: 25px;
+  margin-bottom: 35px;
   display: inline-block;
 }
-.input-dynamic_text label {
-  position: absolute;
-  -webkit-transform: translate(-15%, -60%) scale(0.7);
-          transform: translate(-15%, -60%) scale(0.7);
+.input-text label, .input-select label {
+  margin-bottom: 0;
 }
-.input-dynamic_text input {
+.input-text input, .input-text select, .input-select input, .input-select select {
   width: inherit;
-  padding: 5px;
+  padding: 0 5px 5px 5px;
   border-bottom-width: 2px;
   border-bottom-style: solid;
 }
 
-.input-dynamic_radio {
+.input-file {
   position: relative;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 35px;
   display: inline-block;
 }
-.input-dynamic_radio .radio-for {
-  -webkit-transform: translate(-15%, -15%) scale(0.7);
-          transform: translate(-15%, -15%) scale(0.7);
-  margin-bottom: 4px;
+.input-file input {
+  position: absolute;
+  width: 0;
+  z-index: -1;
+  opacity: 0;
 }
-.input-dynamic_radio input[type=radio] {
+.input-file .input-file-btn {
+  text-align: center;
+  display: block;
+}
+
+.input-radio {
+  position: relative;
+  width: 100%;
+  margin-bottom: 15px;
+  display: inline-block;
+}
+.input-radio .radio-for {
+  margin-bottom: 5px;
+}
+.input-radio input[type=radio] {
   position: absolute;
   opacity: 0;
   cursor: pointer;
 }
-.input-dynamic_radio input[type=radio]:checked + .radio_indicator {
+.input-radio input[type=radio]:checked + .radio_indicator {
   -webkit-transform: scale(1.15);
           transform: scale(1.15);
 }
-.input-dynamic_radio input[type=radio] + .radio_indicator .wave {
+.input-radio input[type=radio] + .radio_indicator .wave {
   display: none;
 }
-.input-dynamic_radio input[type=radio]:checked + .radio_indicator .wave {
+.input-radio input[type=radio]:checked + .radio_indicator .wave {
   display: block;
   position: absolute;
   content: "";
@@ -10261,7 +10291,7 @@ input, select {
   animation: radioWave 135ms;
   z-index: -1;
 }
-.input-dynamic_radio label {
+.input-radio label {
   display: -webkit-box;
   display: flex;
   -webkit-box-align: center;
@@ -10269,10 +10299,10 @@ input, select {
   cursor: pointer;
   color: #000;
 }
-.input-dynamic_radio label span {
+.input-radio label span {
   margin: 0 15px 0 5px;
 }
-.input-dynamic_radio label .radio_indicator {
+.input-radio label .radio_indicator {
   position: relative;
   display: -webkit-box;
   display: flex;
@@ -10309,4 +10339,19 @@ input, select {
     width: 20px;
     opacity: 0;
   }
+}
+.fade-enter-active, .fade-leave-active {
+  -webkit-transition-property: opacity;
+  transition-property: opacity;
+  -webkit-transition-duration: 0.08s;
+          transition-duration: 0.08s;
+}
+
+.fade-enter-active {
+  -webkit-transition-delay: 0.08s;
+          transition-delay: 0.08s;
+}
+
+.fade-enter, .fade-leave-active {
+  opacity: 0;
 }

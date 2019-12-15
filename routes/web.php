@@ -19,9 +19,11 @@ Auth::routes();
 
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard')->middleware('auth');
-
+// Profile Controller
 Route::get('/profile', 'ProfileController@index')->name('profile')->middleware('auth');
-Route::post('/store', 'ProfileController@store')->name('profile.store')->middleware('auth');
+Route::post('/profile/store', 'ProfileController@store')->name('profile.store')->middleware('auth');
 
-Route::get('/courses', 'CourseController@index')->name('course.index');
-Route::get('/course/create', 'CourseController@create')->name('course.create')->middleware('auth');
+// Courses controller
+Route::get('/courses', 'CourseController@index');
+Route::get('/course/create', 'CourseController@create')->middleware('auth');
+Route::post('/course/store', 'CourseController@store')->middleware('auth');

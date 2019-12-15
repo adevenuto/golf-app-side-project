@@ -26,7 +26,7 @@
                 <div class="col-sm-6">
                     <h1 class="text-sm-left text-center font-weight-bold mb-5">{{authUser.first_name}} {{authUser.last_name}}</h1>
                     <div class="profile-data-form">
-                        <div class="input-dynamic_text">
+                        <div class="input-text">
                             <label for="nickname" class="dynamic-label">
                                 Nickname:
                                 <span v-show="errors.has('nick_name')" class="is-error"> (required)</span>
@@ -39,7 +39,7 @@
                                     v-validate="'required'"
                                     type="text">
                         </div>
-                        <div class="input-dynamic_radio">
+                        <div class="input-radio">
                             <div class="radio-for dynamic-label">
                                 Gender:
                                 <span v-show="errors.has('gender')" class="is-error"> (required)</span>
@@ -61,7 +61,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="input-dynamic_text">
+                        <div class="input-text">
                             <label for="age" class="dynamic-label">
                                 Age:
                                 <span v-show="errors.has('age')" class="is-error"> (required)</span>
@@ -75,21 +75,19 @@
                                     type="text" 
                                     maxlength="3">
                         </div>
-                        <div class="input-dynamic_text">
+                        <div class="input-text">
                             <label for="citiesAutocomplete" class="dynamic-label">
                                 City:
                                 <span v-show="errors.has('locality')" class="is-error"> (required)</span>
                             </label>
-                            <input id ="citiesAutocomplete" 
+                            <input id ="citiesAutoComplete" 
                                     name="locality" 
                                     v-validate="'required'"
                                     v-model="inputs.locality"
                                     :class="{ 'is-error': errors.has('locality') }" 
                                     @input="fieldChange"
-                                    placeholder="" 
-                                    type="text" 
-                                    @focus="focusHandler" 
-                                    @blur="blurHandler">
+                                    placeholder="Start typing / select city from dropdown" 
+                                    type="text"> 
                         </div>
                         <!-- Hidden inputs For AutoComplete Components -->
                         <input type="hidden" id="locality" name="locality" disabled="true"/>
@@ -154,7 +152,7 @@
             }
         },
         mounted() {
-            initCitiesAutocomplete();  
+            initCitiesAutoComplete();  
             if (this.authUser.image_path) {
                 this.profileImage = true;
                 let profileImage = this.$refs.profile_image;
@@ -173,7 +171,7 @@
                 this.$validator.validateAll()
                 .then((isValidated) => {
                     if (isValidated) {
-                        axios.post("/store", formData)
+                        axios.post("profile/store", formData)
                             .then( res => {
                                 this.inputs.locality = res.data.user.locality;
                                 this.savingData = false;
@@ -187,13 +185,6 @@
                         this.savingData = false;
                     }
                 })
-                
-            },
-            focusHandler: function(e) {
-                e.target.placeholder = 'Start typing / select city from dropdown';
-            },
-            blurHandler: function(e) {
-                e.target.placeholder = '';
             },
             imageInputField: function(e) {
                 this.$refs.profile_image_input.click();

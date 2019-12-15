@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Log;
 use App\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,8 +20,9 @@ class CourseController extends Controller
     }
 
     public function store(Request $request)
-    {
-        //
+    {   
+        Log::info($request);
+        // return response()->json(['success' => 'Course successfully created.'], 200);
     }
 
     public function show(Course $course)

@@ -26,7 +26,8 @@
                     <template v-if="!authUser">
                         <li class="nav-item">
                             <a class="nav-link" href="/login">Login</a>
-                        </li>                                
+                        </li>   
+                        <span class="nav-link px-0">|</span>                           
                         <li class="nav-item">
                             <a class="nav-link" href="/register">Register</a>
                         </li>

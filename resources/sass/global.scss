@@ -23,6 +23,19 @@ input, select{
     box-shadow: none;
     outline: 0; 
 }
+select {
+    -webkit-appearance: none;
+    -webkit-border-radius: 0px;
+    background: none;
+    background: url('/images/down-arrow.svg') no-repeat right 0.75rem center/15px 15px;
+}
+/* For IE10 */
+select::-ms-expand {
+    -webkit-appearance: none;
+    -webkit-border-radius: 0px;
+    background: none;
+    background: url('/images/down-arrow.svg') no-repeat right 0.75rem center/15px 15px;
+}
 .is-error {
     border-color: #fd4646 !important;
     color: #fd4646 !important;
@@ -44,42 +57,62 @@ input, select{
 
 
 //////////////////////////////
-// Dynamic Field Style Common
+// Field Style Common
 //////////////////////////////
-.input-dynamic_text .dynamic-label, 
-.input-dynamic_radio .dynamic-label {
+.input-text .dynamic-label, 
+.input-radio .dynamic-label, 
+.input-select .dynamic-label, 
+.input-file .dynamic-label {
     color: #777;
 }
 //////////////////////////////
-// Dynamic Text Field Style
+// Text Field Style
 //////////////////////////////
-.input-dynamic_text {
+.input-text, .input-select {
     position: relative;
     width: 100%;
-    margin-bottom: 25px;
+    margin-bottom: 35px;
     display: inline-block;
     label {
-        position: absolute;
-        transform: translate(-15%, -60%) scale(.7);
+        margin-bottom: 0;
     }
-    input {
+    input, select {
         width: inherit;
-        padding: 5px;
+        padding: 0 5px 5px 5px;
         border-bottom-width: 2px;
         border-bottom-style: solid;
     }
 }
 //////////////////////////////
-// Dynamic Radio Field Style
+// File Field Style
 //////////////////////////////
-.input-dynamic_radio {
+.input-file {
     position: relative;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 35px;
+    display: inline-block;
+    input {
+        position: absolute;
+        width: 0;
+        z-index: -1;
+        opacity: 0;
+    }
+    .input-file-btn {
+        text-align: center;
+        display: block;
+    }
+}
+//////////////////////////////
+// Radio Field Style
+//////////////////////////////
+.input-radio {
+    position: relative;
+    width: 100%;
+    margin-bottom: 15px;
     display: inline-block;
     .radio-for {
-        transform: translate(-15%, -15%) scale(.7);
-        margin-bottom: 4px;
+        // transform: translate(-15%, -15%) scale(.7);
+        margin-bottom: 5px;
     }
     input[type=radio] {
         position: absolute;
@@ -136,4 +169,17 @@ input, select{
         width: 20px;
         opacity: 0;
     }
+}
+//////////////////////////////
+// Vue fade animation
+//////////////////////////////
+.fade-enter-active, .fade-leave-active {
+	transition-property: opacity;
+	transition-duration: .08s;
+}
+.fade-enter-active {
+	transition-delay: .08s;
+}
+.fade-enter, .fade-leave-active {
+	opacity: 0
 }
