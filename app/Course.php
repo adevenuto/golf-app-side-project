@@ -5,7 +5,17 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
-{
+{   
+    protected static function boot() {
+        parent::boot();
+    
+        static::deleting(function($course) { 
+            foreach($course->holeGroups as $holeGroup){
+              $holeGroup->delete();
+            }
+        });
+    }
+
     protected $fillable = [
         'course_name', 
         'course_address',
