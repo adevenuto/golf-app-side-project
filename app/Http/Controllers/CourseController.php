@@ -3,15 +3,28 @@
 namespace App\Http\Controllers;
 
 use Log;
+use App\Hole;
 use App\Course;
+use App\HoleGroup;
+use App\Traits\ImageHelpers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
-{
-    public function index()
+{   
+    use ImageHelpers;
+
+    public function __construct(Course $course, HoleGroup $holeGroup, Hole $hole) 
     {
-        return view('course.index');
+        $this->course = $course;
+        $this->holeGroup = $holeGroup;
+        $this->hole = $hole;
+    }
+
+    public function index()
+    {   $courses = $this->course->all();
+        return view('course.index')->with('courses', $courses);
     }
 
     public function create()
@@ -21,8 +34,45 @@ class CourseController extends Controller
 
     public function store(Request $request)
     {   
-        Log::info($request);
-        // return response()->json(['success' => 'Course successfully created.'], 200);
+        try {
+            $payload = $request->all();
+            $course = $this->course->create($payload);
+
+            $course_id = $course->id;
+            $payload['course_id'] = $course_id;
+            $holeGroup = $this->holeGroup->create($payload);
+
+            $holeGroupId = $holeGroup->id;
+            $holes = array_filter($payload, function ($key) {
+                return strpos($key, 'hole_') === 0;
+            }, ARRAY_FILTER_USE_KEY);
+            foreach($holes as $key => $hole_length) {
+                $hole_num = substr($key, strpos($key, "_") + 1);
+                $hole = $this->hole->create([
+                    'hole_group_id' => $holeGroupId,
+                    'hole_number' => $hole_num,
+                    'hole_length' => $hole_length
+                ]);
+            }
+            
+            if($request->hasFile('course_image')) {
+                $file = $request->file('course_image');
+                $fileComponents = $this->getFileComponents($file);
+                $img_resized = $this->resizeImage($file, 500, 500);
+            
+                $filenameToStore = $fileComponents['filename'].'_'.time().'.'.$fileComponents['extension'];
+                $folder = 'courses/'.$course_id.'/';
+                
+                // Upload File to s3
+                Storage::disk('s3')->put($folder.$filenameToStore, $img_resized, 'public');
+                $course['featured_image'] = $folder.$filenameToStore;
+                $course->save();
+            }
+
+        } catch (\Exception $e) {
+            return response()->json(['failed' => $e->getMessage()], 400);
+        }
+        return response()->json(['success' => 'Course successfully created.'], 200);
     }
 
     public function show(Course $course)
