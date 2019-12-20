@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
-                TeeTyme
+                <img src="/images/golf-ball.svg" class="mr-1" height="25" width="25" alt="golfball icon"> TeeTyme
             </a>
             <button :class="{'menu-open': toggled}" 
                     @click="toggle"

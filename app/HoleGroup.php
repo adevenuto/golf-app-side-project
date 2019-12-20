@@ -8,11 +8,14 @@ class HoleGroup extends Model
 {    
     protected static function boot() {
         parent::boot();
-        \Log::info('here');
-        static::deleting(function($holeGroup) {
-             $holeGroup->holes()->delete();
+    
+        static::deleting(function($holeGroup) { 
+            foreach($holeGroup->holes as $hole){
+              $hole->delete();
+            }
         });
     }
+
     protected $fillable = [
         'course_id', 
         'group_name',
