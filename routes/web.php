@@ -27,3 +27,7 @@ Route::post('/profile/store', 'ProfileController@store')->name('profile.store')-
 Route::get('/courses', 'CourseController@index');
 Route::get('/course/create', 'CourseController@create')->middleware('auth');
 Route::post('/course/store', 'CourseController@store')->middleware('auth');
+
+// Favorites controller
+Route::post('/course/favorite/{id}', 'FavoriteController@favoriteCourse')->middleware('auth');
+Route::post('/course/unfavorite/{id}', 'FavoriteController@unFavoriteCourse')->middleware('auth');

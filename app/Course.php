@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Favorite;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
@@ -10,7 +12,7 @@ class Course extends Model
         parent::boot();
     
         static::deleting(function($course) { 
-            foreach($course->holeGroups as $holeGroup){
+            foreach($course->holeGroups as $holeGroup) {
               $holeGroup->delete();
             }
         });
@@ -33,5 +35,11 @@ class Course extends Model
 
     public function holeGroups() {
     	return $this->hasMany('App\HoleGroup');
+    }
+
+    public function favorited() {
+        return (bool) Favorite::where('user_id', Auth::id())
+                            ->where('course_id', $this->id)
+                            ->first();
     }
 }

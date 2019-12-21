@@ -8,8 +8,8 @@ import NavigationComponent from './components/NavigationComponent';
 import LandingComponent from './components/landing/LandingComponent';
 import DashboardComponent from './components/dashboard/DashboardComponent';
 import ProfileComponent from './components/profile/ProfileComponent';
-import CourseIndexComponent from './components/course/CourseIndexComponent';
 import CourseCreateComponent from './components/course/CourseCreateComponent';
+import FavoriteComponent from './components/course/FavoriteComponent.vue';
 
 Vue.use(VeeValidate);
 
@@ -28,8 +28,8 @@ const app = new Vue({
         LandingComponent, 
         DashboardComponent,
         ProfileComponent,
-        CourseIndexComponent,
-        CourseCreateComponent
+        CourseCreateComponent,
+        FavoriteComponent
     }
 });
 

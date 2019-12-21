@@ -13,10 +13,10 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css')
-   .options({
-      processCssUrls: false,
-      watchOptions: {
-         ignored: /node_modules/
+   .webpackConfig({
+      watchOptions : {
+         ignored : /node_modules/
       }
+   }).options({
+         processCssUrls : false
    })
-   
