@@ -10469,16 +10469,16 @@ select::-ms-expand {
   color: #777;
 }
 
-.input-text, .input-select {
+.input-text, .input-select, .input-number {
   position: relative;
   width: 100%;
   margin-bottom: 35px;
   display: inline-block;
 }
-.input-text label, .input-select label {
+.input-text label, .input-select label, .input-number label {
   margin-bottom: 0;
 }
-.input-text input, .input-text select, .input-select input, .input-select select {
+.input-text input, .input-text select, .input-select input, .input-select select, .input-number input, .input-number select {
   width: inherit;
   padding: 0 5px 5px 5px;
   border-bottom-width: 2px;

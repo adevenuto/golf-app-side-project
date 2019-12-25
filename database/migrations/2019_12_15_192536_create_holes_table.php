@@ -18,6 +18,7 @@ class CreateHolesTable extends Migration
             $table->integer('hole_group_id')->unsigned()->index();
             $table->string('hole_number');
             $table->string('hole_length');
+            $table->string('hole_par');
             $table->timestamps();
         });
     }

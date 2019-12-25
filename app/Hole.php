@@ -9,7 +9,8 @@ class Hole extends Model
     protected $fillable = [
         'hole_group_id',
         'hole_number',
-        'hole_length'
+        'hole_length',
+        'hole_par'
     ];
 
     public function holeGroups() {

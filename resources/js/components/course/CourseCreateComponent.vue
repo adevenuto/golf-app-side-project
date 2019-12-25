@@ -91,22 +91,18 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="input-select">
-                                <label class="dynamic-label">Teebox:</label>
-                                <div class="teebox-custom d-flex align-items-center">
-                                    <div :class="[{
-                                        'bg-blue': teebox == 'blue', 
-                                        'bg-white': teebox == 'white', 
-                                        'bg-red': teebox == 'red'},
-                                        'select-dot']">
-                                    </div>
-                                    <select v-model="teebox" 
-                                            name="teebox">
-                                        <option value="blue">Blue</option>
-                                        <option value="white">White</option>
-                                        <option value="red">Red</option>
-                                    </select>
-                                </div>
+                            <div class="input-text">
+                                <label for="teebox" class="dynamic-label">
+                                    Teebox:
+                                    <span v-show="errors.has('course_form_s1.teebox')" class="is-error"> (required)</span>
+                                </label>
+                                <input id="teebox" 
+                                        :class="{ 'is-error': errors.has('course_form_s2.teebox') }"
+                                        name="teebox" 
+                                        v-model="inputs.teebox" 
+                                        data-vv-scope="course_form_s2"
+                                        v-validate="'required'"
+                                        type="text">
                             </div>
                         </div>
 
@@ -130,19 +126,35 @@
                         </div>
                         
                         
-                        <div v-for="index in holeCount" :key="index" class="col-3">
-                            <div class="input-text mb-2">
+                        <div v-for="index in holeCount" :key="index" class="col-4">
+                            <div id="hole-inputs" class="input-number mb-3">
                                 <label for="course_phone" class="dynamic-label">
                                     Hole <span>#{{index}}</span>
                                 </label>
-                                <input type="text" 
+
+                                <div class="d-flex">
+                                    <input type="number" 
                                         maxlength="3"
+                                        max="1200"
                                         v-validate="'required'"
                                         data-vv-scope="course_form_s2"
-                                        :class="[{'is-error': errors.first('course_form_s2.'+holeName(index))},'num-only']"
+                                        placeholder="length"
+                                        :class="[{'is-error': errors.first('course_form_s2.'+holeName(index))},'col-6']"
                                         :name="holeName(index)"
-                                        value="432"
+                                        value="444"
                                         aria-describedby="hole-length">
+                                    <input type="number" 
+                                        maxlength="1"
+                                        max="7"
+                                        v-validate="'required'"
+                                        data-vv-scope="course_form_s2"
+                                        placeholder="par"
+                                        :class="[{'is-error': errors.first('course_form_s2.'+holePar(index))},'col-6', 'ml-2']"
+                                        :name="holePar(index)"
+                                        value="4"
+                                        aria-describedby="hole-length">
+                                </div>
+                                
                             </div>
                         </div>
                         
@@ -188,17 +200,17 @@
         data() {
             return {
                 inputs: {
-                    course_name: '',
-                    course_phone: '',
+                    course_name: 'treter',
+                    course_phone: '(321) 321-3213',
                     course_address: 'chicago',
+                    teebox: '',
                     course_image: '',
                     number_of_holes: '',
                     hole_group_name: ''
                 },
-                stepNumber: 1,
+                stepNumber: 2,
                 stepMax: 2,
                 holeCount: 9,
-                teebox: 'blue',
                 savingData: false
             }
         },
@@ -240,7 +252,7 @@
                         axios.post("/course/store", formData)
                         .then( res => {
                             this.savingData = false;
-                            window.location = '/courses';
+                            // window.location = '/courses';
                         })
                         .catch( err => {
                             this.savingData = false;
@@ -250,6 +262,9 @@
             },
             holeName(index) {
 				return 'hole_'+index;
+            },
+            holePar(index) {
+				return 'holepar_'+index;
             }
         }
     }
@@ -277,34 +292,22 @@
             color: #000;
         }
     }
-    .teebox-custom {
-        position: relative;
-        width: 100%;
-        select[name=teebox] {
-            padding-left: 1.5rem;
-        }
-    }
-    .select-dot {
-        position: absolute;
-        left: 4px;
-        top: 4px;
-        border: 1px solid #999;
-        border-radius: 12px;
-        width: 12px;
-        height: 12px;
-    }
     .dynamic-label span {
         font-size: 0.7rem;
         position: relative;
         top: -4px;
     }
-    .bg-blue {
-        background: #0c498e !important;
-    }
-    .bg-white {
-        background: #fff !important;
-    }
-    .bg-red {
-        background: #f00 !important;
+    #hole-inputs {
+        input {
+            padding: 0 5px 0 0;
+            font-size: .9rem;
+        }
+        input::-webkit-input-placeholder {
+            font-size: .5rem;
+        }
+        .dynamic-label span {
+            color: #000;
+            font-size: .9rem;
+        }
     }
 </style>

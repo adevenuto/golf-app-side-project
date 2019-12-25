@@ -16,7 +16,7 @@ class CreateHoleGroupsTable extends Migration
         Schema::create('hole_groups', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('course_id')->unsigned()->index();
-            $table->string('group_name')->nullable();
+            $table->string('group_name')->nullable()->default('NA');
             $table->string('teebox');
             $table->string('number_of_holes');
             $table->timestamps();

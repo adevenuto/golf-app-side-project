@@ -43,17 +43,30 @@ class CourseController extends Controller
             $holeGroup = $this->holeGroup->create($payload);
 
             $holeGroupId = $holeGroup->id;
+
             $holes = array_filter($payload, function ($key) {
                 return strpos($key, 'hole_') === 0;
             }, ARRAY_FILTER_USE_KEY);
-            foreach($holes as $key => $hole_length) {
+
+            $holepars = array_filter($payload, function ($key) {
+                return strpos($key, 'holepar_') === 0;
+            }, ARRAY_FILTER_USE_KEY);
+            $holepars_values = array_values($holepars);
+
+            $holesCount = 0;
+            foreach ($holes as $key => $hole_length) {
                 $hole_num = substr($key, strpos($key, "_") + 1);
-                $hole = $this->hole->create([
-                    'hole_group_id' => $holeGroupId,
-                    'hole_number' => $hole_num,
-                    'hole_length' => $hole_length
+                $hole_par = $holepars_values[$holesCount];
+                
+                $this->hole->create([
+                    'hole_group_id' => $holeGroupId, 
+                    'hole_number' => $hole_num, 
+                    'hole_length' => $hole_length,
+                    'hole_par' => $hole_par
                 ]);
+                $holesCount ++;
             }
+
             
             if($request->hasFile('course_image')) {
                 $file = $request->file('course_image');
