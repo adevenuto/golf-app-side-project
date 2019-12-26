@@ -200,15 +200,15 @@
         data() {
             return {
                 inputs: {
-                    course_name: 'treter',
-                    course_phone: '(321) 321-3213',
+                    course_name: '',
+                    course_phone: '',
                     course_address: 'chicago',
                     teebox: '',
                     course_image: '',
                     number_of_holes: '',
                     hole_group_name: ''
                 },
-                stepNumber: 2,
+                stepNumber: 1,
                 stepMax: 2,
                 holeCount: 9,
                 savingData: false
@@ -252,7 +252,7 @@
                         axios.post("/course/store", formData)
                         .then( res => {
                             this.savingData = false;
-                            // window.location = '/courses';
+                            window.location = '/courses';
                         })
                         .catch( err => {
                             this.savingData = false;

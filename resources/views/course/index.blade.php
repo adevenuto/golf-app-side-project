@@ -15,6 +15,9 @@
                                         favorited="{{$course->favorited()}}"
                                     ><favorite-component>
                                 </div>
+                                <a href="/course/edit/{{$course->id}}" class="edit-course-link text-center">
+                                    Edit
+                                </a>
                             @endif
                         </div>
                         <div class="card-body">

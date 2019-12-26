@@ -9,7 +9,8 @@ import LandingComponent from './components/landing/LandingComponent';
 import DashboardComponent from './components/dashboard/DashboardComponent';
 import ProfileComponent from './components/profile/ProfileComponent';
 import CourseCreateComponent from './components/course/CourseCreateComponent';
-import FavoriteComponent from './components/course/FavoriteComponent.vue';
+import CourseEditComponent from './components/course/CourseEditComponent';
+import FavoriteComponent from './components/course/FavoriteComponent';
 
 Vue.use(VeeValidate);
 
@@ -29,6 +30,7 @@ const app = new Vue({
         DashboardComponent,
         ProfileComponent,
         CourseCreateComponent,
+        CourseEditComponent,
         FavoriteComponent
     }
 });

@@ -41,7 +41,6 @@ class CourseController extends Controller
             $course_id = $course->id;
             $payload['course_id'] = $course_id;
             $holeGroup = $this->holeGroup->create($payload);
-
             $holeGroupId = $holeGroup->id;
 
             $holes = array_filter($payload, function ($key) {
@@ -57,7 +56,6 @@ class CourseController extends Controller
             foreach ($holes as $key => $hole_length) {
                 $hole_num = substr($key, strpos($key, "_") + 1);
                 $hole_par = $holepars_values[$holesCount];
-                
                 $this->hole->create([
                     'hole_group_id' => $holeGroupId, 
                     'hole_number' => $hole_num, 
@@ -67,7 +65,6 @@ class CourseController extends Controller
                 $holesCount ++;
             }
 
-            
             if($request->hasFile('course_image')) {
                 $file = $request->file('course_image');
                 $fileComponents = $this->getFileComponents($file);
@@ -76,7 +73,6 @@ class CourseController extends Controller
                 $filenameToStore = $fileComponents['filename'].'_'.time().'.'.$fileComponents['extension'];
                 $folder = 'courses/'.$course_id.'/';
                 
-                // Upload File to s3
                 Storage::disk('s3')->put($folder.$filenameToStore, $img_resized, 'public');
                 $course['featured_image'] = $folder.$filenameToStore;
                 $course->save();
@@ -93,14 +89,35 @@ class CourseController extends Controller
         //
     }
 
-    public function edit(Course $course)
-    {
-        //
+    public function edit($id)
+    {   
+        $course = Course::find($id);
+        return view('course.edit')->with('course', $course);
     }
 
-    public function update(Request $request, Course $course)
-    {
-        //
+    public function update(Request $request)
+    {   
+        try {
+            $course_id = $request->course_id;
+            $course = Course::find($course_id);
+            $course->update($request->all());
+
+            if($request->hasFile('course_image')) {
+                $file = $request->file('course_image');
+                $fileComponents = $this->getFileComponents($file);
+                $img_resized = $this->resizeImage($file, 500, 500);
+            
+                $filenameToStore = $fileComponents['filename'].'_'.time().'.'.$fileComponents['extension'];
+                $folder = 'courses/'.$course_id.'/';
+                
+                Storage::disk('s3')->put($folder.$filenameToStore, $img_resized, 'public');
+                $course['featured_image'] = $folder.$filenameToStore;
+                $course->save();
+            }
+        } catch (\Exception $e) {
+            return response()->json(['failed' => $e->getMessage()], 400);
+        }
+        return response()->json(['success' => 'Course successfully updated.'], 200);
     }
 
     public function destroy(Course $course)

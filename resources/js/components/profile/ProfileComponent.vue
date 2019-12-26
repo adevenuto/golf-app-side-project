@@ -160,9 +160,6 @@
             }
         },
         methods: {
-            slideToggle: function() {
-                this.slide_edit = !this.slide_edit;
-            },
             submit: function() {
                 let form = document.getElementById('profileForm');
                 let formData = new FormData(form);
@@ -171,7 +168,7 @@
                 this.$validator.validateAll()
                 .then((isValidated) => {
                     if (isValidated) {
-                        axios.post("profile/store", formData)
+                        axios.post("/profile/store", formData)
                             .then( res => {
                                 this.inputs.locality = res.data.user.locality;
                                 this.savingData = false;
@@ -225,8 +222,8 @@
 
 <style lang="scss" scoped>
     #profile-img-container {
-        width: 150px;
-        height: 150px;
+        width: 200px;
+        height: 200px;
         margin: 0 auto;
         .profile-placeholder {
             height: inherit;
@@ -243,7 +240,7 @@
     }
     #profile_image {
         object-fit: cover;
-        height: 150px;
+        height: 200px;
         width: 100%;
     }
     @media only screen and (max-width: 767px) {
