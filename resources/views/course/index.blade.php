@@ -15,11 +15,13 @@
                                         favorited="{{$course->favorited()}}"
                                     ><favorite-component>
                                 </div>
-                                <a href="/course/edit/{{$course->id}}" class="edit-course-link text-center">
-                                    Edit
-                                </a>
                             @endif
                         </div>
+                        @if (Auth::check())
+                            <a href="/course/edit/{{$course->id}}" class="edit-course-link text-center">
+                                Edit
+                            </a>
+                        @endif
                         <div class="card-body">
                             <h5 class="card-title">{{ $course->course_name }}</h5>
                         </div>

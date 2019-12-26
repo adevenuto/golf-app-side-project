@@ -2,7 +2,11 @@
     <div class="container">
         <form id="courseEditForm" @submit.prevent="submit">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-12 my-2">
+                    <h3>Edit basic course information below:</h3>
+                    <hr>
+                </div>
+                <div class="col-sm-6 mb-4">
                     <a href="#" @click="imageInputField">
                         <div id="course-img-container">
                             <div class="course-placeholder d-flex justify-content-center align-items-center flex-column rounded">
@@ -82,6 +86,10 @@
                         </button>
                     </div>
                     <input type="hidden" name="course_id" :value="_course.id"/>
+                </div>
+                <div class="col-sm-12 mt-5">
+                    <h3>Edit course hole data below:</h3>
+                    <hr>
                 </div>
                 <!-- Hidden Fields For AutoComplete Components -->
                 <input type="hidden" id="street_number" name="street_number" disabled="true"/>
@@ -196,9 +204,9 @@
 
 <style lang="scss" scoped>
     #course-img-container {
-        width: 250px;
-        height: 250px;
-        margin: 0 auto;
+        // width: 250px;
+        // height: 250px;
+        // margin: 0 auto;
         .course-placeholder {
             height: inherit;
             width: inherit;
