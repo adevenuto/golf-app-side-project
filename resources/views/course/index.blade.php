@@ -22,7 +22,7 @@
                                 Edit
                             </a>
                         @endif
-                        <div class="card-body">
+                        <div class="card-body p-2">
                             <h5 class="card-title">{{ $course->course_name }}</h5>
                         </div>
                     </div>

@@ -109,8 +109,7 @@
                         <div class="col-sm-12">
                             <div class="input-text">
                                 <label class="dynamic-label mr-3">Holes group name:
-                                    <a data-trigger="focus"
-                                        v-tooltip:bottom="'Some courses have multiple 9 or 18-hole layouts. If this course has different (individually named) groups of holes, name this group accordingly. If not, leave this field blank.'"
+                                    <a v-tooltip:bottom="'Some courses have multiple 9 or 18-hole layouts. If this course has different (individually named) groups of holes, name this group accordingly. If not, leave this field blank.'"
                                         tabindex="0"
                                         data-toggle="popover"
                                         alt="info-box">

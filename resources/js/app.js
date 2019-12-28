@@ -12,14 +12,16 @@ import CourseCreateComponent from './components/course/CourseCreateComponent';
 import CourseEditComponent from './components/course/CourseEditComponent';
 import FavoriteComponent from './components/course/FavoriteComponent';
 
-Vue.use(VeeValidate);
 
-Vue.directive('tooltip', function(el, binding){
-    $(el).tooltip({
-        title: binding.value,
-        placement: binding.arg,
-        trigger: 'focus'             
-    })
+Vue.use(VeeValidate);
+Vue.directive('tooltip', {
+    inserted: function (el, binding) {
+        $(el).tooltip({
+            title: binding.value,
+            placement: binding.arg,
+            trigger: 'focus'             
+        })
+    }
 })
 
 const app = new Vue({
@@ -34,4 +36,6 @@ const app = new Vue({
         FavoriteComponent
     }
 });
+
+
 
