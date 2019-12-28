@@ -5,5 +5,5 @@
 @endpush
 
 @section('content')
-    <course-edit-component course="{{$course}}"></course-edit-component>
+    <course-edit-component course="{{$course}}" holegroups="{{$holegroups}}"></course-edit-component>
 @endsection

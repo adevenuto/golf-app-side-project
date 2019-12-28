@@ -3,7 +3,7 @@
         <form id="courseEditForm" @submit.prevent="submit">
             <div class="row">
                 <div class="col-sm-12 my-2">
-                    <h3>Edit basic course information below:</h3>
+                    <h3>Edit: <span class="text-secondary">{{course_data.course_name}}</span></h3>
                     <hr>
                 </div>
                 <div class="col-sm-6 mb-4">
@@ -85,11 +85,7 @@
                             </div>
                         </button>
                     </div>
-                    <input type="hidden" name="course_id" :value="_course.id"/>
-                </div>
-                <div class="col-sm-12 mt-5">
-                    <h3>Edit course hole data below:</h3>
-                    <hr>
+                    <input type="hidden" name="course_id" :value="course_data.id"/>
                 </div>
                 <!-- Hidden Fields For AutoComplete Components -->
                 <input type="hidden" id="street_number" name="street_number" disabled="true"/>
@@ -102,13 +98,34 @@
                 <input type="hidden" id="lng" name="course_lng" disabled="true"/>
             </div>
         </form>
+        <div class="row">
+            <div class="col-sm-12 mt-5">
+                <h3 class="d-flex justify-content-between align-items-center"> 
+                    <span>Manage: <span class="text-secondary">Holegroups</span></span>
+                    <img src="/images/plus.svg" 
+                            id="addHoleGroupIcon"
+                            width="30px" 
+                            height="30px" 
+                            alt="Plus icon"
+                            data-toggle="modal" 
+                            data-target="#addHoleGroupModal">
+                </h3>
+                <hr>
+                <AddHoleGroupModal @holeGroupAdded="pushHoleGroup" :course_id="course_data.id"/>
+            </div>
+            <div class="col-sm-6 col-md-4 mb-3" v-for="holegroup in hole_groups" :key="holegroup.id">
+                <HolegroupCardComponent :holegroup="holegroup"/>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
-    import LoadingSpinner from '../LoadingSpinner.vue';
+    import LoadingSpinner from '../LoadingSpinner';
+    import HolegroupCardComponent from './HolegroupCardComponent';
+    import AddHoleGroupModal from './AddHoleGroupModal';
     export default {
-        props: ['course'],
+        props: ['course', 'holegroups'],
         data() {
             return {
                 inputs: {
@@ -118,28 +135,26 @@
                 },
                 courseImage: false,
                 saveActive: false,
-                savingData: false
+                savingData: false,
+
+                hole_groups: this.holegroups ? JSON.parse(this.holegroups) : null,
+                course_data: this.course ? JSON.parse(this.course) : null
             }
         },
-        components: {LoadingSpinner},
-        computed: {
-            _course: function() {
-                return  this.course ? JSON.parse(this.course) : null;
-            }
-        },
+        components: {LoadingSpinner, HolegroupCardComponent, AddHoleGroupModal},
         created() {
-            this.inputs.course_name = this._course.course_name;
-            this.inputs.course_address = this._course.course_address;
-            this.inputs.course_phone = this._course.course_phone;
+            this.inputs.course_name = this.course_data.course_name;
+            this.inputs.course_address = this.course_data.course_address;
+            this.inputs.course_phone = this.course_data.course_phone;
             // --------------------
             this.saveActive = false;
         },
         mounted() {
             initAddressesAutoComplete();
-            if (this._course.featured_image) {
+            if (this.course_data.featured_image) {
                 this.courseImage = true;
                 let courseImage = this.$refs.course_image;
-                courseImage.src = `https://teetyme-app.s3.us-east-2.amazonaws.com/${this._course.featured_image}`;
+                courseImage.src = `https://teetyme-app.s3.us-east-2.amazonaws.com/${this.course_data.featured_image}`;
             }
         },
         methods: {
@@ -197,6 +212,9 @@
             },
             fieldChange: function() {
                 this.saveActive = true;
+            },
+            pushHoleGroup: function(holegroup) {
+                this.hole_groups.push(holegroup);
             }
         }
     }
@@ -204,9 +222,6 @@
 
 <style lang="scss" scoped>
     #course-img-container {
-        // width: 250px;
-        // height: 250px;
-        // margin: 0 auto;
         .course-placeholder {
             height: inherit;
             width: inherit;
@@ -221,5 +236,8 @@
         object-fit: cover;
         height: 250px;
         width: 100%;
+    }
+    #addHoleGroupIcon {
+        cursor: pointer;
     }
 </style>

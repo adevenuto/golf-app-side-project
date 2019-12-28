@@ -108,7 +108,7 @@
 
                         <div class="col-sm-12">
                             <div class="input-text">
-                                <label class="dynamic-label mr-3">Holes group Name:
+                                <label class="dynamic-label mr-3">Holes group name:
                                     <a data-trigger="focus"
                                         v-tooltip:bottom="'Some courses have multiple 9 or 18-hole layouts. If this course has different (individually named) groups of holes, name this group accordingly. If not, leave this field blank.'"
                                         tabindex="0"
@@ -132,9 +132,10 @@
                                     Hole <span>#{{index}}</span>
                                 </label>
 
-                                <div class="d-flex">
+                                <div class="d-flex justify-content-between">
                                     <input type="number" 
                                         maxlength="3"
+                                        min="0"
                                         max="1200"
                                         v-validate="'required'"
                                         data-vv-scope="course_form_s2"
@@ -145,11 +146,12 @@
                                         aria-describedby="hole-length">
                                     <input type="number" 
                                         maxlength="1"
+                                        min="3"
                                         max="7"
                                         v-validate="'required'"
                                         data-vv-scope="course_form_s2"
                                         placeholder="par"
-                                        :class="[{'is-error': errors.first('course_form_s2.'+holePar(index))},'col-6', 'ml-2']"
+                                        :class="[{'is-error': errors.first('course_form_s2.'+holePar(index))},'col-5']"
                                         :name="holePar(index)"
                                         value="4"
                                         aria-describedby="hole-length">
