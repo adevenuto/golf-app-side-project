@@ -30,9 +30,11 @@ Route::get('/course/create', 'CourseController@create')->middleware('auth');
 Route::post('/course/store', 'CourseController@store')->middleware('auth');
 Route::get('/course/edit/{id}', 'CourseController@edit')->middleware('auth');
 Route::post('/course/update', 'CourseController@update')->middleware('auth');
-Route::post('/course/holegroup/create', 'CourseController@storeHoleGroup')->middleware('auth');
-Route::get('/course/holegroup/edit/{id}', 'CourseController@editHoleGroup')->middleware('auth');
-Route::post('/course/holegroup/update', 'CourseController@updateHoleGroup')->middleware('auth');
+
+// HoleGroup Controller
+Route::post('/course/holegroup/create', 'HoleGroupController@store')->middleware('auth');
+Route::get('/course/holegroup/edit/{id}', 'HoleGroupController@edit')->middleware('auth');
+Route::post('/course/holegroup/update', 'HoleGroupController@update')->middleware('auth');
 
 // Favorites controller
 Route::post('/course/favorite/{id}', 'FavoriteController@favoriteCourse')->middleware('auth');
