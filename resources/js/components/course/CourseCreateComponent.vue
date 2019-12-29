@@ -134,7 +134,7 @@
                                 <div class="d-flex justify-content-between">
                                     <input type="number" 
                                         maxlength="3"
-                                        min="0"
+                                        min="20"
                                         max="1200"
                                         v-validate="'required'"
                                         data-vv-scope="course_form_s2"

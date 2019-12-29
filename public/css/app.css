@@ -10587,13 +10587,13 @@ select::-ms-expand {
 .fade-enter-active, .fade-leave-active {
   -webkit-transition-property: opacity;
   transition-property: opacity;
-  -webkit-transition-duration: 0.08s;
-          transition-duration: 0.08s;
+  -webkit-transition-duration: 0.1s;
+          transition-duration: 0.1s;
 }
 
 .fade-enter-active {
-  -webkit-transition-delay: 0.08s;
-          transition-delay: 0.08s;
+  -webkit-transition-delay: 0.1s;
+          transition-delay: 0.1s;
 }
 
 .fade-enter, .fade-leave-active {
@@ -10610,7 +10610,7 @@ select::-ms-expand {
   right: 7px;
 }
 #coursesIndex .edit-course-link {
-  background: #00bfff;
+  background: #6d6d6d;
   font-weight: 600;
   color: #fff;
   cursor: pointer;

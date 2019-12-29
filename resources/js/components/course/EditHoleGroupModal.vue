@@ -56,6 +56,7 @@
                                     <div class="d-flex justify-content-between">
                                         <input type="number" 
                                             maxlength="3"
+                                            min="20"
                                             max="1200"
                                             v-validate="'required'"
                                             data-vv-scope="holegroup_edit_form"
@@ -66,6 +67,7 @@
                                             aria-describedby="hole-length">
                                         <input type="number" 
                                             maxlength="1"
+                                            min="3"
                                             max="7"
                                             v-validate="'required'"
                                             data-vv-scope="holegroup_edit_form"

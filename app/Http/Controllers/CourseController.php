@@ -22,6 +22,15 @@ class CourseController extends Controller
         $this->hole = $hole;
     }
 
+    public function search(Request $request)
+    {   
+        if (isset($request->term)) {
+            $courses = Course::where('course_name', 'like','%'.$request->term.'%')->get();
+            return response()->json(['courses' => $courses], 200);
+        }
+        return response()->json(['failed' => 'no results'], 400);
+    }
+
     public function index()
     {   $courses = $this->course->all();
         return view('course.index')->with('courses', $courses);
@@ -128,6 +137,12 @@ class CourseController extends Controller
     {
         //
     }
+
+
+
+
+
+
 
 
 

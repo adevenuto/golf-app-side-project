@@ -2,75 +2,71 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-6">
-                <ul>
-                    <li v-for="course in _courses" 
-                        :key="course.id"
-                        @click="getHoleGroups(course.id)">
+                <h4>Start by selecting a course:</h4>
+                <div id="search-input" class="input-text mb-0">
+                    <input id="course_name" 
+                    placeholder="Search for a course..."
+                    v-model="searchTerm"
+                    @input="searchCourses"
+                    type="text">
+                    <img src="/images/magnifying-glass.svg" alt="magnification glass">
+                </div>
+                <div id="search-results">
+                    <div v-for="course in courses" :key="course.id" class="result-row">
                         {{course.course_name}}
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-6">
-                <label class="mr-2" v-for="holeGroup in courseHoleGroups" 
-                    :key="holeGroup.id">
-                    <input type="radio" 
-                            :value="holeGroup.teebox"                              
-                            v-model="teeboxSelected"
-                            @click="getHoles(holeGroup.id)"> 
-                    {{ holeGroup.teebox }}
-                </label>    
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-3" v-for="hole in courseHoles" :key="hole.id">
-                <span>{{ hole.hole_number }}</span>
-                <span>{{ hole.hole_length }}</span>
-            </div>    
         </div>
     </div>
 </template>
 
 <script>
+    import _ from 'lodash';
     export default {
-        props: ['courses'],
         data() {
             return {
-                courseHoleGroups: [],
-                courseHoles: [],
-                teeboxSelected: null
+                courses: [],
+                searchTerm: '',
+                noResults: false
             }
-        },
-        computed: {
-            _courses: function() {
-                return  this.courses ? JSON.parse(this.courses) : null;
-            }
         },
         methods: {
-            getHoleGroups(course_id) {
-                this.clearSelections();
-                axios.get(`/course/${course_id}/holegroups`)
-                    .then(response => {
-                        let holeGroups = response.data.holegroups;
-                        this.courseHoleGroups = holeGroups;
-                    })
-                    .catch(response => console.log(response.data));
-            },
-            getHoles(holegroup_id) {
-                axios.get(`/course/holegroup/${holegroup_id}`)
-                    .then(response => {
-                        let holes = response.data.holes;
-                        this.courseHoles = holes;
-                    })
-                    .catch(response => console.log(response.data));
-            },
-            clearSelections: function() {
-                this.teeboxSelected = null;
-                this.courseHoles = [];
-            }
+            searchCourses: _.debounce(function() {
+                axios.get(`/courses/search?term=${this.searchTerm}`)
+                .then( payload => {
+                    this.noResults = false;
+                    this.courses = payload.data.courses;
+                })
+                .catch( err => {
+                    this.noResults = true;
+                    this.courses = [];
+                });
+            }, 200)
         }
     }
 </script>
 
 <style lang="scss" scoped>
-
+    #search-input {
+        position: relative;
+        input {
+            padding-left: 40px;
+        }
+        img {
+            position: absolute;
+            width: 22px;
+            left: 0;
+            top: 0;
+        }
+    }
+    .result-row {
+        padding: 5px 0;
+        border-bottom: 1px solid #e6e6e6;
+        background: #f7f7f7;
+        cursor: pointer;
+        &:hover {
+            background: #f3f3f3;
+        }
+    }
 </style>

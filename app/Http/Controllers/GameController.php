@@ -7,16 +7,10 @@ use App\Course;
 
 class GameController extends Controller
 {
-    
-    public function index()
-    {
-        //
-    }
 
     public function create()
     {   
-        $courses = Course::all();
-        return view('game.create')->with('courses', $courses);
+        return view('game.create');
     }
 
     public function store(Request $request)

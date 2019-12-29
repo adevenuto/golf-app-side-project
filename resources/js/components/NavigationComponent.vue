@@ -1,8 +1,8 @@
 <template>
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <nav class="navbar navbar-expand-md navbar-light shadow-sm">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
-                <img src="/images/golf-ball.svg" class="mr-1" height="25" width="25" alt="golfball icon"> TeeTyme
+                <img src="/images/golf-ball.svg" class="mr-1" height="30" width="30" alt="golfball icon"> TeeTyme
             </a>
             <button :class="{'menu-open': toggled}" 
                     @click="toggle"
@@ -83,6 +83,12 @@
     }
 </script>
 <style lang="scss" scoped>
+    .navbar .navbar-brand {
+        font-size: 1.35rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+    }
     .navbar-light .navbar-toggler {
         border-color: transparent;
         height: 0;

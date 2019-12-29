@@ -25,6 +25,7 @@ Route::post('/profile/store', 'ProfileController@store')->name('profile.store')-
 
 // Courses controller
 Route::get('/courses', 'CourseController@index');
+Route::get('/courses/search', 'CourseController@search');
 Route::get('/course/create', 'CourseController@create')->middleware('auth');
 Route::post('/course/store', 'CourseController@store')->middleware('auth');
 Route::get('/course/edit/{id}', 'CourseController@edit')->middleware('auth');
@@ -36,3 +37,7 @@ Route::post('/course/holegroup/update', 'CourseController@updateHoleGroup')->mid
 // Favorites controller
 Route::post('/course/favorite/{id}', 'FavoriteController@favoriteCourse')->middleware('auth');
 Route::post('/course/unfavorite/{id}', 'FavoriteController@unFavoriteCourse')->middleware('auth');
+
+// Games controller
+Route::get('/game/create', 'GameController@create')->middleware('auth');
+

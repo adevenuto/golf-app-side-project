@@ -1,1 +1,8 @@
-<svg width="173" height="155" xmlns="http://www.w3.org/2000/svg"><path d="M20.164 90.365a50.51 50.51 0 01-4.52-4.01c-19.526-19.526-19.526-51.184 0-70.71 19.527-19.527 51.185-19.527 70.711 0l.21.211c19.54-19.349 51.067-19.29 70.534.177 19.526 19.526 19.526 51.184 0 70.71a50.486 50.486 0 01-4.767 4.204 8.998 8.998 0 01-1.597 2.16L92.752 151.09a9 9 0 01-12.728 0L22.042 93.108a8.977 8.977 0 01-1.878-2.743z" stroke="#FB2929" stroke-width="8" fill="#FFF6F6" fill-rule="evenodd" fill-opacity=".475"/></svg>
+<svg width="171" height="153" xmlns="http://www.w3.org/2000/svg">
+<defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#999;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fff;stop-opacity:1" />
+    </linearGradient>
+</defs>
+<path d="M21.3 86.6l.7.6.4.8c.2.6.6 1.1 1.1 1.6l58 58a5.5 5.5 0 007.8 0l58-58 1-1.3.3-.7.6-.4A46.5 46.5 0 1088 17.4l-2.5 2.4-2.4-2.5-.2-.2a46.5 46.5 0 10-61.6 69.5z" stroke="#FB2929" stroke-width="8" fill="url(#grad1)" fill-rule="evenodd" fill-opacity="1"/></svg>
