@@ -26,6 +26,7 @@ Route::post('/profile/store', 'ProfileController@store')->name('profile.store')-
 // Courses controller
 Route::get('/courses', 'CourseController@index');
 Route::get('/courses/search', 'CourseController@search');
+Route::get('/course/teeboxes/{id}', 'CourseController@getTeeboxes');
 Route::get('/course/create', 'CourseController@create')->middleware('auth');
 Route::post('/course/store', 'CourseController@store')->middleware('auth');
 Route::get('/course/edit/{id}', 'CourseController@edit')->middleware('auth');

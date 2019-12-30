@@ -14,7 +14,7 @@
                             <div class="col-sm-6">
                                 <div class="input-select">
                                     <label class="dynamic-label">Number of holes:</label>
-                                    <select v-model="holeCount"                                    
+                                    <select v-model="holeCount"                      
                                             name="number_of_holes">
                                         <option :value="18">18</option>
                                         <option :value="9">9</option>

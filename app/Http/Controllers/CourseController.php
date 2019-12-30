@@ -22,14 +22,36 @@ class CourseController extends Controller
         $this->hole = $hole;
     }
 
+
+
+
+
+
     public function search(Request $request)
     {   
         if (isset($request->term)) {
-            $courses = Course::where('course_name', 'like','%'.$request->term.'%')->get();
+            $courses = Course::where('course_name', 'like','%'.$request->term.'%')->limit(8)->get();
             return response()->json(['courses' => $courses], 200);
         }
         return response()->json(['failed' => 'no results'], 400);
     }
+
+    public function getTeeboxes($id)
+    {   
+            $course = Course::find($id);
+            $holeGroups = $course->holegroups->unique('teebox');
+            $teeboxes = [];
+            foreach($holeGroups as $holegroup) {
+                array_push($teeboxes, $holegroup->teebox);
+            }
+            return response()->json(['teeboxes' => $teeboxes], 200);
+    }
+
+
+
+
+
+
 
     public function index()
     {   $courses = $this->course->all();
