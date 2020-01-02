@@ -47,6 +47,17 @@ class CourseController extends Controller
             return response()->json(['teeboxes' => $teeboxes], 200);
     }
 
+    public function getHolegroups($course_id, $teebox)
+    {       
+        $course = Course::find($course_id);
+        $holeGroups = $course->holegroups->where('teebox', $teebox);
+        $holegroupWithHoles = [];
+        foreach($holeGroups as $holegroup) {
+            array_push($holegroupWithHoles, ["holegroup" => $holegroup, "holes" => $holegroup->holes]);
+        }
+        return response()->json(['holegroupWithHoles' => $holegroupWithHoles], 200);
+    }
+
 
 
 
@@ -54,7 +65,7 @@ class CourseController extends Controller
 
 
     public function index()
-    {   $courses = $this->course->all();
+    {   $courses = $this->course->orderBy('id','DESC')->get();
         return view('course.index')->with('courses', $courses);
     }
 

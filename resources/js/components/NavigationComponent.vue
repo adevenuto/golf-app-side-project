@@ -21,7 +21,8 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link nav-link-standard" href="/courses">
-                        <img class="icon_inline" src="/images/flagstick_and_green.svg" alt="star icon">Courses</a>
+                        <!-- <img class="icon_inline" src="/images/flagstick_and_green_white.svg" alt="star icon"> -->
+                        Courses</a>
                     </li>
                     <template v-if="!authUser">
                         <li class="nav-item">
@@ -35,7 +36,8 @@
                     <template v-else>
                         <li class="nav-item">
                             <a class="nav-link nav-link-standard" href="/course/create">
-                                <img class="icon_inline" src="/images/star_yellow.svg" alt="star icon">NewCourse
+                                <!-- <img class="icon_inline" src="/images/star-yellow.svg" alt="star icon"> -->
+                                Newcourse
                             </a>
                         </li>
                         <li class="nav-item dropdown">
@@ -106,8 +108,8 @@
         }
     }
     .icon_inline {
-        width: 12px;
-        height: 12px;
+        width: 15px;
+        height: 15px;
         margin: 0 3px;
         position: relative;
         top: -2px;
@@ -134,6 +136,13 @@
             &:nth-child(3) {
                 transform: translate(0px, -8px) rotate(135deg);
             }
+        }
+    }
+    @media (min-width: 768px) {
+        .navbar-expand-md .navbar-nav .dropdown-menu {
+            position: absolute;
+            left: -85px;
+            width: 222px;
         }
     }
     @media (max-width: 767px) {

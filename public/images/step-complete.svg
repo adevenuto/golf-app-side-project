@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Step Complete</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Step-Complete">
+            <circle id="Oval" stroke="#499D47" stroke-width="10" fill="#499D47" cx="100" cy="100" r="95"></circle>
+            <g id="Combined-Shape-2" transform="translate(99.016668, 80.559816) rotate(35.000000) translate(-99.016668, -80.559816) translate(58.516668, 21.559816)" fill="#FFFFFF">
+                <path d="M52.5111878,117.120511 L17.4219289,117.120511 L0.582528326,84.4837458 L54.1218434,92.0178286 C55.0452015,80.4691014 56.2066032,69.2009413 57.6060483,58.2133483 C60.0022365,39.3999336 63.2711769,20.0359067 67.4128693,0.121267659 L80.5825283,5.97909534 L80.5825283,117.121268 L52.5111508,117.121268 Z" id="Combined-Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>
