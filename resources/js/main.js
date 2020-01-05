@@ -17,4 +17,8 @@ $(function() {
         if (!isNum) e.preventDefault();
     });
 
+    // $('body').on('click', '.step-desc .card', function() {
+    //     console.log('hello')
+    //     $(this).toggleClass('activeHolegroup');
+    // })
 })

@@ -28,7 +28,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-8 mx-auto">
+            <div :class="[{'step-faded': !selectedCourse},'step-desc', 'col-sm-8', 'mx-auto']">
                 <div class="d-flex align-items-center">
                     <div class="step-number align-self-start mr-3">
                         <img v-if="!teebox" src="/images/step-two.svg" width="50px" height="50px" alt="step icon">
@@ -48,10 +48,10 @@
                 </div>
             </div>
 
-            <div class="col-sm-8 mx-auto">
+            <div :class="[{'step-faded': !teebox},'step-desc', 'col-sm-8', 'mx-auto']">
                 <div class="d-flex align-items-center">
                     <div class="step-number align-self-start mr-3">
-                        <img v-if="!holesSelected" src="/images/step-three.svg" width="50px" height="50px" alt="step icon">
+                        <img v-if="!holegroupsSelected.length" src="/images/step-three.svg" width="50px" height="50px" alt="step icon">
                         <img v-else src="/images/step-complete.svg" width="50px" height="50px" alt="step icon">
                     </div>
                     <div class="step-desc">
@@ -59,9 +59,9 @@
                         <div v-if="holegroup_holes.length">
                             <!-- <div class="row"> -->
                                 <div v-for="group in holegroup_holes" 
-                                    class="card col-10 mb-2" 
+                                    :class="[{'activeHolegroup': group.selected}, 'card', 'col-10', 'mb-2']" 
                                     :key="group.id"
-                                    @click="setHoles">
+                                    @click="setHolegroups(group)">
                                     <span v-if="group.holegroup.group_name">
                                         Name: 
                                         <span class="text-secondary">{{ group.holegroup.group_name }}</span>
@@ -91,8 +91,8 @@
                 teeboxes: [],
                 teebox: null,
 
-                holesSelected: false,
-                holegroup_holes: []
+                holegroup_holes: [],
+                holegroupsSelected: []
             }
         },
         watch: {
@@ -102,6 +102,7 @@
                     this.teebox = null;
                     this.teeboxes = [];
                     this.holegroup_holes = [];
+                    this.holegroupsSelected = [];
                 }
             }
         },
@@ -142,6 +143,8 @@
             },
             setTeebox: function(teebox) {
                 this.teebox = teebox;
+                this.holegroup_holes = [];
+                this.holegroupsSelected = [];
                 this.getHolegroups();
             },
             getHolegroups: function() {
@@ -149,14 +152,35 @@
                 let teebox = this.teebox;
                 axios.get(`/course/${course_id}/holegroups/${teebox}`)
                 .then( payload => {
+                    // If holegroup_holes_length == 1 automatically select it
+                    let holegroup_holes_length = payload.data.holegroupWithHoles.length;
                     this.holegroup_holes = payload.data.holegroupWithHoles;
+
                 })
                 .catch( err => {
                     console.log(err);
                 });
             },
-            setHoles: function() {
-                this.holesSelected = true;
+            findSelectedHolegroup: function(group) {
+                var result = false;
+                this.holegroupsSelected.find((stored, index) => {
+                    // remove from holegroupsSelected array
+                    if (stored.holegroup.id == group.holegroup.id) {
+                        group['selected'] = false;
+                        this.holegroupsSelected.splice(index, 1);
+                        result = true;
+                    } 
+                })
+                return result;
+            },
+            setHolegroups: function(group) {
+                // if (this.holegroupsSelected.length == 2) return false; 
+
+                if (!this.findSelectedHolegroup(group)) {
+                    group['selected'] = true;
+                    this.holegroupsSelected.push(group);
+                }
+                
             },
         }
     }
@@ -176,23 +200,39 @@
         }
     }
     .step-desc {
-        min-height: 320px;
+        min-height: 160px;
         flex-grow: 1;
         width: 100%;
-        .card:hover {
-            background: #f5f5f5;
+        &:last-child {
+            height: 20px;
         }
+        .card {
+            background: transparent;
+            &:hover {
+                background: #fff;
+            }
+        }
+    }
+    .step-faded {
+        opacity: .2;
+        pointer-events: none;
     }
     .activeTeebox {
         color: #fff;
         background-color: #6c757d;
         border-color: #6c757d;
     }
+    .step-desc .card.activeHolegroup {
+        background-color: #f5f5f5;
+        border-color: #499d47;
+    }
     .result-row {
         padding: 3px 0;
         border-bottom: 1px solid #e6e6e6;
         background: #f7f7f7;
         cursor: pointer;
+        position: relative;
+        z-index: 4500;
         &:hover {
             background: #f3f3f3;
         }
