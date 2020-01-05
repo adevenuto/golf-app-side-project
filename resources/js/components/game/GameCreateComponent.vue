@@ -18,11 +18,13 @@
                             type="text">
                             <img src="/images/magnifying-glass.svg" alt="magnification glass">
                         </div>
-                        <div v-for="course in courses" 
-                                :key="course.id" 
-                                class="result-row"
-                                @click="setCourse(course.course_name, course.id)">
-                            {{course.course_name}}
+                        <div class="shadow-sm">
+                            <div v-for="course in courses" 
+                                    :key="course.id" 
+                                    class="result-row"
+                                    @click="setCourse(course.course_name, course.id)">
+                                {{course.course_name}}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -57,9 +59,9 @@
                     <div class="step-desc">
                         <h3 class="font-weight-bold">Select holes to play:</h3>
                         <div v-if="holegroup_holes.length">
-                            <!-- <div class="row"> -->
+                            
                                 <div v-for="group in holegroup_holes" 
-                                    :class="[{'activeHolegroup': group.selected}, 'card', 'col-10', 'mb-2']" 
+                                    :class="[{'activeHolegroup': group.selected}, 'card', 'holegroup-card', 'col-10', 'mb-2']" 
                                     :key="group.id"
                                     @click="setHolegroups(group)">
                                     <span v-if="group.holegroup.group_name">
@@ -68,7 +70,7 @@
                                     </span>
                                     <span>Holes: <span class="text-secondary">{{ group.holes.length }}</span></span>
                                 </div>
-                            <!-- </div> -->
+                            
                             
                         </div>
                     </div>
@@ -155,7 +157,6 @@
                     // If holegroup_holes_length == 1 automatically select it
                     let holegroup_holes_length = payload.data.holegroupWithHoles.length;
                     this.holegroup_holes = payload.data.holegroupWithHoles;
-
                 })
                 .catch( err => {
                     console.log(err);
@@ -164,8 +165,7 @@
             findSelectedHolegroup: function(group) {
                 var result = false;
                 this.holegroupsSelected.find((stored, index) => {
-                    // remove from holegroupsSelected array
-                    if (stored.holegroup.id == group.holegroup.id) {
+                    if ((stored) && (stored.holegroup.id == group.holegroup.id)) {
                         group['selected'] = false;
                         this.holegroupsSelected.splice(index, 1);
                         result = true;
@@ -174,13 +174,11 @@
                 return result;
             },
             setHolegroups: function(group) {
-                // if (this.holegroupsSelected.length == 2) return false; 
-
                 if (!this.findSelectedHolegroup(group)) {
+                    if (this.holegroupsSelected.length == 2) return false;
                     group['selected'] = true;
                     this.holegroupsSelected.push(group);
                 }
-                
             },
         }
     }
@@ -221,6 +219,9 @@
         color: #fff;
         background-color: #6c757d;
         border-color: #6c757d;
+    }
+    .step-desc .card.holegroup-card {
+        cursor: pointer;
     }
     .step-desc .card.activeHolegroup {
         background-color: #f5f5f5;
