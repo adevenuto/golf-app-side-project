@@ -59,19 +59,16 @@
                     <div class="step-desc">
                         <h3 class="font-weight-bold">Select holes to play:</h3>
                         <div v-if="holegroup_holes.length">
-                            
-                                <div v-for="group in holegroup_holes" 
-                                    :class="[{'activeHolegroup': group.selected}, 'card', 'holegroup-card', 'col-10', 'mb-2']" 
-                                    :key="group.id"
-                                    @click="setHolegroups(group)">
-                                    <span v-if="group.holegroup.group_name">
-                                        Name: 
-                                        <span class="text-secondary">{{ group.holegroup.group_name }}</span>
-                                    </span>
-                                    <span>Holes: <span class="text-secondary">{{ group.holes.length }}</span></span>
-                                </div>
-                            
-                            
+                            <div v-for="group in holegroup_holes" 
+                                :class="[{'activeHolegroup': group.selected}, 'card', 'holegroup-card', 'col-10', 'mb-2']" 
+                                :key="group.id"
+                                @click="setHolegroups(group)">
+                                <span v-if="group.holegroup.group_name">
+                                    Name: 
+                                    <span class="text-secondary">{{ group.holegroup.group_name }}</span>
+                                </span>
+                                <span>Holes: <span class="text-secondary">{{ group.holes.length }}</span></span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -128,6 +125,8 @@
                 this.teeboxes = [];
                 this.teebox = null;
                 this.courses = [];
+                this.holegroup_holes = [];
+                this.holegroupsSelected = [];
                 this.getTeeboxes(course.id);
             },
             getTeeboxes: function(course_id) {
@@ -154,9 +153,10 @@
                 let teebox = this.teebox;
                 axios.get(`/course/${course_id}/holegroups/${teebox}`)
                 .then( payload => {
-                    // If holegroup_holes_length == 1 automatically select it
                     let holegroup_holes_length = payload.data.holegroupWithHoles.length;
                     this.holegroup_holes = payload.data.holegroupWithHoles;
+                    // If holegroup_holes_length == 1 automatically select it
+                    if(holegroup_holes_length == 1) this.setHolegroups(payload.data.holegroupWithHoles[0]);
                 })
                 .catch( err => {
                     console.log(err);
@@ -179,7 +179,7 @@
                     group['selected'] = true;
                     this.holegroupsSelected.push(group);
                 }
-            },
+            }
         }
     }
 </script>
@@ -228,7 +228,7 @@
         border-color: #499d47;
     }
     .result-row {
-        padding: 3px 0;
+        padding: 3px 10px;
         border-bottom: 1px solid #e6e6e6;
         background: #f7f7f7;
         cursor: pointer;
