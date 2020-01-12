@@ -46,4 +46,6 @@ Route::post('/course/unfavorite/{id}', 'FavoriteController@unFavoriteCourse')->m
 
 // Games controller
 Route::get('/game/create', 'GameController@create')->middleware('auth');
+Route::post('/game/store', 'GameController@store')->middleware('auth');
+Route::get('/game/{uuid}', 'GameController@show')->middleware('auth');
 

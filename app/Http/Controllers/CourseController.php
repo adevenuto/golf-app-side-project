@@ -53,7 +53,7 @@ class CourseController extends Controller
         $holeGroups = $course->holegroups->where('teebox', $teebox);
         $holegroupWithHoles = [];
         foreach($holeGroups as $holegroup) {
-            array_push($holegroupWithHoles, ["holegroup" => $holegroup, "holes" => $holegroup->holes]);
+            array_push($holegroupWithHoles, ['holegroup' => $holegroup, 'holes' => $holegroup->holes()->get()]);
         }
         return response()->json(['holegroupWithHoles' => $holegroupWithHoles], 200);
     }

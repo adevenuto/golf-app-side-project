@@ -12,6 +12,7 @@ import CourseCreateComponent from './components/course/CourseCreateComponent';
 import CourseEditComponent from './components/course/CourseEditComponent';
 import FavoriteComponent from './components/course/FavoriteComponent';
 import GameCreateComponent from './components/game/GameCreateComponent';
+import GameShowComponent from './components/game/GameShowComponent';
 
 
 Vue.use(VeeValidate);
@@ -35,7 +36,8 @@ const app = new Vue({
         CourseCreateComponent,
         CourseEditComponent,
         FavoriteComponent,
-        GameCreateComponent
+        GameCreateComponent,
+        GameShowComponent
     }
 });
 

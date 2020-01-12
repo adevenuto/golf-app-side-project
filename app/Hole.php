@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\HoleGroup;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Hole extends Model
@@ -13,7 +15,7 @@ class Hole extends Model
         'hole_par'
     ];
 
-    public function holeGroups() {
-    	return $this->belongsTo('App\HoleGroup');
+    public function holeGroup() {
+    	return HoleGroup::find($this->hole_group_id);
     }
 }

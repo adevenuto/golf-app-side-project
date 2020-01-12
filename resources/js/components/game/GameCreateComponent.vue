@@ -22,7 +22,7 @@
                             <div v-for="course in courses" 
                                     :key="course.id" 
                                     class="result-row"
-                                    @click="setCourse(course.course_name, course.id)">
+                                    @click="setCourse(course)">
                                 {{course.course_name}}
                             </div>
                         </div>
@@ -49,7 +49,6 @@
                     </div>
                 </div>
             </div>
-
             <div :class="[{'step-faded': !teebox},'step-desc', 'col-sm-8', 'mx-auto']">
                 <div class="d-flex align-items-center">
                     <div class="step-number align-self-start mr-3">
@@ -63,6 +62,7 @@
                                 :class="[{'activeHolegroup': group.selected}, 'card', 'holegroup-card', 'col-10', 'mb-2']" 
                                 :key="group.id"
                                 @click="setHolegroups(group)">
+                                <!-- {{group}} -->
                                 <span v-if="group.holegroup.group_name">
                                     Name: 
                                     <span class="text-secondary">{{ group.holegroup.group_name }}</span>
@@ -73,8 +73,14 @@
                     </div>
                 </div>
             </div>
-
+            
         </div>
+        <template v-if="gameReady">
+            <button @click="startGame">Start Game</button>
+        </template>
+        <template v-else>
+            Game not ready
+        </template>
     </div>
 </template>
 
@@ -105,6 +111,11 @@
                 }
             }
         },
+        computed: {
+            gameReady: function() {
+                return (this.selectedCourse && this.teebox && this.holegroupsSelected.length);
+            }
+        },
         methods: {
             searchCourses: _.debounce(function() {
                 axios.get(`/courses/search?term=${this.searchTerm}`)
@@ -115,13 +126,9 @@
                     this.courses = [];
                 });
             }, 200),
-            setCourse: function(course_name, course_id) {
-                let course = {
-                    name: course_name,
-                    id: course_id
-                }
+            setCourse: function(course) {
                 this.selectedCourse = course;
-                this.searchTerm = this.selectedCourse.name;
+                this.searchTerm = course.course_name;
                 this.teeboxes = [];
                 this.teebox = null;
                 this.courses = [];
@@ -179,6 +186,19 @@
                     group['selected'] = true;
                     this.holegroupsSelected.push(group);
                 }
+            },
+            startGame: function() {
+                let gameData = {
+                    course: this.selectedCourse,
+                    holeGroups: this.holegroupsSelected
+                }
+                axios.post('/game/store', gameData)
+                .then( payload => {
+                    
+                })
+                .catch( err => {
+                    console.log(err);
+                });
             }
         }
     }
