@@ -194,7 +194,8 @@
                 }
                 axios.post('/game/store', gameData)
                 .then( payload => {
-                    
+                    let url = payload.data.url
+                    window.location = url;
                 })
                 .catch( err => {
                     console.log(err);
