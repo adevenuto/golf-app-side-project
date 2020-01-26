@@ -16,15 +16,6 @@ import GameShowComponent from './components/game/GameShowComponent';
 
 
 Vue.use(VeeValidate);
-Vue.directive('tooltip', {
-    inserted: function (el, binding) {
-        $(el).tooltip({
-            title: binding.value,
-            placement: binding.arg,
-            trigger: 'focus'             
-        })
-    }
-})
 
 const app = new Vue({
     el: '#app',
