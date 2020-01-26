@@ -4,7 +4,7 @@
     <body class="font-nunito">
         <div id="app">
             <navigation-component user='{{ Auth::user() }}'></navigation-component>
-            <div class="my-4">
+            <div class="my-5">
                 @yield('content')
             </div>
         </div>

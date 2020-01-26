@@ -1,14 +1,14 @@
 <template>
-    <span>
-        <transition name="fade">
-            <a href="#" v-if="isFavorited" @click.prevent="unFavorite()">
-                <img width="18" height="16" src="/images/heart_full.svg" alt="heart full">
-            </a>
-            <a href="#" v-else @click.prevent="favorite()">
-                <img width="18" height="16" src="/images/heart_outline_transparent.svg" alt="heart full">
-            </a>
-        </transition>
-    </span>
+    
+    <transition name="fade">
+        <a href="#" v-if="isFavorited" @click.prevent="unFavorite()">
+            <img width="18" height="16" src="/images/heart_full.svg" alt="heart full">
+        </a>
+        <a href="#" v-else @click.prevent="favorite()">
+            <img width="18" height="16" src="/images/heart_outline_transparent.svg" alt="heart full">
+        </a>
+    </transition>
+    
 </template>
 
 <script>
