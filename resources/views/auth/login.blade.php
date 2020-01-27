@@ -21,13 +21,13 @@
                         <label for="email" class="mb-1 sm:text-right sm:mb-0 text-gray-700 font-bold w-full sm:w-4/12">
                             {{ __('E-Mail Address') }}
                         </label>
-                        <input id="email" type="email" class="border border-gray-500 px-3 sm:ml-5 font-bold text-base w-full h-10 sm:w-8/12 rounded @error('email') is-error @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        <input id="email" type="email" class="border border-gray-500 px-3 sm:ml-5 font-bold text-base w-full h-10 sm:w-8/12 rounded outline-none focus:outline-none focus:border-blue-800 @error('email') is-error @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                     </div>
                     <div class="flex flex-col py-2 items-center sm:flex-row">
                         <label for="email" class="mb-1 sm:text-right sm:mb-0 text-gray-700 font-bold w-full sm:w-4/12">
                             {{ __('Password') }}
                         </label>
-                        <input id="password" type="password" class="border border-gray-500 px-3 sm:ml-5 font-bold text-base w-full h-10 sm:w-8/12 rounded @error('password') is-error @enderror" name="password" required autocomplete="current-password">
+                        <input id="password" type="password" class="border border-gray-500 px-3 sm:ml-5 font-bold text-base w-full h-10 sm:w-8/12 rounded outline-none focus:outline-none focus:border-blue-800 @error('password') is-error @enderror" name="password" required autocomplete="current-password">
                     </div>
                     <div class="flex flex-col py-2 items-center sm:flex-row">
                         <div class="mb-1 sm:mb-0 w-full sm:w-4/12"></div>
