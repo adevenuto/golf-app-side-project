@@ -22,7 +22,7 @@
                                         ><favorite-component>
                                     </template>
                                     <template>
-                                        <a href="/course/edit/{{$course->id}}" class="text-sm text-gray-200 hover:text-white ml-2 font-bold bg-gray-700 px-2 rounded shadow">
+                                        <a href="/course/edit/{{$course->id}}" class="text-sm text-gray-200 hover:text-white ml-3 font-bold bg-gray-700 px-2 rounded shadow">
                                             Edit
                                         </a>
                                     </template>
