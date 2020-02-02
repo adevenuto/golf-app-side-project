@@ -8,8 +8,8 @@
             </a>
             
             <div class="sm:hidden" @click="toggle">
-                <img v-if="!toggled" src="/images/hamburger.svg" width="30" height="30" alt="hamburger"> 
-                <img v-if="toggled" src="/images/hamburger-close.svg" width="28" height="28" alt="hamburger"> 
+                <img v-if="!toggled" src="/images/hamburger-r.svg" width="25" height="25" alt="hamburger"> 
+                <img v-if="toggled" src="/images/hamburger-close-r.svg" width="23" height="23" alt="hamburger"> 
             </div>
         </div>
             

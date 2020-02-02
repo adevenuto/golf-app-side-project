@@ -9,6 +9,13 @@
 //     box-shadow: none;
 //     outline: 0; 
 // }
+body.modal-active {
+  overflow: hidden;
+}
+.modal {
+    transition: opacity 0.25s ease;
+}
+  
 select {
     -webkit-appearance: none;
     -webkit-border-radius: 0px;

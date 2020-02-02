@@ -1,178 +1,162 @@
-<template>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-8 mx-auto">
-                <div class="border shadow-sm p-3">
-                    <header class="text-center">
-                        <h1>Create a new course</h1>
-                    </header>
-                    <p>This is were you can create a new course that will be available to you, and all the other TeeTyme members.</p>
-                </div>
-            </div>
-            <div class="col-sm-8 mx-auto mt-5">
-                <form id="courseForm" class="p-3" enctype="multipart/form-data">
-                    
-                    <div v-show="stepNumber == 1" class="row">  
-                        <div class="col-sm-12">
-                            <div class="input-text">
-                                <label for="course_name" class="dynamic-label">
-                                    Name:
-                                    <span v-show="errors.has('course_form_s1.course_name')" class="is-error"> (required)</span>
-                                </label>
-                                <input id="course_name" 
-                                        :class="{ 'is-error': errors.has('course_form_s1.course_name') }"
-                                        name="course_name" 
-                                        v-model="inputs.course_name" 
-                                        data-vv-scope="course_form_s1"
-                                        v-validate="'required'"
-                                        type="text">
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="input-text">
-                                <label for="addressesAutoComplete" class="dynamic-label">
-                                    Address:
-                                    <span v-show="errors.has('course_form_s1.course_address')" class="is-error"> (required)</span>
-                                </label>
-                                <input id="addressesAutoComplete" 
-                                        :class="{ 'is-error': errors.has('course_form_s1.course_address') }"
-                                        name="course_address" 
-                                        v-model="inputs.course_address"
-                                        data-vv-scope="course_form_s1" 
-                                        placeholder="Start typing / select address from dropdown"
-                                        v-validate="'required'"
-                                        type="text">
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="input-text">
-                                <label for="course_phone" class="dynamic-label">
-                                    Phone:
-                                    <span v-show="errors.has('course_form_s1.course_phone')" class="is-error"> (required)</span>
-                                </label>
-                                <input id="course_phone" 
-                                        :class="{ 'is-error': errors.has('course_form_s1.course_phone') }"
-                                        name="course_phone" 
-                                        v-model="inputs.course_phone"
-                                        data-vv-scope="course_form_s1" 
-                                        v-validate="'required|length:14'"
-                                        type="text">
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="input-file m-0">
-                                <label class="dynamic-label">Featured Image:</label>
-                                <input id="courseImage" 
-                                        type="file" 
-                                        name="course_image">
-                                <label class="input-file-btn btn btn-outline-black btn-sm mb-0" for="courseImage">Upload file</label>
-                            </div>
-                        </div>
-                        
-                        <!-- Hidden Fields For AutoComplete Components -->
-                        <input type="hidden" id="street_number" name="street_number" disabled="true"/>
-                        <input type="hidden" id="route" name="route" disabled="true"/>
-                        <input type="hidden" id="locality" name="locality" disabled="true"/>
-                        <input type="hidden" id="administrative_area_level_1" name="administrative_area_level_1" disabled="true"/>
-                        <input type="hidden" id="country" name="country" disabled="true"/>
-                        <input type="hidden" id="postal_code" name="postal_code" disabled="true"/>
-                        <input type="hidden" id="lat" name="course_lat" disabled="true"/>
-                        <input type="hidden" id="lng" name="course_lng" disabled="true"/>
-                    </div>
-                    <div v-show="stepNumber == 2" class="row">  
-                        <div class="col-sm-6">
-                            <div class="input-select">
-                                <label class="dynamic-label">Number of holes:</label>
-                                <select v-model="holeCount"                                    
-                                        name="number_of_holes">
-                                    <option :value="18">18</option>
-                                    <option :value="9">9</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="input-text">
-                                <label for="teebox" class="dynamic-label">
-                                    Teebox:
-                                    <span v-show="errors.has('course_form_s1.teebox')" class="is-error"> (required)</span>
-                                </label>
-                                <input id="teebox" 
-                                        :class="{ 'is-error': errors.has('course_form_s2.teebox') }"
-                                        name="teebox" 
-                                        v-model="inputs.teebox" 
-                                        data-vv-scope="course_form_s2"
-                                        v-validate="'required'"
-                                        type="text">
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12">
-                            <div class="input-text">
-                                <label class="dynamic-label mr-3">Holes group name:
-                                    <a v-tooltip:bottom="'Some courses have multiple 9 or 18-hole layouts. If this course has different (individually named) groups of holes, name this group accordingly. If not, leave this field blank.'"
-                                        tabindex="0"
-                                        data-toggle="popover"
-                                        alt="info-box">
-                                        <img src="/images/information-box.svg" 
-                                        width="13px" 
-                                        height="13px">
-                                    </a>
-                                </label>
-                            <input v-model="inputs.hole_group_name" 
-                                    name="group_name" 
-                                    type="text">
-                            </div>
-                        </div>
-                        
-                        
-                        <div v-for="index in holeCount" :key="index" class="col-4">
-                            <div id="hole-inputs" class="input-number mb-3">
-                                <label for="course_phone" class="dynamic-label">
-                                    Hole <span>#{{index}}</span>
-                                </label>
-
-                                <div class="d-flex justify-content-between">
-                                    <input type="number" 
-                                        maxlength="3"
-                                        min="20"
-                                        max="1200"
-                                        v-validate="'required'"
-                                        data-vv-scope="course_form_s2"
-                                        placeholder="length"
-                                        :class="[{'is-error': errors.first('course_form_s2.'+holeName(index))},'col-6']"
-                                        :name="holeName(index)"
-                                        value="444"
-                                        aria-describedby="hole-length">
-                                    <input type="number" 
-                                        maxlength="1"
-                                        min="3"
-                                        max="7"
-                                        v-validate="'required'"
-                                        data-vv-scope="course_form_s2"
-                                        placeholder="par"
-                                        :class="[{'is-error': errors.first('course_form_s2.'+holePar(index))},'col-5']"
-                                        :name="holePar(index)"
-                                        value="4"
-                                        aria-describedby="hole-length">
+<template> 
+    <div class="container mx-auto">
+        <div class="flex justify-center items-center">
+            <div class="w-11/12 sm:w-8/12 mx-3 sm:mx-0 shadow-lg rounded overflow-hidden max-w-xl">
+                <div class="bg-gray-200 text-gray-700 p-4">
+                    <div class="text-2xl font-bold">Create a course</div>
+                    <div class="text-sm">This is were you can create a new course that will be available to you, and all the other TeeTyme members.</div>
+                </div>    
+                <div class="p-4">
+                    <form id="courseForm" enctype="multipart/form-data">
+                        <div v-show="stepNumber == 1">
+                            <div class="flex flex-col">
+                                <div class="my-2">
+                                    <label for="course_name" class="mb-1 inline-block text-gray-700 font-bold">
+                                        Course Name:
+                                        <span v-show="errors.has('course_form_s1.course_name')" class="is-error"> (required)</span>
+                                    </label>
+                                    <input type="text" 
+                                            id="course_name"
+                                            class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded outline-none focus:outline-none focus:border-blue-800" 
+                                            :class="{ 'is-error': errors.has('course_form_s1.course_name') }"
+                                            name="course_name" 
+                                            v-model="inputs.course_name" 
+                                            data-vv-scope="course_form_s1"
+                                            v-validate="'required'">
                                 </div>
-                                
+                                <div class="my-2">
+                                    <label for="addressesAutoComplete" class="mb-1 inline-block text-gray-700 font-bold">
+                                        Course Address:
+                                        <span v-show="errors.has('course_form_s1.course_address')" class="is-error"> (required)</span>
+                                    </label>
+                                    <input type="text"
+                                            id="addressesAutoComplete" 
+                                            class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded outline-none focus:outline-none focus:border-blue-800" 
+                                            :class="{ 'is-error': errors.has('course_form_s1.course_address') }"
+                                            name="course_address" 
+                                            v-model="inputs.course_address" 
+                                            data-vv-scope="course_form_s1"
+                                            v-validate="'required'">
+                                </div>
+                                <div class="my-2">
+                                    <label for="course_phone" class="mb-1 inline-block text-gray-700 font-bold">
+                                        Phone:
+                                        <span v-show="errors.has('course_form_s1.course_phone')" class="is-error"> (required)</span>
+                                    </label>
+                                    <input id="course_phone" 
+                                            :class="{ 'is-error': errors.has('course_form_s1.course_phone') }"
+                                            class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded outline-none focus:outline-none focus:border-blue-800"
+                                            name="course_phone" 
+                                            v-model="inputs.course_phone"
+                                            data-vv-scope="course_form_s1" 
+                                            v-validate="'required|length:14'"
+                                            type="text">
+                                </div>
+                                <div class="my-2">
+                                    <label class="dynamic-label">Featured Image:</label>
+                                    <input id="courseImage"
+                                            class="hidden" 
+                                            type="file" 
+                                            name="course_image">
+                                    <label for="courseImage" class="block border-dashed border-2 py-8 text-center">Select a course image</label>
+                                </div>
+                                <input type="hidden" id="street_number" name="street_number" disabled="true"/>
+                                <input type="hidden" id="route" name="route" disabled="true"/>
+                                <input type="hidden" id="locality" name="locality" disabled="true"/>
+                                <input type="hidden" id="administrative_area_level_1" name="administrative_area_level_1" disabled="true"/>
+                                <input type="hidden" id="country" name="country" disabled="true"/>
+                                <input type="hidden" id="postal_code" name="postal_code" disabled="true"/>
+                                <input type="hidden" id="lat" name="course_lat" disabled="true"/>
+                                <input type="hidden" id="lng" name="course_lng" disabled="true"/>
                             </div>
                         </div>
-                        
-                    </div>
-                    
-                    
-                    <div class="d-flex flex-row-reverse mt-5">
+                        <div v-show="stepNumber == 2">  
+                            <div class="flex flex-col sm:flex-row my-2">
+                                <div class="w-full mb-4 sm:mb-0 sm:w-1/2 sm:mr-2">
+                                    <label for="holeCount" class="mb-1 inline-block text-gray-700 font-bold">Number of holes:</label>
+                                    <select v-model="holeCount"
+                                            class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded outline-none focus:outline-none focus:border-blue-800"
+                                            id="holeCount"                                    
+                                            name="number_of_holes">
+                                        <option :value="18">18</option>
+                                        <option :value="9">9</option>
+                                    </select>
+                                </div>
+                                <div class="w-full sm:w-1/2 sm:ml-2">
+                                    <label for="teebox" class="mb-1 inline-block text-gray-700 font-bold">
+                                        Teebox:
+                                        <span v-show="errors.has('course_form_s2.teebox')" class="is-error"> (required)</span>
+                                    </label>
+                                    <input id="teebox" 
+                                            :class="{ 'is-error': errors.has('course_form_s2.teebox') }"
+                                            class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded outline-none focus:outline-none focus:border-blue-800"
+                                            name="teebox" 
+                                            v-model="inputs.teebox" 
+                                            data-vv-scope="course_form_s2"
+                                            v-validate="'required'"
+                                            type="text">
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="my-2 flex-1">
+                                    <label for="holeGroupName" class="mb-1 inline-block text-gray-700 font-bold">
+                                        Hole group name:
+                                    </label>
+                                    <input id="holeGroupName" 
+                                            class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded outline-none focus:outline-none focus:border-blue-800"
+                                            name="group_name" 
+                                            v-model="inputs.hole_group_name" 
+                                            data-vv-scope="course_form_s2"
+                                            v-validate="'required'"
+                                            type="text">
+                                    </div>
+                            </div>
+                            <div class="flex flex-wrap my-6">
+                                <div v-for="index in holeCount" :key="index" class="w-1/3">
+                                    <div class="mb-6">
+                                        <label class="text-gray-700">
+                                            Hole <span>#{{index}}</span>
+                                        </label>
+                                        <div id="hole-inputs" class="flex justify-between px-2">
+                                            <input type="number" 
+                                                maxlength="3"
+                                                min="20"
+                                                max="1200"
+                                                v-validate="'required'"
+                                                data-vv-scope="course_form_s2"
+                                                placeholder="length"
+                                                :class="[{'is-error': errors.first('course_form_s2.'+holeName(index))},'w-8/12 border-b border-gray-200 pl-1 border-blue-800 mr-2']"
+                                                :name="holeName(index)"
+                                                value="421"
+                                                aria-describedby="hole-length">
+                                            <input type="number" 
+                                                maxlength="1"
+                                                min="3"
+                                                max="7"
+                                                v-validate="'required'"
+                                                data-vv-scope="course_form_s2"
+                                                placeholder="par"
+                                                :class="[{'is-error': errors.first('course_form_s2.'+holePar(index))},'w-4/12 border-b border-gray-200 pl-1 border-blue-800']"
+                                                :name="holePar(index)"
+                                                value="4"
+                                                aria-describedby="hole-length">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </form>
+                    <div class="flex flex-row-reverse mt-8">
                         <template v-if="stepNumber == 1">
                             <button type="button" 
-                                    class="btn btn-primary btn-lg" 
+                                    class="bg-blue-700 text-white rounded py-2 px-4" 
                                     @click.prevent="step_forward">
                                 Add holes >>
                             </button>
                         </template>
                         <template v-if="stepNumber == 2">
-                            <button type="button" class="btn btn-primary btn-lg" @click.prevent="submit">
-                                <div class="d-flex align-items-center">
+                            <button type="button" class="bg-blue-700 text-white rounded py-2 px-4" @click.prevent="submit">
+                                <div class="flex items-center">
                                     <span class="mr-2">Create course</span> 
                                     <LoadingSpinner 
                                             v-if="savingData"
@@ -183,12 +167,11 @@
                                 </div>
                             </button>
                         </template>
-                        <button v-show="notStepOne" type="button" class="btn btn-outline-secondary btn-lg mr-2" @click="step_back">
+                        <button v-show="notStepOne" type="button" class="bg-gray-700 text-white rounded py-2 px-4 mr-2" @click="step_back">
                             Back 
                         </button>
                     </div>
-
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -272,43 +255,9 @@
 </script>
 
 <style lang="scss" scoped>
-    #courseFormWrapper {
-        height: 350px;
-        .row {
-            height: inherit;
-        }
-    }
-    .input-file .input-file-btn {
-        text-align: center;
-        display: block;
-        max-width: 33%;
-    }
-    .btn-outline-black {
-        color: #173e5f;
-        border-color: #080808;
-        border-width: 2px;
-        border-radius: 0;
-        cursor: pointer;
-        &:hover {
-            color: #000;
-        }
-    }
-    .dynamic-label span {
-        font-size: 0.7rem;
-        position: relative;
-        top: -4px;
-    }
     #hole-inputs {
-        input {
-            padding: 0 5px 0 0;
-            font-size: .9rem;
-        }
         input::-webkit-input-placeholder {
             font-size: .5rem;
-        }
-        .dynamic-label span {
-            color: #000;
-            font-size: .9rem;
-        }
+        } 
     }
 </style>

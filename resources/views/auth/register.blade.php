@@ -57,11 +57,11 @@
                         <input id="password" type="password" class="border border-gray-500 px-3 sm:ml-5 font-bold text-base w-full h-10 sm:w-8/12 rounded outline-none focus:outline-none focus:border-blue-800 @error('password') is-error @enderror" name="password_confirmation" required autocomplete="new-password">
                     </div>
 
-                    <div class="flex flex-col py-2 items-center sm:flex-row">
+                    <div class="flex flex-col py-2 mt-4 items-center sm:flex-row">
                         <div class="mb-1 sm:mb-0 w-full sm:w-4/12"></div>
                         <div class="w-full sm:w-8/12 sm:ml-5">
 
-                            <button type="submit" class="h-12 mt-4 w-full bg-blue-700 hover:bg-blue-800 font-bold text-white rounded text-2xl shadow-inner">
+                            <button type="submit" class="h-12 w-full bg-blue-700 hover:bg-blue-800 font-bold text-white rounded text-2xl shadow-inner">
                                 {{ __('Register') }}
                             </button>
                         

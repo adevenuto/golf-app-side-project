@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade" id="addHoleGroupModal" tabindex="-1" role="dialog" aria-labelledby="addHoleGroupLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="addHoleGroupModal" tabindex="-1" role="dialog" aria-labelledby="addHoleGroupLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <form id="addHoleGroupForm" @submit.prevent="submit">
                 <div class="modal-content">
@@ -39,9 +39,7 @@
 
                             <div class="col-sm-12">
                                 <div class="input-text">
-                                    <label class="dynamic-label mr-3">Holes group Name:
-                                       
-                                    </label>
+                                    <label class="dynamic-label mr-3">Holes group Name:</label>
                                 <input v-model="inputs.hole_group_name" 
                                         name="group_name" 
                                         type="text">
@@ -100,7 +98,39 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> -->
+
+
+
+
+
+
+    <!--Modal-->
+        <div id="addHoleGroupModal" class="modal opacity-0 overflow-auto py-5 pointer-events-none fixed top-0 bottom-0 left-0 right-0">
+            <div class="modal-overlay fixed top-0 bottom-0 left-0 right-0 bg-gray-900 z-40 opacity-50"></div>
+            <div class="modal-container relative bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+                
+                <div class="modal-content py-4 text-left px-6">
+                    
+                    <div class="flex justify-between items-center pb-3">
+                        <p class="text-2xl font-bold">Simple Modal!</p>
+                        <div class="modal-close cursor-pointer z-50">
+                            <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                            <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti illo quis, optio fugiat aliquid ex minima deleniti repellendus doloribus sed ducimus magnam exercitationem minus a officia. Similique quas deleniti incidunt molestiae iusto error a quos, nihil, facilis culpa reprehenderit voluptas fuga nulla laboriosam, in velit sunt veniam est fugit repellat. Aliquam ea quisquam veniam illo, eius at, pariatur aspernatur, natus ipsa deleniti consequuntur obcaecati nesciunt non voluptatum aliquid! Iure, consequatur! Aut quisquam, praesentium similique est ratione laudantium, exercitationem totam soluta non quidem ad aperiam. Quia voluptate saepe sed. Facere voluptates non ipsa aut debitis accusamus. Ducimus architecto ipsum asperiores voluptatibus laudantium, perspiciatis nobis? Dolore et ex provident suscipit magnam obcaecati doloremque quo in possimus.</p>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti illo quis, optio fugiat aliquid ex minima deleniti repellendus doloribus sed ducimus magnam exercitationem minus a officia. Similique quas deleniti incidunt molestiae iusto error a quos, nihil, facilis culpa reprehenderit voluptas fuga nulla laboriosam, in velit sunt veniam est fugit repellat. Aliquam ea quisquam veniam illo, eius at, pariatur aspernatur, natus ipsa deleniti consequuntur obcaecati nesciunt non voluptatum aliquid! Iure, consequatur! Aut quisquam, praesentium similique est ratione laudantium, exercitationem totam soluta non quidem ad aperiam. Quia voluptate saepe sed. Facere voluptates non ipsa aut debitis accusamus. Ducimus architecto ipsum asperiores voluptatibus laudantium, perspiciatis nobis? Dolore et ex provident suscipit magnam obcaecati doloremque quo in possimus.</p>
+                    
+                    <div class="flex justify-end pt-2">
+                        <button class="px-4 bg-transparent p-3 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2">Action</button>
+                        <button class="modal-close px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 </template>
 
 <script>
