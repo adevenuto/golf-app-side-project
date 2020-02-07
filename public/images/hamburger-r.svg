@@ -1,13 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="45px" height="40px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
-    <title>Hamburger</title>
-    <desc>Created with Sketch.</desc>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Hamburger" fill="#22543D">
-            <rect id="Rectangle" x="0" y="0" width="45" height="7" rx="3.5"></rect>
-            <rect id="Rectangle-Copy" x="0" y="17" width="45" height="7" rx="3.5"></rect>
-            <rect id="Rectangle-Copy-2" x="0" y="33" width="45" height="7" rx="3.5"></rect>
-        </g>
-    </g>
-</svg>
+<svg width="45" height="40" xmlns="http://www.w3.org/2000/svg"><g fill="#22543D" fill-rule="evenodd"><rect width="45" height="7" rx="3.5"/><rect y="17" width="45" height="7" rx="3.5"/><rect y="33" width="45" height="7" rx="3.5"/></g></svg>

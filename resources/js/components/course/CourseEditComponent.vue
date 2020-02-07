@@ -1,29 +1,37 @@
 <template>
     <div class="container mx-auto">
-        <div class="w-11/12 sm:w-10/12 mx-auto">
+        <div class="mx-auto   w-11/12 sm:w-10/12">
         
             <form id="courseEditForm" @submit.prevent="submit">
-                <div class="my-4 border-b-2 border-gray-300">
+                <div class="mt-8 mb-4 pb-1 border-b-2 border-gray-300">
                     <div class="text-2xl">Edit: <span class="text-gray-600">{{course_data.course_name}}</span></div>
                 </div>
                 <div class="flex flex-col sm:flex-row">
-                    <div class="w-full sm:w-1/2 mb-4">
+                    <div class="w-full flex justify-center items-center mb-4 min-h-64 overflow-hidden   sm:mb-0 sm:w-1/2 sm:items-start">
                         <a href="#" @click="imageInputField">
-                            <div id="course-img-container">
-                                <div class="course-placeholder flex justify-center items-center flex-col rounded">
-                                    <img v-show="!courseImage" src="/images/camera.svg" width="75px" height="75px" alt="camera">
-                                    <img v-show="courseImage" id="course_image" ref="course_image" src="" alt="course image">
-                                </div>
-                                <input type="file" 
-                                        id="course_image_input" 
-                                        name="course_image" 
-                                        ref="course_image_input" 
-                                        @change="validateImage" 
-                                        @input="fieldChange">
-                            </div>
+                            <!-- <div class="course-placeholder flex justify-center items-center flex-col min-h-64 rounded"> -->
+                                <img v-show="!courseImage" 
+                                        src="/images/camera.svg" 
+                                        width="75px" 
+                                        height="75px" 
+                                        alt="camera">
+                                <img v-show="courseImage" 
+                                        id="course_image" 
+                                        ref="course_image"
+                                        class="object-cover rounded h-64 w-full" 
+                                        src="" 
+                                        alt="course image">
+                            <!-- </div> -->
+                            <input type="file" 
+                                    id="course_image_input" 
+                                    name="course_image" 
+                                    ref="course_image_input"
+                                    class="hidden" 
+                                    @change="validateImage" 
+                                    @input="fieldChange">
                         </a>
                     </div>
-                    <div class="w-full sm:w-1/2 sm:pl-6">
+                    <div class="border rounded w-full sm:w-1/2 p-6 sm:ml-6">
                         <div class="flex flex-col py-2">
                             <label for="course_name" class="mb-1 sm:mb-0 text-gray-700 font-bold w-full">
                                 Name:
@@ -95,40 +103,23 @@
                     <input type="hidden" id="lng" name="course_lng" disabled="true"/>
                 </div>
             </form>
-            <div class="my-4 border-b-2 border-gray-300 flex justify-between items-center">
+            <div class="flex justify-between items-center mt-8 mb-4 pb-1 border-b-2 border-gray-300">
                 <div class="text-2xl">Manage: <span class="text-gray-600">Holegroups</span></div>
                 <img src="/images/plus.svg" 
-                            id="addHoleGroupIcon"
-                            width="23px" 
-                            height="23px"
-                            class="hover:rotate-90 modal-open" 
-                            alt="Plus icon"
-                            data-modal="true" 
-                            data-target="#addHoleGroupModal">
+                        width="25px" 
+                        height="25px"
+                        class="hover:rotate-90 cursor-pointer modal-open" 
+                        alt="Plus icon"
+                        data-modal="true" 
+                        data-target="#addHoleGroupModal">
+            </div>
+            <div class="flex flex-col sm:flex-row">
+                <div class="w-full sm:w-1/2 lg:w-1/3 mb-5" v-for="holegroup in hole_groups" :key="holegroup.id">
+                    <HolegroupCardComponent :holegroup="holegroup"/>
+                </div>
             </div>
             <AddHoleGroupModal @holeGroupAdded="pushHoleGroup" :course_id="course_data.id"/>
         </div>
-        
-
-
-
-
-
-
-
-        <!-- <div class="row">
-            <div class="col-sm-12 mt-5">
-                <h3 class="d-flex justify-content-between align-items-center"> 
-                    <span>Manage: <span class="text-secondary">Holegroups</span></span>
-                    
-                </h3>
-                <hr>
-                <AddHoleGroupModal @holeGroupAdded="pushHoleGroup" :course_id="course_data.id"/>
-            </div>
-            <div class="col-sm-6 col-md-4 mb-3" v-for="holegroup in hole_groups" :key="holegroup.id">
-                <HolegroupCardComponent :holegroup="holegroup"/>
-            </div>
-        </div> -->
     </div>
 </template>
 
@@ -237,25 +228,3 @@
         }
     }
 </script>
-
-<style lang="scss" scoped>
-    #course-img-container {
-        .course-placeholder {
-            height: inherit;
-            width: inherit;
-            overflow: hidden;
-            box-shadow: 0px 1px 8px 0px #999;
-        }
-    }
-    #course_image_input {
-        display: none;
-    }
-    #course_image {
-        object-fit: cover;
-        height: 250px;
-        width: 100%;
-    }
-    #addHoleGroupIcon {
-        cursor: pointer;
-    }
-</style>

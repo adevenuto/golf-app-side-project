@@ -36,6 +36,12 @@ module.exports = {
           transform: 'rotate(270deg)',
           transition: 'all 275ms'
         },
+        '.min-h-56': {
+          'min-height': '14rem'
+        },
+        '.min-h-64': {
+          'min-height': '16rem'
+        },
       }
       addUtilities(newUtilities, ['responsive', 'hover'])
     }

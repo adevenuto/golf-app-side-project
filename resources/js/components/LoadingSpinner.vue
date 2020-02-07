@@ -20,7 +20,7 @@
         border-radius: 50%;
         width: 25px;
         height: 25px;
-        animation: formSpinner .45s linear infinite;
+        animation: formSpinner .50s linear infinite;
         position: relative;
     }
     @-webkit-keyframes formSpinner {

@@ -61,6 +61,7 @@ class HoleGroupController extends Controller
     
     public function update(Request $request)
     {   
+        Log::info($request);
         try {
             $holegroup_id = $request->holegroup_id;
             $holeGroup = HoleGroup::find($holegroup_id);

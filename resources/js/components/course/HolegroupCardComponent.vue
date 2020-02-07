@@ -1,17 +1,18 @@
 <template>
-    <div class="card shadow-sm">
-        <div class="card-header d-flex justify-content-between p-2">
-            <h4>Holegroup</h4>
+    <div class="shadow-md rounded overflow-hidden sm:mx-3">
+        <div class="flex justify-between p-3 bg-gray-200">
+            <div class="text-lg">Holegroup</div>
             <a href="#" 
-                data-toggle="modal" 
+                class="text-blue-700"
+                data-modal="true" 
                 :data-target="modalId()">Edit</a>
         </div> 
         <div class="card-body p-2">
-            Name: <span class="text-secondary">{{holegroup.group_name}}</span>
+            Name: <span class="text-gray-600">{{holegroup.group_name}}</span>
             <br>
-            Teebox: <span class="text-secondary">{{holegroup.teebox}}</span>
+            Teebox: <span class="text-gray-600">{{holegroup.teebox}}</span>
             <br>
-            Holes: <span class="text-secondary">{{holegroup.number_of_holes}}</span>
+            Holes: <span class="text-gray-600">{{holegroup.number_of_holes}}</span>
         </div>
         <editHoleGroupModal :holegroup="holegroup"/>
     </div>
@@ -34,7 +35,3 @@
         }
     }
 </script>
-
-<style lang="scss" scoped>
-    
-</style>

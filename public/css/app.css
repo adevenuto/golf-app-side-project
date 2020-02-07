@@ -11513,6 +11513,14 @@ video {
   transition: all 275ms;
 }
 
+.min-h-56{
+  min-height: 14rem;
+}
+
+.min-h-64{
+  min-height: 16rem;
+}
+
 .hover\:rotate-0:hover{
   -webkit-transform: rotate(0deg);
           transform: rotate(0deg);
@@ -11539,6 +11547,14 @@ video {
           transform: rotate(270deg);
   -webkit-transition: all 275ms;
   transition: all 275ms;
+}
+
+.hover\:min-h-56:hover{
+  min-height: 14rem;
+}
+
+.hover\:min-h-64:hover{
+  min-height: 16rem;
 }
 
 body.modal-active {
@@ -22474,6 +22490,14 @@ select::-ms-expand {
     transition: all 275ms;
   }
 
+  .sm\:min-h-56{
+    min-height: 14rem;
+  }
+
+  .sm\:min-h-64{
+    min-height: 16rem;
+  }
+
   .sm\:hover\:rotate-0:hover{
     -webkit-transform: rotate(0deg);
             transform: rotate(0deg);
@@ -22500,6 +22524,14 @@ select::-ms-expand {
             transform: rotate(270deg);
     -webkit-transition: all 275ms;
     transition: all 275ms;
+  }
+
+  .sm\:hover\:min-h-56:hover{
+    min-height: 14rem;
+  }
+
+  .sm\:hover\:min-h-64:hover{
+    min-height: 16rem;
   }
 }
 
@@ -33390,6 +33422,14 @@ select::-ms-expand {
     transition: all 275ms;
   }
 
+  .md\:min-h-56{
+    min-height: 14rem;
+  }
+
+  .md\:min-h-64{
+    min-height: 16rem;
+  }
+
   .md\:hover\:rotate-0:hover{
     -webkit-transform: rotate(0deg);
             transform: rotate(0deg);
@@ -33416,6 +33456,14 @@ select::-ms-expand {
             transform: rotate(270deg);
     -webkit-transition: all 275ms;
     transition: all 275ms;
+  }
+
+  .md\:hover\:min-h-56:hover{
+    min-height: 14rem;
+  }
+
+  .md\:hover\:min-h-64:hover{
+    min-height: 16rem;
   }
 }
 
@@ -44306,6 +44354,14 @@ select::-ms-expand {
     transition: all 275ms;
   }
 
+  .lg\:min-h-56{
+    min-height: 14rem;
+  }
+
+  .lg\:min-h-64{
+    min-height: 16rem;
+  }
+
   .lg\:hover\:rotate-0:hover{
     -webkit-transform: rotate(0deg);
             transform: rotate(0deg);
@@ -44332,6 +44388,14 @@ select::-ms-expand {
             transform: rotate(270deg);
     -webkit-transition: all 275ms;
     transition: all 275ms;
+  }
+
+  .lg\:hover\:min-h-56:hover{
+    min-height: 14rem;
+  }
+
+  .lg\:hover\:min-h-64:hover{
+    min-height: 16rem;
   }
 }
 
@@ -55222,6 +55286,14 @@ select::-ms-expand {
     transition: all 275ms;
   }
 
+  .xl\:min-h-56{
+    min-height: 14rem;
+  }
+
+  .xl\:min-h-64{
+    min-height: 16rem;
+  }
+
   .xl\:hover\:rotate-0:hover{
     -webkit-transform: rotate(0deg);
             transform: rotate(0deg);
@@ -55248,5 +55320,13 @@ select::-ms-expand {
             transform: rotate(270deg);
     -webkit-transition: all 275ms;
     transition: all 275ms;
+  }
+
+  .xl\:hover\:min-h-56:hover{
+    min-height: 14rem;
+  }
+
+  .xl\:hover\:min-h-64:hover{
+    min-height: 16rem;
   }
 }
