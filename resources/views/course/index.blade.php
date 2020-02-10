@@ -11,7 +11,7 @@
 
                         @if (Auth::check())
                             
-                            <div class="absolute bg-white p-2 top-0 mt-3 right-0 mr-3 bg-w-opacity-700 items-center rounded">
+                            <div class="absolute bg-white p-2 top-0 mt-3 right-0 mr-3 bg-white-opacity-7 items-center rounded">
 
 
                                 <div class="z-10 flex">

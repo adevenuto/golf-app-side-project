@@ -1,10 +1,10 @@
 <template>
-    <div id="loadingOverlay" class="d-flex align-items-center justify-content-center">
+    <div id="loadingOverlay" class="flex items-center justify-center  fixed top-0 bottom-0 left-0 right-0 bg-black-opacity-5">
         <LoadingSpinner 
-            borderWidth="2px" 
+            borderWidth="3px" 
             borderTopColor="#00ce07" 
             borderBg="#f3f3f3" 
-            size="20px"
+            size="40px"
         />
     </div>
 </template>
@@ -15,15 +15,3 @@
         components: {LoadingSpinner}
     }
 </script>
-
-<style lang="scss" scoped>
-    #loadingOverlay {
-        position: fixed;
-        background: rgba(0, 0, 0, .3);
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 5000;
-    }
-</style>

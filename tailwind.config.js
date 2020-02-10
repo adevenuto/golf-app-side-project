@@ -2,7 +2,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'w-opacity-700': 'rgba(250, 250, 250, .7)'
+        'white-opacity-7': 'rgba(250, 250, 250, .7)',
+        'black-opacity-5': 'rgba(0, 0, 0, .5)'
       },
       maxHeight: {
         '0': '0',
@@ -41,6 +42,9 @@ module.exports = {
         },
         '.min-h-64': {
           'min-height': '16rem'
+        },
+        '.h-70': {
+          'min-height': '20rem'
         },
       }
       addUtilities(newUtilities, ['responsive', 'hover'])

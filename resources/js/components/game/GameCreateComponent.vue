@@ -1,87 +1,116 @@
 <template>
-    <div class="container">
-        <div class="row">
-
-            <div class="col-sm-8 mx-auto">
-                <div class="d-flex align-items-center">
-                    <div class="step-number align-self-start mr-3">
-                        <img v-if="!selectedCourse" src="/images/step-one.svg" width="50px" height="50px" alt="step icon">
-                        <img v-else src="/images/step-complete.svg" width="50px" height="50px" alt="step icon">
+    <div class="container mx-auto">
+        <div class="flex flex-col mx-auto    w-11/12 sm:w-8/12 lg:w-6/12 xl:w-5/12">
+            <div class="flex h-70">
+                <div class="mr-4 mt-2">
+                    <img v-if="!selectedCourse" 
+                            src="/images/step-one.svg" 
+                            width="50px" 
+                            height="50px" 
+                            alt="step icon">
+                    <img v-else 
+                            src="/images/step-complete.svg" 
+                            width="50px" 
+                            height="50px" 
+                            alt="step icon">
+                </div>
+                <div class="flex-1 relative">
+                    <h3 class="font-bold text-xl">Start by selecting a course:</h3>
+                    <div class="relative">
+                        <input class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded   outline-none focus:outline-none focus:border-blue-800    pl-12 mt-2" 
+                                placeholder="Search for a course..."
+                                v-model="searchTerm"
+                                @input="searchCourses"
+                                type="text">
+                        <img src="/images/magnifying-glass.svg" 
+                                class="absolute w-6 h-6 top-0 mt-4 ml-2"
+                                alt="magnification glass">
                     </div>
-                    <div class="step-desc">
-                        <h3 class="font-weight-bold">Start by selecting a course:</h3>
-                        <div id="search-input" class="input-text mb-0">
-                            <input id="course_name" 
-                            placeholder="Search for a course..."
-                            v-model="searchTerm"
-                            @input="searchCourses"
-                            type="text">
-                            <img src="/images/magnifying-glass.svg" alt="magnification glass">
-                        </div>
-                        <div class="shadow-sm">
-                            <div v-for="course in courses" 
-                                    :key="course.id" 
-                                    class="result-row"
-                                    @click="setCourse(course)">
-                                {{course.course_name}}
-                            </div>
+                    <div class="">
+                        <div v-for="course in courses" 
+                                :key="course.id" 
+                                class="px-3 hover:bg-gray-200 border-b-2 border-gray-300 cursor-pointer"
+                                @click="setCourse(course)">
+                            {{course.course_name}}
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div :class="[{'step-faded': !selectedCourse},'step-desc', 'col-sm-8', 'mx-auto']">
-                <div class="d-flex align-items-center">
-                    <div class="step-number align-self-start mr-3">
-                        <img v-if="!teebox" src="/images/step-two.svg" width="50px" height="50px" alt="step icon">
-                        <img v-else src="/images/step-complete.svg" width="50px" height="50px" alt="step icon">
+            <div :class="[{'opacity-25': !selectedCourse},'flex h-70']">
+                <div class="mr-4 mt-2">
+                    <img v-if="!teebox" 
+                            src="/images/step-two.svg" 
+                            width="50px" 
+                            height="50px" 
+                            alt="step icon">
+                    <img v-else 
+                            src="/images/step-complete.svg" 
+                            width="50px" 
+                            height="50px" 
+                            alt="step icon">
+                </div>
+                <div class="flex-1">
+                    
+                    <h3 class="font-bold text-xl">Select a teebox:</h3>
+                    <div v-if="teeboxes.length" class="mt-2">
+                        <button v-for="_teebox in teeboxes" 
+                                :class="[{'bg-green-800 text-white': _teebox == teebox}, 'hover:bg-gray-100 border b-green-800 rounded py-1 px-3 mr-3 cursor-pointer capitalize']"  
+                                :key="_teebox"
+                                @click="setTeebox(_teebox)">
+                                {{_teebox}}
+                        </button>
                     </div>
-                    <div class="step-desc">
-                        <h3 class="font-weight-bold">Select a teebox:</h3>
-                        <div v-if="teeboxes.length" class="select-teebox-prompt">
-                            <span v-for="_teebox in teeboxes" 
-                                    :class="[{'activeTeebox': _teebox == teebox},'btn', 'btn-sm','btn-outline-secondary', 'mr-2']"  
-                                    :key="_teebox"
-                                    @click="setTeebox(_teebox)">
-                                    {{_teebox}}
+                    
+                </div>
+            </div>
+            <div :class="[{'opacity-25': !holegroup_holes.length},'flex']">
+                <div class="mr-4 mt-2">
+                    <img v-if="!holegroupsSelected.length" 
+                            src="/images/step-three.svg" 
+                            width="50px" 
+                            height="50px" 
+                            alt="step icon">
+                    <img v-else 
+                            src="/images/step-complete.svg" 
+                            width="50px" 
+                            height="50px" 
+                            alt="step icon">
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-bold text-xl">Select holes to play:</h3>
+                    <template v-if="holegroup_holes.length">
+                        <div v-for="group in holegroup_holes" 
+                            :class="[{'bg-green-800 text-white': group.selected}, 'flex flex-col mb-2 py-1 px-3 border rounded cursor-pointer capitalize']" 
+                            :key="group.id"
+                            @click="setHolegroups(group)">
+                            
+                            <span v-if="group.holegroup.group_name">
+                                Name: 
+                                <span class="">{{ group.holegroup.group_name }}</span>
                             </span>
+                            <span>Holes: <span class="">{{ group.holes.length }}</span></span>
                         </div>
-                    </div>
+                    </template>
                 </div>
             </div>
-            <div :class="[{'step-faded': !teebox},'step-desc', 'col-sm-8', 'mx-auto']">
-                <div class="d-flex align-items-center">
-                    <div class="step-number align-self-start mr-3">
-                        <img v-if="!holegroupsSelected.length" src="/images/step-three.svg" width="50px" height="50px" alt="step icon">
-                        <img v-else src="/images/step-complete.svg" width="50px" height="50px" alt="step icon">
-                    </div>
-                    <div class="step-desc">
-                        <h3 class="font-weight-bold">Select holes to play:</h3>
-                        <div v-if="holegroup_holes.length">
-                            <div v-for="group in holegroup_holes" 
-                                :class="[{'activeHolegroup': group.selected}, 'card', 'holegroup-card', 'col-10', 'mb-2']" 
-                                :key="group.id"
-                                @click="setHolegroups(group)">
-                                <!-- {{group}} -->
-                                <span v-if="group.holegroup.group_name">
-                                    Name: 
-                                    <span class="text-secondary">{{ group.holegroup.group_name }}</span>
-                                </span>
-                                <span>Holes: <span class="text-secondary">{{ group.holes.length }}</span></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
         </div>
+
+
         <template v-if="gameReady">
-            <button @click="startGame">Start Game</button>
-        </template>
-        <template v-else>
-            Game not ready
+            <div class="text-center mx-auto w-64">
+                <button @click="startGame"
+                        class="mt-24 w-64 mx-auto p-6 rounded font-bold text-3xl border-2 border-green-800 text-green-800 hover:bg-green-800 hover:text-white">
+                    Go play Golf
+                </button>
+            </div>
         </template>
     </div>
+           
+
+            
+            
+            
+        
 </template>
 
 <script>
@@ -204,68 +233,3 @@
         }
     }
 </script>
-
-<style lang="scss" scoped>
-    #search-input {
-        position: relative;
-        input {
-            padding-left: 40px;
-        }
-        img {
-            position: absolute;
-            width: 22px;
-            left: 0;
-            top: 0;
-        }
-    }
-    .step-desc {
-        min-height: 160px;
-        flex-grow: 1;
-        width: 100%;
-        &:last-child {
-            height: 20px;
-        }
-        .card {
-            background: transparent;
-            &:hover {
-                background: #fff;
-            }
-        }
-    }
-    .step-faded {
-        opacity: .2;
-        pointer-events: none;
-    }
-    .activeTeebox {
-        color: #fff;
-        background-color: #6c757d;
-        border-color: #6c757d;
-    }
-    .step-desc .card.holegroup-card {
-        cursor: pointer;
-    }
-    .step-desc .card.activeHolegroup {
-        background-color: #f5f5f5;
-        border-color: #499d47;
-    }
-    .result-row {
-        padding: 3px 10px;
-        border-bottom: 1px solid #e6e6e6;
-        background: #f7f7f7;
-        cursor: pointer;
-        position: relative;
-        z-index: 4500;
-        &:hover {
-            background: #f3f3f3;
-        }
-    }
-    #gamecard {
-        border: 1px solid #e6e6e6;
-        min-height: 300px;
-        .gamecard-header {
-            font-weight: 600;
-            background: #e9e2cb;
-            min-height: 48px;
-        }
-    }
-</style>

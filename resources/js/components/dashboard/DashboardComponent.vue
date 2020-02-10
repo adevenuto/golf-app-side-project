@@ -1,11 +1,8 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-3">
-                <a href="/game/create" class="btn btn-sm btn-primary">Create game</a>
-            </div>
-            <div class="col-sm-9">Dashboard</div>
-        </div>   
+    <div class="container mx-auto">
+        <div class="flex flex-col mx-auto    w-11/12 sm:w-10/12 sm:flex-row">
+            <a href="/game/create" class="bg-blue-700 text-white rounded py-2 px-4 mt-5">Create game</a>
+        </div>
     </div>
 </template>
 

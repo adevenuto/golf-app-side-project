@@ -31,7 +31,7 @@
                                     @input="fieldChange">
                         </a>
                     </div>
-                    <div class="border rounded w-full sm:w-1/2 p-6 sm:ml-6">
+                    <div class="w-full  bg-gray-100 shadow-md border rounded   sm:w-1/2 p-6 sm:ml-6">
                         <div class="flex flex-col py-2">
                             <label for="course_name" class="mb-1 sm:mb-0 text-gray-700 font-bold w-full">
                                 Name:

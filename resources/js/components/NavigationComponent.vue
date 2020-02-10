@@ -18,8 +18,8 @@
                 <a class="block py-1 sm:mr-2 text-gray-600 hover:text-gray-900" href="/courses">Courses</a>
 
                 <template v-if="!authUser">
-                    <a class="" href="/login">Login</a>      
-                    <a class="" href="/register">Register</a>
+                    <a class="border py-0 px-3 mx-1 hover:bg-gray-100 rounded shadow" href="/login">Login</a>      
+                    <a class="border py-0 px-3 mx-1 hover:bg-gray-100 rounded shadow" href="/register">Register</a>
                 </template>
 
                 <template v-else>
