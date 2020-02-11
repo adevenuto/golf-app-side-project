@@ -149,13 +149,13 @@
                     <div class="flex flex-row-reverse mt-8">
                         <template v-if="stepNumber == 1">
                             <button type="button" 
-                                    class="bg-blue-700 text-white rounded py-2 px-4" 
+                                    class="btn btn-blue" 
                                     @click.prevent="step_forward">
                                 Add holes >>
                             </button>
                         </template>
                         <template v-if="stepNumber == 2">
-                            <button type="button" class="bg-blue-700 text-white rounded py-2 px-4" @click.prevent="submit">
+                            <button type="button" class="btn btn-blue" @click.prevent="submit">
                                 <div class="flex items-center">
                                     <span class="mr-2">Create course</span> 
                                     <LoadingSpinner 

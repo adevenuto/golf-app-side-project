@@ -1,6 +1,6 @@
 <template>
     <div class="container mx-auto">
-        <div class="mx-auto   w-11/12 sm:w-10/12">
+        <div class="mx-auto   w-11/12 md:w-10/12 lg:w-7/12">
         
             <form id="courseEditForm" @submit.prevent="submit">
                 <div class="mt-8 mb-4 pb-1 border-b-2 border-gray-300">
@@ -78,7 +78,7 @@
                                     type="text">
                         </div>
                         
-                        <button :class="[{'cursor-not-allowed opacity-75': !saveActive}, 'bg-blue-700 text-white rounded py-2 px-4 mt-5']" :disabled="!saveActive">
+                        <button :class="[{'btn-disabled': !saveActive}, 'btn btn-blue mt-5']" :disabled="!saveActive">
                             <div class="flex items-center">
                                 <span class="mr-2">Update course info</span> 
                                 <LoadingSpinner 
@@ -113,7 +113,7 @@
                         data-modal="true" 
                         data-target="#addHoleGroupModal">
             </div>
-            <div class="flex flex-col sm:flex-row">
+            <div class="flex flex-col sm:flex-row flex-wrap">
                 <div class="w-full sm:w-1/2 lg:w-1/3 mb-5" v-for="holegroup in hole_groups" :key="holegroup.id">
                     <HolegroupCardComponent :holegroup="holegroup"/>
                 </div>

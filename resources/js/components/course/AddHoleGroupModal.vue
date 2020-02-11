@@ -91,7 +91,7 @@
                     </div>
                     <!-- Modal Footer -->
                     <div class="flex flex-row-reverse mt-5">
-                        <button type="button" class="bg-blue-700 text-white rounded py-2 px-4" @click.prevent="submit">
+                        <button type="button" class="btn btn-blue" @click.prevent="submit">
                             <div class="flex items-center">
                                 <span class="mr-2">Create holegroup</span> 
                                 <LoadingSpinner 

@@ -89,7 +89,7 @@
                             v-validate="'required'"
                             type="text">
                     </div>
-                    <button :class="[{'cursor-not-allowed opacity-75': !saveActive}, 'bg-blue-700 text-white rounded py-2 px-4 mt-5']" :disabled="!saveActive">
+                    <button :class="[{'btn-disabled': !saveActive}, 'btn btn-blue mt-5']" :disabled="!saveActive">
                         <div class="flex items-center">
                             <span class="mr-2">Update course info</span> 
                             <LoadingSpinner 

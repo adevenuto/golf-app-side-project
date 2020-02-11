@@ -84,7 +84,7 @@
 
                     <!-- Modal Footer -->
                     <div class="flex flex-row-reverse mt-5">
-                        <button class="bg-blue-700 text-white rounded py-2 px-4">
+                        <button class="btn btn-blue">
                             <div class="flex items-center">
                                 <span class="mr-2">Update holegroup</span> 
                                 <LoadingSpinner 
