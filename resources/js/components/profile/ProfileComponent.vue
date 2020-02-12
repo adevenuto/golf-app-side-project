@@ -36,7 +36,7 @@
                         </label>
                         <input id="nickname" 
                             :class="{ 'is-error': errors.has('nick_name') }"
-                            class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded outline-none focus:outline-none focus:border-blue-800"
+                            class="input-base"
                             @input="fieldChange"
                             name="nick_name" 
                             v-model="inputs.nickname" 
@@ -66,7 +66,7 @@
                         </label>
                         <input id="age" 
                             :class="{ 'is-error': errors.has('age') }"
-                            class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded outline-none focus:outline-none focus:border-blue-800"
+                            class="input-base"
                             @input="fieldChange"
                             name="age"
                             maxLength="3" 
@@ -81,7 +81,7 @@
                         </label>
                         <input id="citiesAutoComplete" 
                             :class="{ 'is-error': errors.has('locality') }"
-                            class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded outline-none focus:outline-none focus:border-blue-800"
+                            class="input-base"
                             @input="fieldChange"
                             placeholder="Start typing / select city from dropdown" 
                             name="locality" 

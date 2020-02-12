@@ -23,7 +23,7 @@
                                 <span v-show="errors.has('holegroup_edit_form.group_name')" class="is-error"> (required)</span>
                             </label>
                             <input :id="groupNameId()" 
-                                    class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded outline-none focus:outline-none focus:border-blue-800"
+                                    class="input-base"
                                     name="group_name" 
                                     v-model="inputs.hole_group_name" 
                                     data-vv-scope="holegroup_edit_form"
@@ -37,7 +37,7 @@
                             </label>
                             <input :id="teeBoxId()" 
                                     :class="{ 'is-error': errors.has('holegroup_edit_form.teebox') }"
-                                    class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded outline-none focus:outline-none focus:border-blue-800"
+                                    class="input-base"
                                     name="teebox" 
                                     v-model="inputs.teebox" 
                                     data-vv-scope="holegroup_edit_form"
@@ -170,24 +170,3 @@
         }
     }
 </script>
-
-<style lang="scss" scoped>
-    .dynamic-label span {
-        font-size: 0.7rem;
-        position: relative;
-        top: -4px;
-    }
-    #hole-inputs {
-        input {
-            padding: 0 5px 0 0;
-            font-size: .9rem;
-        }
-        input::-webkit-input-placeholder {
-            font-size: .5rem;
-        }
-        .dynamic-label span {
-            color: #000;
-            font-size: .9rem;
-        }
-    }
-</style>

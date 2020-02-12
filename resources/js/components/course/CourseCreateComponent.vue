@@ -17,7 +17,7 @@
                                     </label>
                                     <input type="text" 
                                             id="course_name"
-                                            class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded outline-none focus:outline-none focus:border-blue-800" 
+                                            class="input-base" 
                                             :class="{ 'is-error': errors.has('course_form_s1.course_name') }"
                                             name="course_name" 
                                             v-model="inputs.course_name" 
@@ -31,7 +31,7 @@
                                     </label>
                                     <input type="text"
                                             id="addressesAutoComplete" 
-                                            class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded outline-none focus:outline-none focus:border-blue-800" 
+                                            class="input-base" 
                                             :class="{ 'is-error': errors.has('course_form_s1.course_address') }"
                                             name="course_address" 
                                             v-model="inputs.course_address" 
@@ -45,7 +45,7 @@
                                     </label>
                                     <input id="course_phone" 
                                             :class="{ 'is-error': errors.has('course_form_s1.course_phone') }"
-                                            class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded outline-none focus:outline-none focus:border-blue-800"
+                                            class="input-base"
                                             name="course_phone" 
                                             v-model="inputs.course_phone"
                                             data-vv-scope="course_form_s1" 
@@ -53,7 +53,7 @@
                                             type="text">
                                 </div>
                                 <div class="my-2">
-                                    <label class="dynamic-label">Featured Image:</label>
+                                    <label class="mb-1 inline-block text-gray-700 font-bold">Featured Image:</label>
                                     <input id="courseImage"
                                             class="hidden" 
                                             type="file" 
@@ -75,7 +75,7 @@
                                 <div class="w-full mb-4 sm:mb-0 sm:w-1/2 sm:mr-2">
                                     <label for="holeCount" class="mb-1 inline-block text-gray-700 font-bold">Number of holes:</label>
                                     <select v-model="holeCount"
-                                            class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded outline-none focus:outline-none focus:border-blue-800"
+                                            class="input-base"
                                             id="holeCount"                                    
                                             name="number_of_holes">
                                         <option :value="18">18</option>
@@ -89,7 +89,7 @@
                                     </label>
                                     <input id="teebox" 
                                             :class="{ 'is-error': errors.has('course_form_s2.teebox') }"
-                                            class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded outline-none focus:outline-none focus:border-blue-800"
+                                            class="input-base"
                                             name="teebox" 
                                             v-model="inputs.teebox" 
                                             data-vv-scope="course_form_s2"
@@ -103,7 +103,7 @@
                                         Hole group name:
                                     </label>
                                     <input id="holeGroupName" 
-                                            class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded outline-none focus:outline-none focus:border-blue-800"
+                                            class="input-base"
                                             name="group_name" 
                                             v-model="inputs.hole_group_name" 
                                             data-vv-scope="course_form_s2"

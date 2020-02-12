@@ -7,7 +7,7 @@
                     <div class="text-2xl">Edit: <span class="text-gray-600">{{course_data.course_name}}</span></div>
                 </div>
                 <div class="flex flex-col sm:flex-row">
-                    <div class="w-full flex justify-center items-center mb-4 min-h-64 overflow-hidden   sm:mb-0 sm:w-1/2 sm:items-start">
+                    <div class="w-full flex justify-center items-center mb-4 min-h-64 overflow-hidden   sm:mb-0 sm:w-1/2">
                         <a href="#" @click="imageInputField">
                             <!-- <div class="course-placeholder flex justify-center items-center flex-col min-h-64 rounded"> -->
                                 <img v-show="!courseImage" 
@@ -39,7 +39,7 @@
                             </label>
                             <input type="text"
                                     :class="{ 'is-error': errors.has('course_edit_form.course_name') }" 
-                                    class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded outline-none focus:outline-none focus:border-blue-800"
+                                    class="input-base"
                                     data-vv-scope="course_edit_form"
                                     v-validate="'required'"
                                     v-model="inputs.course_name"
@@ -53,7 +53,7 @@
                             </label>
                             <input id="addressesAutoComplete"
                                     :class="{ 'is-error': errors.has('course_edit_form.course_address') }"
-                                    class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded outline-none focus:outline-none focus:border-blue-800"
+                                    class="input-base"
                                     data-vv-scope="course_edit_form"
                                     v-validate="'required'"
                                     name="course_address"  
@@ -63,13 +63,13 @@
                                     type="text">
                         </div>
                         <div class="flex flex-col py-2">
-                            <label for="course_phone" class="dynamic-label">
+                            <label for="course_phone" class="mb-1 sm:mb-0 text-gray-700 font-bold w-full">
                                 Phone:
                                 <span v-show="errors.has('course_edit_form.course_phone')" class="is-error"> (required)</span>
                             </label>
                             <input id="course_phone"
                                     :class="{ 'is-error': errors.has('course_edit_form.course_phone') }"
-                                    class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded outline-none focus:outline-none focus:border-blue-800"
+                                    class="input-base"
                                     data-vv-scope="course_edit_form"
                                     v-validate="'required'"
                                     name="course_phone"

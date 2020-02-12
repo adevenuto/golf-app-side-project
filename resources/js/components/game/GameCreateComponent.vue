@@ -17,7 +17,7 @@
                 <div class="flex-1 relative">
                     <h3 class="font-bold text-xl">Start by selecting a course:</h3>
                     <div class="relative">
-                        <input class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded   outline-none focus:outline-none focus:border-blue-800    pl-12 mt-2" 
+                        <input class="input-base-search mt-2" 
                                 placeholder="Search for a course..."
                                 v-model="searchTerm"
                                 @input="searchCourses"

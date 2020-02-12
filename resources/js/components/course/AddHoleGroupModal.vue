@@ -20,7 +20,7 @@
                         <div class="w-full mb-4 sm:mb-0 sm:w-1/2 sm:mr-2">
                             <label for="holeCount" class="mb-1 inline-block text-gray-700 font-bold">Number of holes:</label>
                             <select v-model="holeCount"
-                                    class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded outline-none focus:outline-none focus:border-blue-800"
+                                    class="input-base"
                                     id="holeCount"                                    
                                     name="number_of_holes">
                                 <option :value="18">18</option>
@@ -34,7 +34,7 @@
                             </label>
                             <input id="teebox" 
                                     :class="{ 'is-error': errors.has('course_form_s2.teebox') }"
-                                    class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded outline-none focus:outline-none focus:border-blue-800"
+                                    class="input-base"
                                     name="teebox" 
                                     v-model="inputs.teebox" 
                                     data-vv-scope="course_form_s2"
@@ -48,7 +48,7 @@
                                 Hole group name:
                             </label>
                             <input id="holeGroupName" 
-                                    class="border border-gray-500 px-3 font-bold text-base w-full h-10 rounded outline-none focus:outline-none focus:border-blue-800"
+                                    class="input-base"
                                     name="group_name" 
                                     v-model="inputs.hole_group_name" 
                                     data-vv-scope="course_form_s2"
