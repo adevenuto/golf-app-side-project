@@ -1,117 +1,116 @@
 <template>
     <div class="container mx-auto">
-        <LoadingOverlay v-if="fetchingProfileData" />
-        <form id="profileForm" @submit.prevent="submit">
-            <div class="flex flex-col mx-auto    w-11/12 sm:w-10/12 sm:flex-row">
-                <div class="w-full sm:w-1/2 mb-4 mr-0 sm:mr-2 sm:mb-0 min-h-56">
-                    <div :class="[{'border rounded': !profileImage},'flex justify-center items-center w-56 h-56 mx-auto']">
+        <div class="mx-auto   w-11/12 md:w-10/12 lg:w-7/12">
+            <form id="profileForm" @submit.prevent="submit">
+                <div class="mt-8 mb-4 pb-1 border-b-2 border-gray-300">
+                    <div class="text-2xl">Edit: <span class="text-gray-600">{{authUser.first_name}} {{authUser.last_name}}</span></div>
+                </div>
+                <div class="flex flex-col sm:flex-row">
+                    <div class="w-full mb-6 sm:mb-0 sm:w-1/2">
                         <a href="#" @click="imageInputField">
                             <img v-show="!profileImage" 
-                                    src="images/camera.svg" 
-                                    width="75" 
-                                    height="75" 
+                                    src="/images/camera.svg" 
+                                    class="w-32 h-32 mt-12 mx-auto"
                                     alt="camera">
-                            
                             <img v-show="profileImage" 
                                     id="profile_image" 
-                                    class="object-fit h-56 rounded"
-                                    ref="profile_image" 
+                                    ref="profile_image"
+                                    class="object-cover w-70 h-64 mx-auto sm:mx-0 sm:mr-auto rounded shadow-lg" 
                                     src="" 
                                     alt="profile image">
-                            <input type="file" 
-                                    id="profile_image_input" 
-                                    name="profile_image"
-                                    class="hidden" 
-                                    ref="profile_image_input" 
-                                    @change="validateImage" 
-                                    @input="fieldChange">
                         </a>
+                        <input type="file" 
+                            id="profile_image_input" 
+                            name="profile_image" 
+                            ref="profile_image_input"
+                            class="hidden" 
+                            @change="validateImage" 
+                            @input="fieldChange">
+                    </div>
+                    <div class="w-full  bg-gray-100 shadow-md border rounded   sm:w-1/2 p-6 sm:ml-6 border">
+                        <div class="w-full py-2">
+                            <label for="nick_name" class="mb-1 sm:mb-0 text-gray-700 font-bold w-full">
+                                Name:
+                                <span v-show="errors.has('nick_name')" class="is-error"> (required)</span>
+                            </label>
+                            <input id="nickname" 
+                                :class="{ 'is-error': errors.has('nick_name') }"
+                                class="input-base"
+                                @input="fieldChange"
+                                name="nick_name" 
+                                v-model="inputs.nickname" 
+                                v-validate="'required'"
+                                type="text">
+                        </div>
+                        <div class="w-full py-2">
+                            <div class="mb-1 sm:mb-0 text-gray-700 font-bold w-full">
+                                Gender:
+                                <span v-show="errors.has('gender')" class="is-error"> (required)</span>
+                            </div>
+                            <div class="flex flex-row">
+                                <label class="mr-3">
+                                    <input type="radio" v-validate="'required'" name="gender" value="male" v-model="inputs.gender" @input="fieldChange"> 
+                                    Male
+                                </label>
+                                <label>
+                                    <input type="radio" v-validate="'required'" name="gender" value="famale" v-model="inputs.gender" @input="fieldChange"> 
+                                    Female
+                                </label>
+                            </div>
+                        </div>
+                        <div class="w-full py-2">
+                            <label for="age" class="mb-1 sm:mb-0 text-gray-700 font-bold w-full">
+                                Age:
+                                <span v-show="errors.has('age')" class="is-error"> (required)</span>
+                            </label>
+                            <input id="age" 
+                                :class="{ 'is-error': errors.has('age') }"
+                                class="input-base"
+                                @input="fieldChange"
+                                name="age"
+                                maxLength="3" 
+                                v-model="inputs.age" 
+                                v-validate="'required'"
+                                type="text">
+                        </div>
+                        <div class="w-full py-2">
+                            <label for="citiesAutoComplete" class="mb-1 sm:mb-0 text-gray-700 font-bold w-full">
+                                City:
+                                <span v-show="errors.has('locality')" class="is-error"> (required)</span>
+                            </label>
+                            <input id="citiesAutoComplete" 
+                                :class="{ 'is-error': errors.has('locality') }"
+                                class="input-base"
+                                @input="fieldChange"
+                                placeholder="Start typing / select city from dropdown" 
+                                name="locality" 
+                                v-model="inputs.locality" 
+                                v-validate="'required'"
+                                type="text">
+                        </div>
+                        <button :class="[{'btn-disabled': !saveActive}, 'btn btn-blue mt-5']" :disabled="!saveActive">
+                            <div class="flex items-center">
+                                <span class="mr-2">Update course info</span> 
+                                <LoadingSpinner 
+                                        v-if="savingData"
+                                        borderWidth="2px" 
+                                        borderTopColor="#00ce07" 
+                                        borderBg="#f3f3f3" 
+                                        size="15px"/>
+                            </div>
+                        </button>
+                        <input type="hidden" id="locality" name="locality" disabled="true"/>
+                        <input type="hidden" id="administrative_area_level_1" name="administrative_area_level_1" disabled="true"/>
+                        <input type="hidden" id="administrative_area_level_2" name="administrative_area_level_2" disabled="true"/>
+                        <input type="hidden" id="country" name="country" disabled="true"/>
                     </div>
                 </div>
-                <div class="p-5 w-full mr-0 sm:w-1/2 sm:ml-2 bg-gray-100 shadow-md border rounded">
-                    <div class="w-full py-2">
-                        <label for="nick_name" class="mb-1 sm:mb-0 text-gray-700 font-bold w-full">
-                            Name:
-                            <span v-show="errors.has('nick_name')" class="is-error"> (required)</span>
-                        </label>
-                        <input id="nickname" 
-                            :class="{ 'is-error': errors.has('nick_name') }"
-                            class="input-base"
-                            @input="fieldChange"
-                            name="nick_name" 
-                            v-model="inputs.nickname" 
-                            v-validate="'required'"
-                            type="text">
-                    </div>
-                    <div class="w-full py-2">
-                        <div class="mb-1 sm:mb-0 text-gray-700 font-bold w-full">
-                            Gender:
-                            <span v-show="errors.has('gender')" class="is-error"> (required)</span>
-                        </div>
-                        <div class="flex flex-row">
-                            <label class="mr-3">
-                                <input type="radio" v-validate="'required'" name="gender" value="male" v-model="inputs.gender" @input="fieldChange"> 
-                                Male
-                            </label>
-                            <label>
-                                <input type="radio" v-validate="'required'" name="gender" value="famale" v-model="inputs.gender" @input="fieldChange"> 
-                                Female
-                            </label>
-                        </div>
-                    </div>
-                    <div class="w-full py-2">
-                        <label for="age" class="mb-1 sm:mb-0 text-gray-700 font-bold w-full">
-                            Age:
-                            <span v-show="errors.has('age')" class="is-error"> (required)</span>
-                        </label>
-                        <input id="age" 
-                            :class="{ 'is-error': errors.has('age') }"
-                            class="input-base"
-                            @input="fieldChange"
-                            name="age"
-                            maxLength="3" 
-                            v-model="inputs.age" 
-                            v-validate="'required'"
-                            type="text">
-                    </div>
-                    <div class="w-full py-2">
-                        <label for="citiesAutoComplete" class="mb-1 sm:mb-0 text-gray-700 font-bold w-full">
-                            City:
-                            <span v-show="errors.has('locality')" class="is-error"> (required)</span>
-                        </label>
-                        <input id="citiesAutoComplete" 
-                            :class="{ 'is-error': errors.has('locality') }"
-                            class="input-base"
-                            @input="fieldChange"
-                            placeholder="Start typing / select city from dropdown" 
-                            name="locality" 
-                            v-model="inputs.locality" 
-                            v-validate="'required'"
-                            type="text">
-                    </div>
-                    <button :class="[{'btn-disabled': !saveActive}, 'btn btn-blue mt-5']" :disabled="!saveActive">
-                        <div class="flex items-center">
-                            <span class="mr-2">Update course info</span> 
-                            <LoadingSpinner 
-                                    v-if="savingData"
-                                    borderWidth="2px" 
-                                    borderTopColor="#00ce07" 
-                                    borderBg="#f3f3f3" 
-                                    size="15px"/>
-                        </div>
-                    </button>
-                    <input type="hidden" id="locality" name="locality" disabled="true"/>
-                    <input type="hidden" id="administrative_area_level_1" name="administrative_area_level_1" disabled="true"/>
-                    <input type="hidden" id="administrative_area_level_2" name="administrative_area_level_2" disabled="true"/>
-                    <input type="hidden" id="country" name="country" disabled="true"/>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </template>
 
 <script>
-    import LoadingOverlay from '../LoadingOverlay.vue';
     import LoadingSpinner from '../LoadingSpinner.vue';
     export default {
         data() {
@@ -128,7 +127,7 @@
                 savingData: false
             }
         },
-        components: {LoadingOverlay, LoadingSpinner},
+        components: {LoadingSpinner},
         props: ['user'],
         computed: {
             authUser: function() {

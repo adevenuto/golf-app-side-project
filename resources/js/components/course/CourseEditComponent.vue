@@ -7,29 +7,26 @@
                     <div class="text-2xl">Edit: <span class="text-gray-600">{{course_data.course_name}}</span></div>
                 </div>
                 <div class="flex flex-col sm:flex-row">
-                    <div class="w-full flex justify-center items-center mb-4 min-h-64 overflow-hidden   sm:mb-0 sm:w-1/2">
+                    <div class="w-full mb-6 sm:mb-0 sm:w-1/2">
                         <a href="#" @click="imageInputField">
-                            <!-- <div class="course-placeholder flex justify-center items-center flex-col min-h-64 rounded"> -->
-                                <img v-show="!courseImage" 
-                                        src="/images/camera.svg" 
-                                        width="75px" 
-                                        height="75px" 
-                                        alt="camera">
-                                <img v-show="courseImage" 
-                                        id="course_image" 
-                                        ref="course_image"
-                                        class="object-cover rounded h-64 w-full" 
-                                        src="" 
-                                        alt="course image">
-                            <!-- </div> -->
-                            <input type="file" 
-                                    id="course_image_input" 
-                                    name="course_image" 
-                                    ref="course_image_input"
-                                    class="hidden" 
-                                    @change="validateImage" 
-                                    @input="fieldChange">
+                            <img v-show="!courseImage" 
+                                    src="/images/camera.svg" 
+                                    class="w-32 h-32 mt-12 mx-auto"
+                                    alt="camera">
+                            <img v-show="courseImage" 
+                                    id="course_image" 
+                                    ref="course_image"
+                                    class="object-cover w-70 h-64 mx-auto sm:mx-0 sm:mr-auto rounded shadow-lg" 
+                                    src="" 
+                                    alt="course image">
                         </a>
+                        <input type="file" 
+                            id="course_image_input" 
+                            name="course_image" 
+                            ref="course_image_input"
+                            class="hidden" 
+                            @change="validateImage" 
+                            @input="fieldChange">
                     </div>
                     <div class="w-full  bg-gray-100 shadow-md border rounded   sm:w-1/2 p-6 sm:ml-6">
                         <div class="flex flex-col py-2">
