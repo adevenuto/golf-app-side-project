@@ -24,13 +24,13 @@
 
                 <template v-else>
                     <a class="block py-1 sm:mr-1 text-gray-600 hover:text-gray-900" href="/course/create">Newcourse</a>
-                    <div class="relative sm:ml-3 cursor-pointer" @click="toggleDropdown">
+                    <div class="relative sm:ml-3 cursor-pointer">
                         <div class="my-1 sm:my-0">
-                            <a class="text-lg text-gray-900" @click.prevent="">{{ authUser.email }} 
+                            <a id="navDropdownTrigger" class="text-lg text-gray-900" @click="toggleDropdown">{{ authUser.email }} 
                                 <img class="inline-block" src="/images/down-arrow.svg" width="15" height="15" alt="hamburger"> 
                             </a>
                         </div>
-                        <div v-if="dropdown" class="sm:absolute sm:mt-3 z-50 w-full sm:border sm:bg-white sm:shadow">
+                        <div id="navDropdown" :class="[{'block': dropdown, 'hidden': !dropdown}, 'sm:absolute sm:mt-3 z-50 w-full sm:border sm:bg-white sm:shadow']">
                             <ul class="px-3">
                                 <a class="text-gray-600 hover:text-gray-900" href="/dashboard">
                                     <li class="py-1">Dashboard</li>

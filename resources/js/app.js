@@ -1,5 +1,6 @@
 require('./bootstrap');
-require('./main');
+require('./nav-dropdown.js');
+require('./tw-modal.js');
 
 import Vue from 'vue';
 import VeeValidate from 'vee-validate';

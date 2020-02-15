@@ -1,30 +1,6 @@
-// $(function() {
-//     $('body').on('click', function(e) {
-//         let target = $(e.target);
-//         let menuBtn = $('.navbar-toggler');
-//         let menuOpen = menuBtn.hasClass('menu-open');
-//         let clickInNav = target.closest('.navbar').length;
-//         if (!clickInNav && menuOpen) {
-//             menuBtn.click();
-//         }
-//     })
 
-//     $(document).on('keypress paste', '.num-only', function(e) {
-//         event = e || window.event;
-//         let charCode = event.which || event.keyCode;
-//         var inp = String.fromCharCode(charCode);
-//         var isNum = /^[0-9]*$/.test(inp);
-//         if (!isNum) e.preventDefault();
-//     });
-
-//     // $('body').on('click', '.step-desc .card', function() {
-//     //     console.log('hello')
-//     //     $(this).toggleClass('activeHolegroup');
-//     // })
-// })
 document.addEventListener("DOMContentLoaded", function() { 
     let currentModal;
-
     document.body.addEventListener('click', function(event) {
         let modalTrigger = event.target.dataset.target;
         if (modalTrigger) {
@@ -38,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function() {
             toggleModal();
         };
     });
-    
     document.onkeydown = function(evt) {
         evt = evt || window.event;
         let isEscape = false;
@@ -51,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function() {
             toggleModal();
         }
     };
-    
     function toggleModal() {
         const body = document.querySelector('body');
         const modal = document.getElementById(currentModal);
@@ -59,7 +33,6 @@ document.addEventListener("DOMContentLoaded", function() {
         modal.classList.toggle('pointer-events-none');
         body.classList.toggle('modal-active');
     }
-    
     // TOGGLE MODAL GLOBALLY
     /////////////////////////
     var _toggleModal = function(modalId) {
@@ -70,5 +43,5 @@ document.addEventListener("DOMContentLoaded", function() {
         modal.classList.toggle('pointer-events-none');
         body.classList.toggle('modal-active');
     }
-    window._toggleModal = _toggleModal;;
+    window._toggleModal = _toggleModal;
 });
