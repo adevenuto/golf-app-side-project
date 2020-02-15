@@ -32,9 +32,15 @@
                         </div>
                         <div v-if="dropdown" class="sm:absolute sm:mt-3 z-50 w-full sm:border sm:bg-white sm:shadow">
                             <ul class="px-3">
-                                <li class="py-1"><a class="text-gray-600 hover:text-gray-900" href="/dashboard">Dashboard</a></li>
-                                <li class="py-1"><a class="text-gray-600 hover:text-gray-900" href="/profile">Profile</a></li>
-                                <li class="py-1"><a class="text-red-700 hover:text-red-800" href="#" @click.prevent="logout">Logout</a></li>
+                                <a class="text-gray-600 hover:text-gray-900" href="/dashboard">
+                                    <li class="py-1">Dashboard</li>
+                                </a>
+                                <a class="text-gray-600 hover:text-gray-900" href="/profile">
+                                    <li class="py-1">Profile</li>
+                                </a>
+                                <a class="text-red-700 hover:text-red-800" href="#" @click.prevent="logout">
+                                    <li class="py-1">Logout</li>
+                                </a>
                             </ul>
                         </div>
                     </div>
